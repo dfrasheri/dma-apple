@@ -3,11 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { AnimatePresence, motion } from "motion/react";
 import { LocationIcon, MenuIcon, CloseIcon, ChevronDown } from "@/components/icons";
 import { NAV, CARE, CLINIC, CONTACT } from "@/lib/site";
 import { useT, useLocale } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SearchBox } from "@/components/SearchBox";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
+import { useScrolledPast } from "@/hooks/useScroll";
 import { cn } from "@/lib/utils";
 
 function MegaPanel({ label }: { label: string }) {
@@ -35,11 +38,13 @@ export function NavBar() {
   const rowRef = useRef<HTMLDivElement>(null);
   const t = useT();
   const { locale } = useLocale();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const scrolled = useScrolledPast(40);
 
   useEffect(() => {
     const el = rowRef.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion) return;
     const ctx = gsap.context(() => {
       gsap.from("[data-nav-item]", {
         opacity: 0,
@@ -51,13 +56,13 @@ export function NavBar() {
       });
     }, el);
     return () => ctx.revert();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 h-[94px] overflow-visible transition-all duration-300",
-        "bg-[#e6e6e6] shadow-[0_1px_0_rgba(0,0,0,0.06)]",
+        scrolled ? "material-chrome" : "bg-[#e6e6e6] shadow-[0_1px_0_rgba(0,0,0,0.06)]",
       )}
     >
       <div ref={rowRef} className="mx-auto flex h-full max-w-[1500px] items-center justify-between px-8">
@@ -92,7 +97,7 @@ export function NavBar() {
                 {hasPanel && (
                   <div className="invisible absolute left-1/2 top-[calc(100%+18px)] -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                     <div className="absolute -top-4 left-0 right-0 h-4" />
-                    <div className="overflow-hidden bg-white shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+                    <div className="material-panel overflow-hidden">
                       <MegaPanel label={item.label} />
                     </div>
                   </div>
@@ -130,53 +135,64 @@ export function NavBar() {
       </div>
 
       {/* mobile drawer */}
-      <div
-        className={cn(
-          "overflow-y-auto bg-[#e6e6e6] lg:hidden transition-[max-height] duration-500 ease-in-out",
-          open ? "max-h-[calc(100vh-94px)]" : "max-h-0",
-        )}
-      >
-        <nav className="px-8 py-4">
-          {NAV.map((item) => (
-            <div key={item.label} className="border-b border-black/10">
-              <div className="flex items-center justify-between">
-                <Link
-                  href={`/${locale}${item.href}`}
-                  onClick={() => setOpen(false)}
-                  className="block py-4 text-[20px] font-light text-[#343434]"
-                >
-                  {t("nav." + item.label.toLowerCase())}
-                </Link>
-                {item.children && (
-                  <button
-                    aria-label={`Toggle ${item.label}`}
-                    onClick={() => setAcc((a) => (a === item.label ? null : item.label))}
-                    className="p-2 text-[#343434]"
-                  >
-                    <ChevronDown className={cn("h-5 w-5 transition-transform", acc === item.label && "rotate-180")} />
-                  </button>
-                )}
-              </div>
-              {item.children && (
-                <div className={cn("overflow-hidden transition-[max-height] duration-300", acc === item.label ? "max-h-[600px]" : "max-h-0")}>
-                  <ul className="pb-3 pl-4">
-                    {item.children.map((c) => (
-                      <li key={c.href}>
-                        <Link href={`/${locale}${c.href}`} onClick={() => setOpen(false)} className="block py-1.5 text-[16px] text-[#555]">
-                          {c.tKey ? t(c.tKey) : c.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0.15, ease: "easeOut" }
+                : { type: "spring", bounce: 0, duration: 0.4 }
+            }
+            style={{ maxHeight: "calc(100vh - 94px)" }}
+            className="material-sheet overflow-y-auto lg:hidden"
+          >
+            <nav className="px-8 py-4">
+              {NAV.map((item) => (
+                <div key={item.label} className="border-b border-black/10">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={`/${locale}${item.href}`}
+                      onClick={() => setOpen(false)}
+                      className="block py-4 text-[20px] font-light text-[#343434]"
+                    >
+                      {t("nav." + item.label.toLowerCase())}
+                    </Link>
+                    {item.children && (
+                      <button
+                        aria-label={`Toggle ${item.label}`}
+                        onClick={() => setAcc((a) => (a === item.label ? null : item.label))}
+                        className="p-2 text-[#343434]"
+                      >
+                        <ChevronDown className={cn("h-5 w-5 transition-transform", acc === item.label && "rotate-180")} />
+                      </button>
+                    )}
+                  </div>
+                  {item.children && (
+                    <div className={cn("overflow-hidden transition-[max-height] duration-300", acc === item.label ? "max-h-[600px]" : "max-h-0")}>
+                      <ul className="pb-3 pl-4">
+                        {item.children.map((c) => (
+                          <li key={c.href}>
+                            <Link href={`/${locale}${c.href}`} onClick={() => setOpen(false)} className="block py-1.5 text-[16px] text-[#555]">
+                              {c.tKey ? t(c.tKey) : c.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
-          <div className="mt-2 flex items-center gap-2 py-4 text-[#343434]">
-            <LanguageSwitcher />
-          </div>
-        </nav>
-      </div>
+              ))}
+              <div className="mt-2 flex items-center gap-2 py-4 text-[#343434]">
+                <LanguageSwitcher />
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Reveal } from "@/components/Reveal";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { useT, useLocale } from "@/lib/i18n";
 
 if (typeof window !== "undefined") {
@@ -107,11 +108,12 @@ function formatCount(value: number, node: HTMLElement) {
 function StatsBand() {
   const t = useT();
   const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
       const cells = gsap.utils.toArray<HTMLElement>(".stat-cell");
@@ -161,7 +163,7 @@ function StatsBand() {
     }, el);
 
     return () => ctx.revert();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div ref={ref} className="relative mx-auto mt-16 max-w-[900px]">

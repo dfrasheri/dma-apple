@@ -24,6 +24,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "@/components/icons";
 import { Reveal } from "@/components/Reveal";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { useLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/dictionaries";
 import { cn } from "@/lib/utils";
@@ -277,6 +278,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
   const [p0, p1, p2, p3] = pages;
   const rootRef = useRef<HTMLDivElement>(null);
   const engaged = useRef(false); // true once the visitor interacts OR the hint has fired
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const cancelHint = () => {
     engaged.current = true;
@@ -298,7 +300,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion) return;
     let t1: ReturnType<typeof setTimeout>, t2: ReturnType<typeof setTimeout>;
     const io = new IntersectionObserver(
       (entries) => {
@@ -317,7 +319,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div ref={rootRef} className="relative">

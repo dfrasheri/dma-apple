@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useLocale } from "@/lib/i18n";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 type Crumb = { label: string; href?: string };
 
@@ -22,11 +23,12 @@ export function PageHero({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { locale } = useLocale();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion) return;
     const ctx = gsap.context(() => {
       gsap.from("[data-hero-line]", {
         opacity: 0,
@@ -43,7 +45,7 @@ export function PageHero({
       );
     }, el);
     return () => ctx.revert();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section ref={ref} className="relative flex h-[58vh] min-h-[440px] items-end overflow-hidden">

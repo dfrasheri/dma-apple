@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Roboto } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
+import { MotionPreferenceSync } from "@/components/MotionPreferenceSync";
 import { PublicChrome } from "@/components/PublicChrome";
 import { LocaleProvider } from "@/lib/i18n";
 import { getLocale } from "@/lib/server-i18n";
@@ -66,6 +67,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <JsonLd data={[clinicJsonLd, websiteJsonLd]} />
+        <MotionPreferenceSync />
         <LocaleProvider initialLocale={locale}>
           {children}
           <PublicChrome />

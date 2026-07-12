@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useSyncExternalStore, type ReactElement, type ReactNode } from "react";
+import { useEffect, type ReactElement, type ReactNode } from "react";
 import { useParams } from "next/navigation";
 import { PageShell } from "@/components/PageShell";
 import { LeadRailForm } from "@/components/LeadRailForm";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { ArrowRight } from "@/components/icons";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { categoryBySlug, slugify, useBlogPosts, blogImagePosition, type BlogPost } from "@/lib/blog";
 import {
   ARTICLE_UI,
@@ -60,19 +61,6 @@ function tableCells(row: string): string[] {
 function isTableSeparator(row: string): boolean {
   const cells = tableCells(row);
   return cells.length > 0 && cells.every((c) => /^:?-{2,}:?$/.test(c.replace(/\s/g, "")));
-}
-
-const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(
-    (cb) => {
-      const mq = window.matchMedia(REDUCED_MOTION);
-      mq.addEventListener("change", cb);
-      return () => mq.removeEventListener("change", cb);
-    },
-    () => window.matchMedia(REDUCED_MOTION).matches,
-    () => false,
-  );
 }
 
 function Figure({ img }: { img: InlineImage }) {

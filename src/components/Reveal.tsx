@@ -3,6 +3,7 @@
 import { createElement, useEffect, useRef, type ElementType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -43,12 +44,12 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const Tag = (as ?? "div") as ElementType;
+  const prefersReduced = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const targets = stagger != null ? Array.from(el.children) : el;
 
     if (prefersReduced) {
@@ -74,7 +75,7 @@ export function Reveal({
     }, el);
 
     return () => ctx.revert();
-  }, [y, scale, duration, delay, ease, stagger, start]);
+  }, [y, scale, duration, delay, ease, stagger, start, prefersReduced]);
 
   // createElement (not <Tag/>) sidesteps a JSX children-type inference issue that
   // surfaces on the polymorphic ElementType under the current React 19 typings.

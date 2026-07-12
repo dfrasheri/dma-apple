@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -19,11 +20,12 @@ export type SmilePhoto = string | { before: string; after: string };
  */
 export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
   const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el.querySelectorAll("[data-tile]"),
@@ -39,7 +41,7 @@ export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
       );
     }, el);
     return () => ctx.revert();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div ref={ref} className="tpds-container">

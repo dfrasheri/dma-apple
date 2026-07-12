@@ -123,7 +123,7 @@ export function SearchBox() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+14px)] w-[320px] overflow-hidden rounded-lg bg-white text-[#343434] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+        <div className="material-panel absolute right-0 top-[calc(100%+14px)] w-[320px] overflow-hidden rounded-lg text-[#343434]">
           <div className="flex items-center gap-2 border-b border-[#ececec] px-3.5 py-3">
             <SearchIcon className="h-4 w-4 text-[#9a9a9a]" />
             <input

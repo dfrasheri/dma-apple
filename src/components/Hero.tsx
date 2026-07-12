@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { useT } from "@/lib/i18n";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 // Unique interior shots only, no repeats. Opens on the corridor/lounge.
 const SLIDES = [
@@ -10,9 +12,8 @@ const SLIDES = [
   "/images/dma/interiors/couple2-hero.jpg",
 ];
 
-const INTERVAL = 5000; // Owl autoplayTimeout
-const SPEED = 900; // Owl smartSpeed
-const EASE = "cubic-bezier(0.25, 0.46, 0.45, 0.94)"; // smooth easeOutQuad, Owl-like
+const INTERVAL = 5000; // autoplay interval
+const SPEED = 900; // crossfade duration (ms)
 
 export function Hero() {
   const [active, setActive] = useState(0);
@@ -26,6 +27,7 @@ export function Hero() {
     setTrackedActive(active);
   }
   const t = useT();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const go = useCallback((i: number) => {
     setActive((i + SLIDES.length) % SLIDES.length);
@@ -42,32 +44,32 @@ export function Hero() {
         const isActive = i === active;
         const isPrev = i === prev && !isActive;
         // incoming parks at right; outgoing exits left; only the two in play animate
-        const x = isActive ? "0%" : isPrev ? "-22%" : "100%";
-        const animating = isActive || isPrev;
+        // (reduced motion: cross-fade in place, no slide)
+        const x = prefersReducedMotion ? "0%" : isActive ? "0%" : isPrev ? "-22%" : "100%";
         return (
-          <div
+          <motion.div
             key={src}
             className="absolute inset-0"
-            style={{
-              transform: `translateX(${x})`,
-              opacity: isActive ? 1 : 0,
-              zIndex: isActive ? 2 : 1,
-              transition: animating
-                ? `transform ${SPEED}ms ${EASE}, opacity ${SPEED}ms ${EASE}`
-                : "none",
-              willChange: "transform, opacity",
-            }}
+            initial={false}
+            animate={{ x, opacity: isActive ? 1 : 0 }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0.3, ease: "easeOut" }
+                : { type: "spring", bounce: 0, duration: SPEED / 1000 }
+            }
+            style={{ zIndex: isActive ? 2 : 1, willChange: "transform, opacity" }}
           >
-            <div
+            <motion.div
               className="h-full w-full bg-cover"
+              initial={false}
+              animate={{ scale: isActive && !prefersReducedMotion ? 1.06 : 1 }}
+              transition={{ duration: (INTERVAL + SPEED) / 1000, ease: "easeOut" }}
               style={{
                 backgroundImage: `url(${src})`,
                 backgroundPosition: i === 0 ? "center 10%" : "center 22%",
-                transform: isActive ? "scale(1.06)" : "scale(1)",
-                transition: isActive ? `transform ${INTERVAL + SPEED}ms ease-out` : "none",
               }}
             />
-          </div>
+          </motion.div>
         );
       })}
 
@@ -77,7 +79,7 @@ export function Hero() {
       {/* overlay content */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center text-white">
         <p className="eyebrow mb-5 text-white/95">{t("hero.eyebrow")}</p>
-        <h1 className="font-serif font-normal leading-[1.04]" style={{ fontSize: "clamp(40px, 5vw, 66px)" }}>
+        <h1 className="text-display font-serif font-normal">
           {t("hero.title")}
         </h1>
       </div>

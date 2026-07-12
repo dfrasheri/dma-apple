@@ -17,6 +17,7 @@
  *   into the CRM.
  */
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import {
   MessageCircle,
   X,
@@ -29,6 +30,7 @@ import {
   Paperclip,
 } from "lucide-react";
 import { LOCALES, useLocale } from "@/lib/i18n";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { CHAT_UI } from "./chat-widget-i18n";
 
 type Source = { title: string; url?: string };
@@ -154,6 +156,7 @@ async function toBoundedJpeg(file: File): Promise<Attachment> {
 export function ChatWidget() {
   const { locale, setLocale } = useLocale();
   const ui = CHAT_UI[locale] ?? CHAT_UI.en;
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -479,20 +482,34 @@ export function ChatWidget() {
         <span className="absolute right-1 top-1 h-3 w-3 rounded-full border-2 border-[#071522] bg-emerald-400" />
       </button>
 
-      {/* Panel, full-screen sheet on phones, floating card from sm: up */}
+      {/* Panel, full-screen sheet on phones, floating card from sm: up. Springs in
+          "materialized" (blur+scale+opacity together, anchored to the launcher's
+          bottom-right corner) rather than just fading; closing mirrors the same
+          motion so it reads as the same physical object leaving. */}
       {open && (
-        <div
+        <motion.div
           ref={panelRef}
           id="dma-chat-panel"
           role="dialog"
           aria-modal="true"
           aria-label={ui.openChat}
           onKeyDown={trapTab}
-          className={`fixed inset-0 z-[70] flex flex-col overflow-hidden bg-white shadow-2xl sm:inset-auto sm:bottom-24 sm:right-4 sm:h-[min(660px,calc(100dvh-8rem))] sm:w-[min(400px,calc(100vw-2.5rem))] sm:origin-bottom-right sm:rounded-3xl sm:border sm:border-black/10 ${
+          initial={
+            prefersReducedMotion ? false : { opacity: 0, scale: 0.94, y: 24, filter: "blur(8px)" }
+          }
+          animate={
             closing
-              ? "animate-out fade-out-0 slide-out-to-bottom-8 duration-200 ease-in motion-reduce:animate-none sm:slide-out-to-bottom-4 sm:zoom-out-95"
-              : "animate-in fade-in-0 slide-in-from-bottom-8 duration-300 ease-out motion-reduce:animate-none sm:slide-in-from-bottom-4 sm:zoom-in-95"
-          }`}
+              ? prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, scale: 0.96, y: 16, filter: "blur(6px)" }
+              : { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }
+          }
+          transition={
+            prefersReducedMotion
+              ? { duration: closing ? 0.15 : 0.2 }
+              : { type: "spring", bounce: closing ? 0 : 0.15, duration: closing ? 0.2 : 0.4 }
+          }
+          className="material-sheet fixed inset-0 z-[70] flex flex-col overflow-hidden sm:inset-auto sm:bottom-24 sm:right-4 sm:h-[min(660px,calc(100dvh-8rem))] sm:w-[min(400px,calc(100vw-2.5rem))] sm:origin-bottom-right sm:rounded-3xl"
         >
           {/* Header */}
           <div className="bg-gradient-to-br from-[#071522] via-[#0c2236] to-[#123049] px-5 pb-3.5 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:pt-4">
@@ -828,7 +845,7 @@ export function ChatWidget() {
               </form>
             </>
           )}
-        </div>
+        </motion.div>
       )}
     </>
   );

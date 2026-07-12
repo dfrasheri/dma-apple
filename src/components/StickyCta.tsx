@@ -1,10 +1,11 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useScrolledPast } from "@/hooks/useScroll";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { CalendarIcon, ArrowRight, InstagramIcon, GoogleIcon, PhoneIcon, MailIcon } from "@/components/icons";
 import { CONTACT } from "@/lib/site";
 import { useT } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
 
 /**
  * Conversion "chaser" bar: once the visitor scrolls into the content it follows
@@ -16,13 +17,17 @@ import { cn } from "@/lib/utils";
 export function StickyCta() {
   const show = useScrolledPast(700);
   const t = useT();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
-    <div
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-40 bg-[#3a3a3a] text-white transition-transform duration-500",
-        show ? "translate-y-0" : "translate-y-full",
-      )}
+    <motion.div
+      animate={{ y: show ? "0%" : "100%" }}
+      transition={
+        prefersReducedMotion
+          ? { duration: 0.2, ease: "easeOut" }
+          : { type: "spring", bounce: 0, duration: 0.4 }
+      }
+      className="fixed inset-x-0 bottom-0 z-40 bg-[#3a3a3a] text-white"
     >
       <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-8">
         <div className="flex min-w-0 items-center gap-5 sm:gap-7">
@@ -61,6 +66,6 @@ export function StickyCta() {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,0 +1,943 @@
+{
+ "services": [
+  {
+   "slug": "chrome-cobalt-crown",
+   "title": "Chrome Cobalt Crown in Tirana | Dental Med Austria",
+   "description": "A durable metal-ceramic crown built on a precision chrome-cobalt core, fully biocompatible and ceramic-fused for strength and a natural look. Free plan in 24-48h.",
+   "intro": "The chrome cobalt crown pairs a strong, biocompatible cobalt-chromium core with a hand-applied ceramic surface. The metal substructure gives excellent strength and a precise fit, while the ceramic layer is shade-matched to your smile. It is a dependable, cost-effective choice for back teeth where chewing forces are highest.",
+   "benefits": [
+    "Tough cobalt-chromium core built for heavy chewing loads",
+    "Nickel-free and biocompatible, kind to the gums",
+    "A precise, well-sealing fit that protects the tooth beneath"
+   ],
+   "idealFor": "Patients restoring a molar or premolar who want proven strength and reliable, long-lasting function.",
+   "faqs": [
+    {
+     "q": "Will the metal core show through?",
+     "a": "The cobalt-chromium core is fully covered by layered ceramic on every visible surface, so the finished crown looks like a natural white tooth - it is most often chosen for back teeth where the priority is strength."
+    },
+    {
+     "q": "How do I get a quote for a chrome cobalt crown?",
+     "a": "Every case is priced individually after we review your situation - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "multilayer-zirconia-crown",
+   "title": "Multilayer Zirconia Crown in Tirana | Dental Med Austria",
+   "description": "A metal-free multilayer zirconia crown with a built-in colour gradient that shades naturally from neck to edge for a lifelike, durable result. Free plan in 24-48h.",
+   "intro": "Multilayer zirconia is milled from a single block that already carries a natural colour and translucency gradient - deeper at the gum line and brighter towards the biting edge, just like a real tooth. Completely metal-free, it combines outstanding strength with a soft, lifelike appearance, making it one of our most versatile crowns for front and back teeth alike.",
+   "benefits": [
+    "Built-in colour gradient mimics a natural tooth from neck to tip",
+    "Metal-free for a healthy gum line and no grey shadow",
+    "High-strength zirconia suited to both front and back teeth"
+   ],
+   "idealFor": "Anyone wanting a metal-free crown that balances real strength with a naturally shaded, lifelike look.",
+   "faqs": [
+    {
+     "q": "How is multilayer zirconia more natural than standard zirconia?",
+     "a": "A standard zirconia crown is one uniform shade, whereas the multilayer block has graduated colour and translucency built into the material itself - so light passes through it much like a living tooth, especially near the edges."
+    },
+    {
+     "q": "What will a multilayer zirconia crown cost?",
+     "a": "We quote each crown after assessing the tooth and your goals - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "zirconia-emax-gisi-crown",
+   "title": "Zirconia E-max GiSi Crown in Tirana | Dental Med Austria",
+   "description": "A strong zirconia core hand-layered with GiSi E-max ceramic, combining a robust foundation with a refined, light-catching surface. Free plan in 24-48h.",
+   "intro": "This crown unites two materials for the best of both: a tough zirconia core for strength, hand-layered with GiSi E-max ceramic for a brighter, more translucent surface than zirconia alone can offer. The result is a metal-free restoration that stands up to daily chewing while catching the light far more naturally - a reliable upgrade in aesthetics at a sensible level.",
+   "benefits": [
+    "Zirconia core for strength, E-max layering for lifelike depth",
+    "Metal-free with a warm, translucent finish",
+    "GiSi ceramic offers refined aesthetics at an accessible tier"
+   ],
+   "idealFor": "Patients who want a stronger core than pure E-max with a more natural surface than plain zirconia.",
+   "faqs": [
+    {
+     "q": "How does this differ from a full E-max crown?",
+     "a": "Here a zirconia core carries the load and is veneered with e.max ceramic for beauty, giving extra strength - a full E-max crown is solid lithium disilicate throughout, which is even more translucent but better suited to lower-stress areas."
+    },
+    {
+     "q": "How much is a Zirconia E-max GiSi crown?",
+     "a": "Pricing depends on your specific case, which we assess first - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "zirconia-emax-ivoclar-crown",
+   "title": "Zirconia E-max Ivoclar Crown in Tirana | Dental Med Austria",
+   "description": "A zirconia core layered with genuine Ivoclar Vivadent E-max ceramic for premium translucency, colour stability, and a beautifully refined finish. Free plan in 24-48h.",
+   "intro": "Built on a strong zirconia core and hand-layered with authentic Ivoclar IPS e.max ceramic, this crown delivers a noticeably finer aesthetic than standard ceramics. The Ivoclar material is prized for its colour accuracy and light handling, so the surface glows naturally while the zirconia foundation keeps the restoration robust and long-lasting.",
+   "benefits": [
+    "Genuine Ivoclar Vivadent E-max layering for superior colour fidelity",
+    "Strong zirconia core paired with a luminous, lifelike surface",
+    "Excellent shade stability that resists discolouration over time"
+   ],
+   "idealFor": "Patients wanting a premium-brand ceramic finish over a dependable zirconia core.",
+   "faqs": [
+    {
+     "q": "Why choose Ivoclar over the GiSi version?",
+     "a": "Both use a zirconia core, but the Ivoclar Vivadent E-max ceramic offers a higher grade of translucency, shade precision and long-term colour stability - the GiSi version is an excellent option at a more accessible tier."
+    },
+    {
+     "q": "What does a Zirconia E-max Ivoclar crown cost?",
+     "a": "We price each crown after reviewing your case individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "full-emax-gisi-crown",
+   "title": "Full E-max GiSi II Crown in Tirana | Dental Med Austria",
+   "description": "A monolithic GiSi lithium disilicate crown, metal-free and milled in one piece for high translucency and a seamless, natural front-tooth result. Free plan in 24-48h.",
+   "intro": "The Full E-max GiSi II crown is made entirely of lithium disilicate ceramic - no metal and no separate core - so light passes through it almost like enamel. Milled as a single piece for strength and precision, it offers the high translucency that makes E-max a favourite for visible front teeth, here using quality GiSi ceramic for a refined, value-conscious option.",
+   "benefits": [
+    "Monolithic lithium disilicate for enamel-like translucency",
+    "Completely metal-free with no core to dull the colour",
+    "Single-piece milling for a precise, durable fit"
+   ],
+   "idealFor": "Patients restoring a visible front tooth who want maximum translucency in a metal-free crown.",
+   "faqs": [
+    {
+     "q": "Is full E-max strong enough for everyday use?",
+     "a": "Yes - lithium disilicate is a high-strength ceramic well suited to front teeth and most premolars; for heavy-load molars or grinders we may suggest a zirconia-based option instead."
+    },
+    {
+     "q": "How much is a Full E-max GiSi II crown?",
+     "a": "Each case is quoted after we assess the tooth and your goals - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "full-emax-ivoclar-crown",
+   "title": "Full E-max Ivoclar II Crown in Tirana | Dental Med Austria",
+   "description": "A monolithic crown in genuine Ivoclar Vivadent E-max lithium disilicate, prized for enamel-like translucency and outstanding colour accuracy. Free plan in 24-48h.",
+   "intro": "This crown is milled from a single block of authentic Ivoclar Vivadent E-max - the original lithium disilicate that set the standard for aesthetic ceramics. Entirely metal-free, it captures light with a translucency remarkably close to natural enamel, while the genuine Ivoclar material ensures precise shade matching and dependable long-term colour.",
+   "benefits": [
+    "Original Ivoclar Vivadent lithium disilicate for benchmark aesthetics",
+    "Enamel-like translucency with no metal core",
+    "Trusted material with excellent strength and colour stability"
+   ],
+   "idealFor": "Patients wanting the genuine Ivoclar E-max standard for a beautifully natural front-tooth crown.",
+   "faqs": [
+    {
+     "q": "What sets the Ivoclar II apart from the GiSi version?",
+     "a": "Both are monolithic E-max crowns, but the Ivoclar II uses original Ivoclar Vivadent lithium disilicate, valued for its translucency, precise shade control and proven long-term performance - the GiSi II is a fine option at a more accessible level."
+    },
+    {
+     "q": "What will a Full E-max Ivoclar II crown cost?",
+     "a": "We assess every case before quoting it individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "full-emax-premium-ivoclar-crown",
+   "title": "Full E-max Premium Ivoclar Crown in Tirana | Austria",
+   "description": "Our premium monolithic Ivoclar E-max crown, individually characterised by hand for lifelike depth, surface texture, and a flawless natural finish. Free plan in 24-48h.",
+   "intro": "The Premium Ivoclar E-max crown takes genuine Ivoclar lithium disilicate a step further with individual characterisation in our lab - subtle internal staining, surface texture and polish applied by hand to echo the tiny details of a real tooth. Metal-free and highly translucent, it is finished to a standard reserved for patients who want a truly bespoke, undetectable result.",
+   "benefits": [
+    "Hand-characterised Ivoclar E-max for bespoke, lifelike detail",
+    "Custom internal staining and texture for true-to-nature depth",
+    "Metal-free with the highest aesthetic finish in the E-max range"
+   ],
+   "idealFor": "Patients seeking the most refined, individually crafted single-material E-max crown available.",
+   "faqs": [
+    {
+     "q": "How is the Premium version different from the standard Ivoclar E-max?",
+     "a": "It uses the same genuine Ivoclar lithium disilicate but adds extra hand finishing - bespoke internal shading, surface texture and polishing - so the crown carries the fine, individual character of a natural tooth rather than a uniform shade."
+    },
+    {
+     "q": "How much is a Full E-max Premium Ivoclar crown?",
+     "a": "This bespoke crown is quoted per case after we review your details - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "1-2 visits"
+  },
+  {
+   "slug": "top-line-gisi-emax-crown",
+   "title": "Top Line GiSi E-max Premium Crown in Tirana | DMA",
+   "description": "A flagship hand-layered aesthetic crown on a zirconia core dressed in GiSi E-max ceramic, built layer by layer for maximum natural beauty. Free plan in 24-48h.",
+   "intro": "Our Top Line range represents the pinnacle of aesthetic crown work. This version builds a strong zirconia core and dresses it in GiSi E-max ceramic that our technicians layer and characterise entirely by hand - shade, translucency and texture controlled at every stage. The result is a flawless, light-catching crown crafted for patients who want premium beauty without compromise.",
+   "benefits": [
+    "Flagship hand-layered ceramic for show-stopping aesthetics",
+    "Strong zirconia core combined with GiSi E-max artistry",
+    "Layer-by-layer characterisation for unmatched natural depth"
+   ],
+   "idealFor": "Patients wanting our top-tier aesthetic crown with GiSi ceramic for a flawless smile-zone result.",
+   "faqs": [
+    {
+     "q": "What makes a Top Line crown different from a standard layered crown?",
+     "a": "Top Line crowns are our flagship aesthetic work - the E-max ceramic is hand-layered and individually characterised over a zirconia core in multiple stages, giving a depth and realism that standard layered crowns do not match."
+    },
+    {
+     "q": "What does a Top Line GiSi E-max Premium crown cost?",
+     "a": "As bespoke aesthetic work, each crown is quoted individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "2 visits"
+  },
+  {
+   "slug": "top-line-ivoclar-emax-crown",
+   "title": "Top Line Ivoclar E-max Premium Crown | Dental Med Austria",
+   "description": "Our flagship crown: a zirconia core hand-layered with genuine Ivoclar Vivadent E-max ceramic and individually characterised for the finest natural result. Free plan in 24-48h.",
+   "intro": "This is the flagship of our crown range. A strong zirconia core is hand-layered with authentic Ivoclar Vivadent E-max ceramic and characterised by our master technicians at every stage - internal shading, translucency and surface texture all built up by hand. Combining the finest material with the highest craftsmanship, it delivers a truly undetectable, premium aesthetic result.",
+   "benefits": [
+    "The finest pairing: Ivoclar Vivadent E-max with master hand-layering",
+    "Zirconia core for strength beneath a flawless ceramic surface",
+    "Individually characterised for an undetectable, premium finish"
+   ],
+   "idealFor": "Patients who want the very best - genuine Ivoclar ceramic and flagship craftsmanship for a perfect smile.",
+   "faqs": [
+    {
+     "q": "Why is this the top of your crown range?",
+     "a": "It combines the most prized aesthetic ceramic, genuine Ivoclar Vivadent E-max, with our most intensive hand-layering and characterisation over a strong zirconia core - nothing in our range is more refined or natural-looking."
+    },
+    {
+     "q": "How much is a Top Line Ivoclar E-max Premium crown?",
+     "a": "This flagship crown is priced per case after a full review of your details - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "2 visits"
+  },
+  {
+   "slug": "temporary-crown",
+   "title": "Temporary Crown in Tirana | Dental Med Austria",
+   "description": "A custom provisional crown that protects your prepared tooth and keeps your smile intact while your permanent restoration is hand-crafted in our lab. Free plan in 24-48h.",
+   "intro": "A temporary crown is a custom-made provisional worn over your prepared tooth while the final crown is being created. It seals and protects the tooth, maintains your bite and spacing, and keeps your smile looking complete in the meantime. Comfortable and natural in shape, it bridges the gap between appointments - especially useful for international patients treating over two trips.",
+   "benefits": [
+    "Protects and seals the prepared tooth between visits",
+    "Keeps your bite, spacing and appearance intact",
+    "Comfortable, natural shape so you smile with confidence"
+   ],
+   "idealFor": "Anyone whose tooth is prepared for a crown and needs protection while the final one is made.",
+   "faqs": [
+    {
+     "q": "How long can I wear a temporary crown?",
+     "a": "A temporary is designed to last comfortably for the few weeks or months until your permanent crown is ready - ideal if you are splitting treatment across two trips, with the final crown fitted on your return."
+    },
+    {
+     "q": "Is a temporary crown charged separately?",
+     "a": "Provisionals are quoted as part of your overall plan, which we assess first - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Same visit"
+  },
+  {
+   "slug": "zirconia-veneer",
+   "title": "Zirconia Veneers in Tirana, Albania | Dental Med Austria",
+   "description": "Strong, metal-free zirconia veneers in Tirana that brighten and reshape your smile while standing up to everyday wear. Durable and natural. Free smile plan in 24-48h.",
+   "intro": "A zirconia veneer is a thin, full-contour shell milled in-house from premium German zirconia and bonded to the front of your tooth. It is our most robust veneer option - ideal where you want a brighter, more even smile with the reassurance of zirconia's exceptional strength.",
+   "benefits": [
+    "Exceptional strength for a thin, bonded shell",
+    "Metal-free, biocompatible, and gum-friendly",
+    "Milled in-house for a precise, fast-turnaround fit"
+   ],
+   "idealFor": "Patients who want a brighter smile with the toughest, most durable veneer material.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "Are zirconia veneers strong?",
+     "a": "Yes - zirconia is one of the toughest dental ceramics available, so these veneers resist chipping and wear better than thinner glass-ceramic shells, which suits patients with a heavier bite."
+    },
+    {
+     "q": "How much do zirconia veneers cost?",
+     "a": "Your fee depends on how many veneers you need and your starting point. For an exact, no-obligation quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "zirconia-emax-gisi-veneer",
+   "title": "Zirconia E-max GiSi Veneers in Tirana | Dental Med Austria",
+   "description": "Zirconia-core veneers faced with GiSi E-max ceramic in Tirana for a natural, layered look with dependable strength. A smart premium choice. Free smile plan in 24-48h.",
+   "intro": "This veneer pairs a strong zirconia core with a facing of GiSi E-max ceramic, giving you the durability of zirconia and a more lifelike, layered front surface. It is our accessible step into layered veneers - a noticeable lift in natural depth over a plain shell, at a sensible tier.",
+   "benefits": [
+    "Zirconia strength beneath a ceramic-faced surface",
+    "More natural depth than a single-material veneer",
+    "A balanced, value-conscious entry to layered veneers"
+   ],
+   "idealFor": "Patients wanting a layered, natural veneer with reliable strength at an accessible tier.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "How is this different from a plain zirconia veneer?",
+     "a": "The GiSi E-max facing adds translucency and colour gradation to the surface, so the veneer reads more like natural enamel rather than a uniform shell, while the zirconia core keeps it strong."
+    },
+    {
+     "q": "What does a GiSi veneer cost?",
+     "a": "Pricing varies with the number of teeth and the detail of your case. For a precise quote tailored to you, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "zirconia-emax-ivoclar-veneer",
+   "title": "Zirconia E-max Ivoclar Veneers in Tirana | Dental Med Austria",
+   "description": "Zirconia-core veneers hand-faced with genuine Ivoclar IPS E-max ceramic in Tirana for refined, lifelike results with lasting strength. Free smile plan in 24-48h.",
+   "intro": "Here the zirconia core is layered with authentic Ivoclar IPS e.max ceramic - the same premium ceramic our finest crowns use. The Ivoclar material brings a refined translucency and colour accuracy a step above the GiSi tier, giving a more lifelike surface while keeping zirconia's dependable strength.",
+   "benefits": [
+    "Genuine Ivoclar IPS E-max facing for refined translucency",
+    "Zirconia core for confident, lasting durability",
+    "A clear aesthetic step above the GiSi tier"
+   ],
+   "idealFor": "Patients who want authentic Ivoclar ceramic aesthetics over a strong zirconia core.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "Why choose Ivoclar over the GiSi version?",
+     "a": "Ivoclar IPS E-max is the benchmark glass-ceramic for shade consistency and natural light handling, so the facing captures finer colour nuance than GiSi - a worthwhile upgrade for the smile zone."
+    },
+    {
+     "q": "How much do Ivoclar zirconia veneers cost?",
+     "a": "The total depends on how many veneers you need and your individual case. For an exact figure, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "zirconia-emax-gisi-ii-veneer",
+   "title": "Zirconia E-max GiSi II Veneers in Tirana | Dental Med Austria",
+   "description": "Our enhanced GiSi II zirconia veneers in Tirana add deeper hand-layering for a richer, more natural smile while keeping a strong core. Free smile plan in 24-48h.",
+   "intro": "The GiSi II veneer is our upgraded GiSi build, with additional hand-layering of E-max ceramic over the zirconia core for greater depth, character, and a more individualised result. It sits a tier above the standard GiSi veneer - the choice when you want extra artistry without moving to the Ivoclar line.",
+   "benefits": [
+    "Deeper hand-layering for richer, more natural character",
+    "An enhanced finish over the standard GiSi tier",
+    "Zirconia core strength behind every shell"
+   ],
+   "idealFor": "Patients who want a more detailed, hand-layered GiSi veneer above the standard build.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "What does the 'II' add over a standard GiSi veneer?",
+     "a": "The II build uses extra layering and finishing time in our lab, giving more lifelike colour transitions and surface texture than the standard GiSi veneer - a step up in artistry on the same strong core."
+    },
+    {
+     "q": "How much does a GiSi II veneer cost?",
+     "a": "It depends on the number of teeth and the complexity of your smile design. For a tailored quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "zirconia-emax-ivoclar-ii-veneer",
+   "title": "Zirconia E-max Ivoclar II Veneers in Tirana | Dental Med Austria",
+   "description": "Our top layered veneer: a zirconia core with extra hand-applied Ivoclar E-max ceramic in Tirana for the most lifelike, durable result. Free smile plan in 24-48h.",
+   "intro": "The Ivoclar II veneer is the flagship of our layered range - a zirconia core finished with additional hand-applied Ivoclar IPS e.max ceramic for the deepest, most natural translucency we offer over a reinforced base. It is the most refined way to combine genuine strength with smile-zone artistry.",
+   "benefits": [
+    "Our most detailed hand-layered Ivoclar E-max finish",
+    "Zirconia core for strength a glass-only veneer can't match",
+    "The peak of our layered veneer range"
+   ],
+   "idealFor": "Patients who want our most lifelike layered veneer without compromising on core strength.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "Is the Ivoclar II the best layered veneer you offer?",
+     "a": "Yes - it tops our layered line, combining the extra Ivoclar hand-layering of the II build with a zirconia core, for the richest aesthetics and reassuring durability in one veneer."
+    },
+    {
+     "q": "What is the cost of an Ivoclar II veneer?",
+     "a": "As our top layered tier, the fee reflects the lab artistry involved and the number of teeth. For an exact quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "full-emax-gisi-veneer",
+   "title": "Full E-max GiSi Veneers in Tirana | Dental Med Austria",
+   "description": "Monolithic GiSi E-max veneers in Tirana - thin, translucent glass-ceramic shells that catch the light like natural enamel, with no opaque core. Free smile plan in 24-48h.",
+   "intro": "A full E-max GiSi veneer is pressed entirely from GiSi glass-ceramic, with no zirconia core beneath. Being monolithic and metal-free, it lets light pass through just like natural enamel - the translucency-first choice when a flawless, see-through smile-zone finish matters more than maximum core strength.",
+   "benefits": [
+    "Monolithic glass-ceramic with no opaque core",
+    "Enamel-like translucency for the smile zone",
+    "Thin, tooth-preserving preparation"
+   ],
+   "idealFor": "Patients wanting a thin, translucent full-ceramic veneer for a natural smile-zone result.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "Why choose a full E-max veneer over a zirconia-cored one?",
+     "a": "Without a zirconia core, the full E-max shell transmits light all the way through, giving a more naturally translucent edge - ideal for front teeth where lifelike depth is the priority."
+    },
+    {
+     "q": "How much do full E-max GiSi veneers cost?",
+     "a": "Your fee depends on how many veneers you need and your case detail. For a precise quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "full-emax-ivoclar-veneer",
+   "title": "Full E-max Ivoclar Veneers in Tirana | Dental Med Austria",
+   "description": "Pressed Ivoclar IPS E-max veneers in Tirana - monolithic glass-ceramic shells combining superior translucency with proven strength. Our premium standard. Free smile plan in 24-48h.",
+   "intro": "The full E-max Ivoclar veneer is pressed from authentic Ivoclar IPS E-max - the gold-standard lithium-disilicate ceramic - in one monolithic shell. It pairs the enamel-like translucency of a full-ceramic veneer with the consistency and strength Ivoclar is known for, making it our premium standard veneer.",
+   "benefits": [
+    "Genuine pressed Ivoclar IPS E-max ceramic",
+    "Superior translucency with dependable strength",
+    "Stain-resistant surface that holds its shade"
+   ],
+   "idealFor": "Patients wanting the proven premium standard in a thin, translucent full-ceramic veneer.",
+   "duration": "1-2 visits",
+   "faqs": [
+    {
+     "q": "How does this compare to the GiSi full E-max veneer?",
+     "a": "Both are monolithic glass-ceramic, but genuine Ivoclar IPS E-max offers tighter shade consistency and refined light handling, so the Ivoclar veneer is the more dependable premium choice for the smile zone."
+    },
+    {
+     "q": "What does a full E-max Ivoclar veneer cost?",
+     "a": "The total varies with the number of teeth and the look you want. For an exact, personalised quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "full-emax-premium-veneer",
+   "title": "Full E-max Premium Veneers in Tirana | Dental Med Austria",
+   "description": "Our flagship hand-layered Ivoclar E-max veneers in Tirana - individually crafted for the most lifelike, artistic smile transformation we offer. Free smile plan in 24-48h.",
+   "intro": "The full E-max Premium veneer is our flagship - each shell individually hand-layered and characterised by our master ceramist from premium Ivoclar E-max. Beyond a pressed monolithic veneer, it captures the subtle colour gradients, translucency, and surface texture of a real tooth - the ultimate, bespoke smile-zone result.",
+   "benefits": [
+    "Individually hand-layered by our master ceramist",
+    "The most lifelike colour, depth, and surface detail we offer",
+    "A bespoke, artistry-led smile transformation"
+   ],
+   "idealFor": "Patients seeking our finest, fully bespoke veneer for the ultimate natural result.",
+   "duration": "2 visits",
+   "faqs": [
+    {
+     "q": "What makes the Premium veneer different from the standard Ivoclar one?",
+     "a": "Rather than a single pressed shade, each Premium veneer is hand-layered and individually characterised, so it reproduces the nuanced translucency and texture of natural teeth - our highest level of aesthetic craftsmanship."
+    },
+    {
+     "q": "How much do Premium E-max veneers cost?",
+     "a": "As our flagship, hand-crafted tier, the fee reflects the bespoke lab artistry and the number of teeth involved. For an exact quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "detech-implant",
+   "title": "Detech Implants in Tirana, Albania | Dental Med Austria",
+   "description": "Reliable, well-priced Detech dental implants in Tirana with a proven titanium surface and dependable osseointegration. Smart European-quality value. Free plan in 24-48h.",
+   "intro": "Detech is our trusted value implant - a quality titanium system with a microtextured surface that integrates reliably with your jawbone. It is the sensible choice for patients who want a dependable, fixed result at our most accessible tier, without compromising on safety or care.",
+   "benefits": [
+    "Dependable osseointegration from a proven titanium surface",
+    "Our most accessible tier without cutting clinical corners",
+    "Backed by the manufacturer's warranty and our own guarantee"
+   ],
+   "idealFor": "Patients who want a reliable, fixed implant at our most affordable price point.",
+   "faqs": [
+    {
+     "q": "Is the Detech implant a good choice?",
+     "a": "Yes - Detech is a well-established titanium system with a textured surface that bonds securely to bone. For patients on a tighter budget it offers a genuinely reliable, fixed solution placed with the same surgical care as our premium brands."
+    },
+    {
+     "q": "How much does a Detech implant cost in Albania?",
+     "a": "The cost depends on your individual case and whether any grafting is needed, so the clearest way to know is to send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "implant-swiss",
+   "title": "Swiss Premium Implants in Tirana | Dental Med Austria",
+   "description": "Swiss-engineered premium implants in Tirana with precision manufacturing, a hydrophilic surface for fast healing, and a lifetime warranty. Free plan in 24-48h.",
+   "intro": "Implant Swiss sits in our premium tier - Swiss-engineered titanium with the precision manufacturing and rigorous quality control that name is known for. Its treated, hydrophilic surface encourages faster, more predictable osseointegration, and it carries a lifetime warranty for true long-term reassurance.",
+   "benefits": [
+    "Swiss precision engineering and tight quality control",
+    "Hydrophilic surface for faster, more predictable healing",
+    "Lifetime manufacturer warranty on the implant"
+   ],
+   "idealFor": "Patients wanting genuine Swiss-quality implants and faster healing at a sensible premium.",
+   "faqs": [
+    {
+     "q": "What makes a Swiss premium implant different from a value implant?",
+     "a": "Swiss-engineered implants are made to exacting tolerances with a surface treated for quicker bone integration, which can mean more predictable healing and shorter timelines. They also carry a lifetime warranty, making them a strong middle ground between value and the very top brands."
+    },
+    {
+     "q": "Can I get a written quote for a Swiss implant before I travel?",
+     "a": "Yes, and there is no obligation - simply send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "straumann-blt-implant",
+   "title": "Straumann BLT Implants in Tirana | Dental Med Austria",
+   "description": "Gold-standard Swiss Straumann BLT implants in Tirana - bone-level tapered design, SLActive surface, and a lifetime warranty. Premium-quality care. Free plan in 24-48h.",
+   "intro": "The Straumann BLT is the Swiss gold-standard bone-level tapered implant, designed for excellent primary stability even in softer bone. Combined with Straumann's renowned SLActive surface for rapid osseointegration, it is the most clinically documented system in the world - the choice for patients who simply want the best, backed by a lifetime warranty.",
+   "benefits": [
+    "Bone-level tapered design for outstanding primary stability",
+    "SLActive surface for the fastest, most predictable integration",
+    "Lifetime warranty on the world's most documented implant"
+   ],
+   "idealFor": "Patients who want the most proven gold-standard implant, including in softer or grafted bone.",
+   "faqs": [
+    {
+     "q": "How is the Straumann BLT different from the BLX?",
+     "a": "Both are premium Straumann systems with the SLActive surface; the BLT (bone-level tapered) is the established workhorse trusted across decades of research, while the BLX is geared toward immediate-loading protocols. We'll recommend the right one for your bone and timeline."
+    },
+    {
+     "q": "How much does a Straumann BLT implant cost in Albania?",
+     "a": "Pricing varies with your case and any grafting required, so the simplest way to get an accurate figure is to send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "homeostatic-sponge",
+   "title": "Homeostatic Sponge in Tirana, Albania | Dental Med Austria",
+   "description": "A resorbable collagen sponge used during implant and bone surgery in Tirana to control bleeding, protect the wound, and support faster, cleaner healing. Free plan in 24-48h.",
+   "intro": "A homeostatic sponge is a soft, resorbable collagen dressing we place into a socket or surgical site to settle bleeding quickly and stabilise the early blood clot. It protects the wound, supports comfortable healing, and dissolves naturally on its own - so there is nothing to remove afterwards.",
+   "benefits": [
+    "Calms bleeding and stabilises the clot from the start",
+    "Protects the socket for cleaner, more comfortable healing",
+    "Fully resorbable - it disappears on its own"
+   ],
+   "idealFor": "Patients having an extraction, implant, or bone procedure who want settled, well-protected healing.",
+   "duration": "Placed within the same visit",
+   "faqs": [
+    {
+     "q": "Will I need to have the sponge removed?",
+     "a": "No - it is made from resorbable collagen and is broken down naturally by your body over the following days, so there is no second appointment to take it out."
+    },
+    {
+     "q": "Is the sponge an added cost, and how do I get a quote?",
+     "a": "Where it's clinically helpful, the sponge is built into your surgical plan rather than priced as a surprise extra; for an exact, personalised breakdown, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "prf-platelet-rich-fibrin",
+   "title": "PRF (Platelet-Rich Fibrin) in Tirana | Dental Med Austria",
+   "description": "PRF in Tirana uses a small sample of your own blood to speed healing and bone formation around implants and grafts - natural, drug-free regeneration. Free plan in 24-48h.",
+   "intro": "PRF, or platelet-rich fibrin, is made from a small sample of your own blood, spun in a centrifuge to concentrate the platelets and growth factors that drive healing. Placed into the surgical site, this natural fibrin clot speeds soft-tissue and bone recovery - with no additives, just your body's own biology working harder.",
+   "benefits": [
+    "Made entirely from your own blood - nothing synthetic",
+    "Concentrated growth factors speed bone and gum healing",
+    "Often improves comfort and recovery after surgery"
+   ],
+   "idealFor": "Patients having implants, extractions, or bone grafting who want faster, more natural healing.",
+   "duration": "Prepared during your surgical visit",
+   "faqs": [
+    {
+     "q": "Is PRF safe if it comes from my own blood?",
+     "a": "Yes - because PRF is prepared from your own blood, there is no risk of rejection or disease transfer; the small sample is drawn and processed in the clinic during your appointment."
+    },
+    {
+     "q": "Does PRF cost extra, and how do I get a quote?",
+     "a": "PRF is added when it genuinely benefits your case, and we include it transparently in your plan rather than as a hidden charge; for your exact, personalised figure, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "membrane",
+   "title": "Collagen Membrane (GBR) in Tirana | Dental Med Austria",
+   "description": "A premium resorbable collagen membrane in Tirana guides bone regeneration by protecting the graft and shaping the ridge for secure, lasting implants. Free plan in 24-48h.",
+   "intro": "A collagen membrane is a thin, resorbable barrier we lay over a bone graft to guide regeneration - holding the graft in place and keeping fast-growing gum tissue out while new bone forms underneath. It is the protective layer that makes guided bone regeneration predictable and gives your future implant a stable foundation.",
+   "benefits": [
+    "Shields the graft so new bone forms cleanly",
+    "Premium resorbable membrane - no removal surgery",
+    "Helps shape a fuller, more even ridge for implants"
+   ],
+   "idealFor": "Patients having a bone graft who need the site protected for reliable regeneration.",
+   "duration": "Placed with your graft",
+   "faqs": [
+    {
+     "q": "What does the membrane actually do?",
+     "a": "It acts as a barrier that keeps the bone graft contained and stops the gum from collapsing into the space, so slower-growing bone has the room and time it needs to mature properly."
+    },
+    {
+     "q": "How is the membrane priced, and how do I get a quote?",
+     "a": "The membrane is part of your guided bone regeneration plan and we set it out clearly rather than as an add-on shock; for an exact, personalised cost, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "osteotomy",
+   "title": "Osteotomy in Tirana, Albania | Dental Med Austria",
+   "description": "Precise surgical bone preparation and reshaping in Tirana that readies the jaw for accurate, stable implant placement under careful 3D planning. Free plan in 24-48h.",
+   "intro": "An osteotomy is the precise, controlled preparation of the jawbone that creates an exact channel for an implant or reshapes the ridge before surgery. Carried out under careful 3D planning and gentle technique, it ensures your implant sits in healthy bone at the ideal depth and angle for a stable, lasting result.",
+   "benefits": [
+    "Prepares bone precisely for accurate implant placement",
+    "Planned in 3D for safe, predictable positioning",
+    "Gentle technique that protects surrounding bone"
+   ],
+   "idealFor": "Patients needing the jawbone shaped or prepared so an implant can be placed accurately.",
+   "duration": "Part of your implant surgery",
+   "faqs": [
+    {
+     "q": "Is an osteotomy a separate operation?",
+     "a": "Usually not - it is the bone-preparation step carried out as part of your implant surgery under local anaesthetic, with sedation available, so most patients experience it as one smooth procedure."
+    },
+    {
+     "q": "How is this reflected in my cost, and how do I get a quote?",
+     "a": "Bone preparation is included within the surgical plan rather than billed as a separate surprise; for a clear, personalised breakdown, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "split-crest",
+   "title": "Split Crest Ridge Expansion in Tirana | Dental Med Austria",
+   "description": "Split crest ridge expansion in Tirana gently widens a narrow jaw ridge to place implants without a separate graft - often in a single stage. Free plan in 24-48h.",
+   "intro": "Split crest is a refined technique that gently separates and widens a jaw ridge that has become too narrow for an implant, creating space within your own bone. It often lets us place the implant in the same session and can avoid the wait of a separate bone graft - rebuilding width where the ridge had thinned over time.",
+   "benefits": [
+    "Widens a narrow ridge using your own bone",
+    "Often allows implant placement in the same stage",
+    "Can avoid the wait of a separate bone graft"
+   ],
+   "idealFor": "Patients with a ridge too narrow for implants who want fewer stages.",
+   "duration": "Often single-stage with the implant",
+   "faqs": [
+    {
+     "q": "How is split crest different from a bone graft?",
+     "a": "Rather than adding graft material and waiting months, split crest gently expands your existing bone to create width - which often means the implant can go in sooner, sometimes in the same visit."
+    },
+    {
+     "q": "Is split crest right for me, and how do I get a quote?",
+     "a": "Suitability depends on your ridge width and bone quality, which we confirm from a CBCT scan; to find out and receive a personalised cost, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "consultation",
+   "title": "Dental Consultation in Tirana | Dental Med Austria",
+   "description": "A thorough first exam and diagnosis in Tirana, Albania - your relaxed, no-pressure starting point with a clear written plan and honest advice. Free plan in 24-48h.",
+   "intro": "Your consultation is the calm, friendly first step where we listen to your concerns and examine your teeth, gums, and bite in detail. Using clinical photos and imaging when needed, we explain exactly what we see in plain language and outline your options. You leave with a clear, personalised plan and no obligation to proceed.",
+   "benefits": [
+    "A complete diagnosis with honest, jargon-free advice",
+    "A personalised written treatment plan, in your language",
+    "No pressure - you decide what feels right for you"
+   ],
+   "idealFor": "Anyone wanting an expert opinion, a second look at existing work, or a clear plan before committing to treatment.",
+   "duration": "30-45 minutes",
+   "faqs": [
+    {
+     "q": "What happens during a consultation?",
+     "a": "We review your dental and medical history, examine your teeth and gums, take any imaging required, and discuss your goals - then we walk you through your options and answer every question you have."
+    },
+    {
+     "q": "How much does a consultation cost and how do I get a quote?",
+     "a": "If you are travelling from abroad and prefer to plan ahead, you can send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "deep-cleaning-airflow",
+   "title": "Deep Cleaning with Airflow in Tirana | Dental Med Austria",
+   "description": "Professional deep cleaning with Airflow air-polishing in Tirana, Albania - lifts stains, plaque, and biofilm that standard scaling leaves behind. Free plan in 24-48h.",
+   "intro": "Our deep cleaning pairs careful scaling with Airflow air-polishing, a gentle jet of fine powder and water that reaches biofilm and stubborn stains a standard clean simply cannot. It clears coffee, tea, and tobacco discolouration from the surface and along the gumline, leaving teeth visibly brighter and noticeably smoother. Comfortable, refreshing, and kind to your enamel and gums.",
+   "benefits": [
+    "Removes stains and biofilm beyond standard scaling",
+    "Gentle on enamel, fillings, and sensitive gums",
+    "Teeth feel smoother and look visibly brighter"
+   ],
+   "idealFor": "Patients with surface staining, heavier plaque, or anyone wanting a deeper, more thorough clean than a routine polish.",
+   "duration": "45-60 minutes",
+   "faqs": [
+    {
+     "q": "How is Airflow different from a normal cleaning?",
+     "a": "A standard clean removes plaque and tartar with scaling; Airflow adds a fine pressurised spray that flushes away biofilm and ingrained stains from grooves and the gumline, giving a deeper, more even result."
+    },
+    {
+     "q": "What does a deep cleaning cost and how do I get a quote?",
+     "a": "Pricing depends on the amount of build-up and staining present; for a personalised estimate, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "filling-evetric",
+   "title": "Composite Filling (Evetric) in Tirana | Dental Med Austria",
+   "description": "A reliable tooth-coloured Evetric composite filling in Tirana, Albania - restores decayed or chipped teeth in a single, comfortable visit. Free plan in 24-48h.",
+   "intro": "An Evetric composite filling is our dependable everyday restoration for decayed, worn, or chipped teeth. This trusted Ivoclar material bonds directly to the tooth, restores natural function, and is shade-matched so the repair blends in. It is a strong, mercury-free choice that gives you a healthy, tooth-coloured result in one straightforward appointment.",
+   "benefits": [
+    "Tooth-coloured and mercury-free, bonded directly to the tooth",
+    "Strong, dependable everyday repair in a single visit",
+    "Preserves more of your natural tooth than older fillings"
+   ],
+   "idealFor": "Patients needing a sound, natural-looking repair for everyday cavities or minor chips at great value.",
+   "duration": "30-45 minutes",
+   "faqs": [
+    {
+     "q": "How does Evetric compare to the premium filling options?",
+     "a": "Evetric is a strong, reliable composite that performs beautifully for everyday fillings; our Estelite and Asteria materials add finer polish and even more precise shade-matching for highly visible front teeth."
+    },
+    {
+     "q": "What will a filling cost and how do I get a quote?",
+     "a": "The cost depends on the size and position of the cavity; for an accurate estimate, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "filling-estelite",
+   "title": "Composite Filling (Estelite) in Tirana | Dental Med Austria",
+   "description": "A premium Japanese Estelite composite filling in Tirana, Albania - prized for its high-gloss polish and lasting, lifelike shine. Free plan in 24-48h.",
+   "intro": "An Estelite filling uses Tokuyama's premium Japanese nano-hybrid composite, renowned for the smooth, glass-like polish it takes and holds. Its spherical filler particles diffuse light beautifully and resist staining, so the restoration stays glossy and discreet for years. It is our refined choice when you want a step up in finish and longevity over a standard filling.",
+   "benefits": [
+    "Exceptional high-gloss polish that resists staining",
+    "Light-diffusing nano-hybrid for a lifelike, lasting finish",
+    "Premium Japanese material ideal for visible teeth"
+   ],
+   "idealFor": "Patients wanting a premium, highly polished and durable repair, especially on teeth that show when you smile.",
+   "duration": "30-45 minutes",
+   "faqs": [
+    {
+     "q": "Why choose Estelite over a standard composite?",
+     "a": "Estelite's spherical nano-filler takes a smoother, glossier polish and holds it longer than conventional composites, so the filling stays bright, stain-resistant, and discreet well into the future."
+    },
+    {
+     "q": "How much does an Estelite filling cost and how do I get a quote?",
+     "a": "Cost varies with the size and location of the restoration; for a tailored estimate, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "filling-asteria",
+   "title": "Composite Filling (Asteria) in Tirana | Dental Med Austria",
+   "description": "A top-tier Asteria composite filling in Tirana, Albania - layered for near-invisible, true-to-life shade-matching on front teeth. Free plan in 24-48h.",
+   "intro": "An Asteria filling is our finest aesthetic restoration, using Tokuyama's flagship enamel and dentine shades to recreate the natural depth and translucency of a real tooth. Built up in lifelike layers, it captures the way light passes through enamel so the repair all but disappears. This is the choice when an invisible result on a front tooth matters most.",
+   "benefits": [
+    "Near-invisible result with true enamel-and-dentine layering",
+    "Top-tier shade-matching for the most visible teeth",
+    "Natural translucency that mimics real tooth structure"
+   ],
+   "idealFor": "Patients restoring front teeth or chips who want the most natural, virtually undetectable finish possible.",
+   "duration": "45-60 minutes",
+   "faqs": [
+    {
+     "q": "What makes Asteria the most natural-looking filling?",
+     "a": "Asteria uses dedicated enamel and dentine shades layered to mirror your tooth's own light behaviour and translucency, so even on a front tooth the restoration blends in almost undetectably."
+    },
+    {
+     "q": "What does an Asteria filling cost and how do I get a quote?",
+     "a": "Because it is an artistic, layered restoration the cost depends on the tooth and detail involved; for a precise estimate, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "simple-extraction",
+   "title": "Simple Tooth Extraction in Tirana | Dental Med Austria",
+   "description": "Gentle, anaesthetised removal of a damaged or loose tooth in Tirana, Albania, with calm aftercare and a smooth, comfortable recovery. Free plan in 24-48h.",
+   "intro": "A simple extraction gently removes a tooth that is visible above the gum and beyond saving - decayed, fractured, or loose. We work under thorough local anaesthetic so the area stays completely numb, easing the tooth out with steady, controlled pressure and a careful, unhurried touch.",
+   "benefits": [
+    "Performed under full local anaesthetic - no pain during treatment",
+    "Gentle, controlled technique that protects the surrounding gum and bone",
+    "Clear aftercare guidance for fast, comfortable healing"
+   ],
+   "idealFor": "Anyone with a decayed, broken, or loose tooth that can no longer be restored.",
+   "duration": "30-45 minutes",
+   "faqs": [
+    {
+     "q": "Does a simple extraction hurt?",
+     "a": "No - the area is fully numbed beforehand, so you feel only light pressure, not pain. Mild soreness afterwards settles within a day or two and is easily managed with simple painkillers."
+    },
+    {
+     "q": "How much will my extraction cost?",
+     "a": "Every case is priced individually once we have seen the tooth and surrounding bone. For an accurate, no-obligation quote, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "retained-tooth-extraction",
+   "title": "Retained Tooth Extraction in Tirana | Dental Med Austria",
+   "description": "Surgical removal of an impacted or buried tooth in Tirana, Albania, by experienced oral surgeons, with sedation available and gentle, guided recovery. Free plan in 24-48h.",
+   "intro": "A retained or impacted tooth is one trapped beneath the gum or wedged in the jawbone - often a wisdom tooth or a stubborn root that never fully emerged. Our oral surgeons release it through a precise, minimally invasive approach, with sedation available for complete calm, then close and care for the site so it heals cleanly.",
+   "benefits": [
+    "Carried out by experienced oral surgeons with surgical precision",
+    "Sedation available for a relaxed, stress-free experience",
+    "Minimally invasive technique to protect bone and speed healing"
+   ],
+   "idealFor": "Patients with an impacted wisdom tooth, buried root, or tooth stuck in the bone or gum.",
+   "duration": "45-90 minutes",
+   "faqs": [
+    {
+     "q": "Will the surgery be uncomfortable?",
+     "a": "You will be fully numb throughout, and sedation is available if you feel anxious, so the procedure itself is painless. We provide detailed aftercare and pain relief to keep the recovery as smooth and comfortable as possible."
+    },
+    {
+     "q": "How much does removing an impacted tooth cost?",
+     "a": "Surgical extractions vary with how deeply the tooth is positioned, so each is quoted individually after assessment. For a precise, no-obligation estimate, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "peek-super-structure",
+   "title": "PEEK Super-Structure in Tirana | Dental Med Austria",
+   "description": "A lightweight, metal-free PEEK framework for a full-arch implant prosthesis in Tirana, Albania - strong, comfortable, and kind to your gums. Free plan in 24-48h.",
+   "intro": "A PEEK super-structure is the hidden framework that gives a full-arch prosthesis its strength, made from a high-performance medical polymer instead of metal. It is remarkably light, gently flexible, and completely free of any metallic taste or sensitivity, so your finished bridge feels natural and sits comfortably against the gums. We use it where patients want a robust full-arch result without a heavy cast-metal base.",
+   "benefits": [
+    "Metal-free and biocompatible, with no metallic taste",
+    "Noticeably lighter than a titanium framework",
+    "Gentle shock absorption that protects your implants"
+   ],
+   "idealFor": "Patients having a full-arch implant prosthesis who prefer a lightweight, metal-free framework.",
+   "faqs": [
+    {
+     "q": "Why choose PEEK instead of a metal framework?",
+     "a": "PEEK is lighter and slightly flexible, which feels more natural in the mouth and cushions chewing forces, while staying strong enough to support a full arch of teeth. It also suits anyone who prefers to avoid metal entirely."
+    },
+    {
+     "q": "How much does a PEEK super-structure cost?",
+     "a": "The price depends on the number of implants and the arch design, so we always quote it individually after reviewing your case - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Lab-made over several appointments"
+  },
+  {
+   "slug": "titanium-bar",
+   "title": "Titanium Bar Framework in Tirana | Dental Med Austria",
+   "description": "A precision titanium bar that joins your implants into one rigid framework for a secure, fixed full-arch prosthesis in Tirana, Albania. Free plan in 24-48h.",
+   "intro": "A titanium bar is a milled metal framework that splints your implants together and carries the full-arch prosthesis as one solid, fixed unit. Because titanium is exceptionally strong and precisely machined, the bar distributes your bite evenly across every implant and keeps the whole bridge rock-steady. It is our framework of choice when maximum rigidity and long-term durability matter most.",
+   "benefits": [
+    "Maximum rigidity for a truly fixed full-arch result",
+    "Even load sharing that protects every implant",
+    "Precision-milled titanium built for decades of use"
+   ],
+   "idealFor": "Patients wanting the strongest, most stable framework for a fixed full-arch restoration.",
+   "faqs": [
+    {
+     "q": "What makes a titanium bar so stable?",
+     "a": "The bar is milled to fit your implants with great precision and locks them together into a single rigid structure, so chewing forces are shared evenly and nothing flexes or shifts under pressure."
+    },
+    {
+     "q": "What does a titanium bar framework cost?",
+     "a": "Cost varies with the number of implants and the complexity of the arch, so we price each case on its own - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Milled and fitted over several visits"
+  },
+  {
+   "slug": "screw-system",
+   "title": "Implant Screw System in Tirana | Dental Med Austria",
+   "description": "The precision screws and abutment components that secure your prosthesis to its implants in Tirana, Albania - retrievable, serviceable, and reliable. Free plan in 24-48h.",
+   "intro": "The screw system is the set of small, high-precision components - retaining screws and connecting parts - that fasten your prosthesis securely onto its implants. Because the work is screw-retained rather than cemented, it stays firmly in place yet can be unfastened by your dentist whenever maintenance is needed. This makes future check-ups, cleaning, and any adjustments simple and clean.",
+   "benefits": [
+    "A firm, screw-retained hold with no loose movement",
+    "Fully retrievable for easy servicing and cleaning",
+    "Engineered components matched precisely to your implants"
+   ],
+   "idealFor": "Patients who want a securely fixed prosthesis that can still be unfastened for maintenance.",
+   "faqs": [
+    {
+     "q": "Why is a screw-retained prosthesis an advantage?",
+     "a": "Screw retention keeps the prosthesis firmly fixed during everyday use, yet your dentist can remove it cleanly for a thorough professional clean or any future adjustment - something a cemented restoration does not allow."
+    },
+    {
+     "q": "How much does the screw system cost?",
+     "a": "The components are quoted as part of your overall prosthetic plan, which we tailor to your case - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "elastic-prosthesis",
+   "title": "Flexible Denture in Tirana | Dental Med Austria",
+   "description": "A soft, metal-free flexible denture that hugs your gums for comfort and a natural look in Tirana, Albania - light, discreet, and easy to wear. Free plan in 24-48h.",
+   "intro": "A flexible denture is a removable replacement made from a soft, pliable, metal-free material that adapts gently to the shape of your gums. It is light and comfortable to wear, with a thin gum-coloured base that blends in naturally and shows no metal at all. Because it flexes slightly, it tends to feel kinder in the mouth than a rigid acrylic plate.",
+   "benefits": [
+    "Soft, metal-free material that flexes with your mouth",
+    "A discreet, gum-coloured base with no visible metal",
+    "Lightweight and comfortable for everyday wear"
+   ],
+   "idealFor": "Anyone wanting a comfortable, natural-looking removable denture without any metal.",
+   "faqs": [
+    {
+     "q": "How is a flexible denture different from an ordinary one?",
+     "a": "It is made from a soft, pliable material rather than rigid acrylic, so it adapts to your gums more gently and avoids the bulky metal clasps of a conventional partial denture, giving a more comfortable and discreet result."
+    },
+    {
+     "q": "What does a flexible denture cost?",
+     "a": "The price depends on how many teeth are being replaced and the design of the base, so we quote each case individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Usually 2-3 visits"
+  },
+  {
+   "slug": "elastic-prosthesis-hooks",
+   "title": "Flexible Denture with Clasps in Tirana | Dental Med Austria",
+   "description": "A flexible partial denture with discreet gum-coloured clasps that grip your own teeth for a secure, comfortable fit in Tirana, Albania. Free plan in 24-48h.",
+   "intro": "This is a flexible partial denture fitted with soft, tooth- and gum-coloured clasps that wrap gently around your remaining natural teeth to hold it firmly in place. The clasps are made from the same pliable material as the base, so there is no shiny metal on show and the whole denture stays light and comfortable. It is an excellent removable option when you still have healthy teeth to anchor to.",
+   "benefits": [
+    "Discreet clasps that blend in instead of showing metal",
+    "A secure grip on your existing natural teeth",
+    "Light, flexible material that stays comfortable all day"
+   ],
+   "idealFor": "Patients with some healthy natural teeth who want a secure yet discreet removable denture.",
+   "faqs": [
+    {
+     "q": "Will the clasps be noticeable when I smile?",
+     "a": "No - the clasps are made from the same flexible, tooth- and gum-coloured material as the denture itself, so they blend in with your teeth and gums rather than showing as visible metal hooks."
+    },
+    {
+     "q": "How much does a flexible denture with clasps cost?",
+     "a": "Cost depends on the number of teeth replaced and the clasp design needed for your case, so we price it individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Usually 2-3 visits"
+  },
+  {
+   "slug": "prosthesis-buttons",
+   "title": "Implant Overdenture (Locators) in Tirana | Dental Med Austria",
+   "description": "A snap-on implant overdenture held firmly by locator attachments in Tirana, Albania - stable while you eat, yet easy to remove and clean. Free plan in 24-48h.",
+   "intro": "An implant overdenture clips securely onto a small number of implants using locator attachments - the button-style connectors that snap the denture firmly into place. It gives you the confidence of a fixed-feeling bite while still lifting out easily for cleaning at the end of the day. For many patients it is a transformative step up from a loose, gum-borne denture.",
+   "benefits": [
+    "Snaps firmly onto implants for a stable, confident bite",
+    "Removable for simple, thorough daily cleaning",
+    "Replaceable locator inserts keep the fit reliable over time"
+   ],
+   "idealFor": "Anyone tired of a loose lower denture who wants a secure, removable, implant-supported alternative.",
+   "faqs": [
+    {
+     "q": "How does a locator overdenture stay in place?",
+     "a": "Small locator attachments on your implants click into matching housings inside the denture, holding it firmly during eating and speaking while still letting you unclip it easily for cleaning. The inserts can be renewed to keep the snap secure."
+    },
+    {
+     "q": "What does an implant overdenture cost?",
+     "a": "The price depends on the number of implants and attachments your case needs, so we quote it individually - send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ],
+   "duration": "Fitted over several visits"
+  },
+  {
+   "slug": "metal-braces",
+   "title": "Metal Braces in Tirana | Dental Med Austria",
+   "description": "Straighten crowded or crooked teeth with reliable fixed metal braces in Tirana, Albania - led by our orthodontist and built for dependable results. Free plan in 24-48h.",
+   "intro": "Fixed metal braces are the classic, proven way to correct crowding, gaps, and bite problems. Small high-grade brackets and a guiding wire are bonded to your teeth and adjusted over time by our orthodontist, gradually moving everything into a healthy, even alignment. It is the most robust and dependable option we offer, ideal for handling more complex movements with confidence.",
+   "benefits": [
+    "Highly effective for complex crowding and bite corrections",
+    "Robust, low-fuss brackets you never have to remember to wear",
+    "Excellent value for comprehensive, orthodontist-led straightening"
+   ],
+   "idealFor": "Patients who want effective, dependable straightening and are happy with a visible brace.",
+   "duration": "Reviewed every few weeks",
+   "faqs": [
+    {
+     "q": "Will metal braces hurt?",
+     "a": "You may feel mild pressure or tenderness for a day or two after fitting and each adjustment, which settles quickly - it's a sign the teeth are gently moving into place."
+    },
+    {
+     "q": "How do I get a quote for metal braces?",
+     "a": "After a quick assessment we'll outline your personalised treatment and timeline; to begin remotely, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  },
+  {
+   "slug": "aesthetic-braces",
+   "title": "Aesthetic Ceramic Braces in Tirana | Dental Med Austria",
+   "description": "Straighten your teeth discreetly with tooth-coloured ceramic braces in Tirana, Albania - the same proven results, far less visible. Free plan in 24-48h.",
+   "intro": "Aesthetic braces use tooth-coloured ceramic brackets that blend into your natural enamel, so you can straighten your smile far more discreetly than with metal. Guided by our orthodontist, they correct the same crowding, spacing, and bite issues as classic braces while staying beautifully low-key in everyday photos and conversation. A favourite with adults who want effective treatment without an obvious metal look.",
+   "benefits": [
+    "Tooth-coloured brackets that stay discreet up close",
+    "The same proven, orthodontist-led straightening as metal",
+    "A confident choice for adults and working professionals"
+   ],
+   "idealFor": "Anyone who wants the reliability of fixed braces with a far more discreet, natural appearance.",
+   "duration": "Reviewed every few weeks",
+   "faqs": [
+    {
+     "q": "Are ceramic braces as effective as metal ones?",
+     "a": "Yes - they move teeth using the same proven principles; the difference is purely cosmetic, with tooth-coloured brackets in place of metal for a more discreet look."
+    },
+    {
+     "q": "How do I get a quote for ceramic braces?",
+     "a": "We'll assess your case and tailor a treatment plan and timeline to your smile; to start remotely, send a panoramic X-ray and a few photos for a free written treatment plan within 24-48 hours."
+    }
+   ]
+  }
+ ]
+}

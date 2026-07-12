@@ -1,0 +1,32 @@
+{
+  "runtimeThrowRisks": [
+    {
+      "location": "buildCrown -> orientOutward (geometry.ts:152-182)",
+      "why": "No throw. setIndex(idx) is called with a non-null number[] before orientOutward runs, so geo.index is a valid BufferAttribute (never null) and the `geo.index as THREE.BufferAttribute` cast is safe. High-LOD vertex count is 4802 (wall (RW+1)*RT=35*96=3360, cap (RC-1)*RT=15*96=1440, +2 centers), well under 65535, so three picks a Uint16BufferAttribute and the `index.array as Uint16Array | Uint32Array` cast matches reality. In-place typed-array mutation (arr[i+1]=ic; arr[i+2]=ib) plus index.needsUpdate=true is correct.",
+      "severity": "none"
+    },
+    {
+      "location": "buildCrown index/array access (geometry.ts:196-249)",
+      "why": "No out-of-bounds / undefined access. The wall loop runs r=0..RW inclusive so wall[RW] exists for the cap seam; cap[cap.length-1] (innermost) always exists; profile[0][1] and profile[profile.length-1] are in range. addV always returns a valid index. Float32BufferAttribute(positions,3) accepts a plain number[].",
+      "severity": "none"
+    },
+    {
+      "location": "occlusalField / superellipse / sampleProfile (geometry.ts:116-148)",
+      "why": "Pure math, no allocation/cast that can throw. Math.sign(0)=0 at axis-aligned thetas just zeroes that coordinate (harmless). smoothstep clamps. No NaN path that would crash the render (NaN positions would render garbage, not throw, but none occur here).",
+      "severity": "none"
+    }
+  ],
+  "consumerBreakage": "No breakage. Neither consumer touches LatheGeometry-specific members. ImplantModel.tsx (line 54, 97) uses geo.crown only as a <mesh geometry={...}> prop. ObjectScene.tsx uses buildCrown in two places: ArchModel (line 16,33,37) as a geometry prop only, and ObjectModel (line 49-57) which calls g.computeBoundingBox(), reads g.boundingBox!, and bb.getSize/getCenter — all are THREE.BufferGeometry base-class members present on LatheGeometry AND plain BufferGeometry alike. There is zero use of .parameters or any lathe-only API on the crown. The return-type narrowing from LatheGeometry to BufferGeometry is strictly safe (LatheGeometry extends BufferGeometry, so callers only ever relied on the base interface).",
+  "orientOutwardCorrect": true,
+  "windingNotes": "Correct for a star-convex solid. For a shape star-convex about an interior point, the outward face direction equals sign(dot(faceNormal, faceCentroid - bodyCentroid)); flipping triangles whose dot<0 makes every face wind consistently outward (CCW when viewed from outside). The one approximation: the reference point is the vertex-average centroid, not the true volumetric centroid. That is fine here because the crown profile (neck y=-4.15 .. cap y=3.3) is genuinely star-convex about its vertex-mean interior point, so no face's true outward sign is misjudged. The thin neck-fan and center-fan triangles have small but non-zero area, so their face normals are non-degenerate and the dot sign is reliable. After the flip, computeVertexNormals() averages the (now uniformly outward) per-face normals into per-vertex normals, yielding smooth outward shading; the only seam that stays sharp-ish is the rim, which is intended since the cap shares the rim ring vertices with the wall (normals blend there too). Net: smooth, outward-facing normals.",
+  "realismCritique": "Reasonable molar silhouette, slightly caricatured. The superellipse footprint with A=3.05 (buccolingual) / B=2.78 (mesiodistal) and n=3.2 gives a rounded-square crown table with the correct B/A ~0.91 ratio for a lower first molar (which is genuinely a bit wider buccolingually) — good. n=3.2 is a touch boxy; real enamel contours are closer to n~2.4-2.8, so the corners read a little too square/CAD-like. Cusp amplitude 1.35 (~1.35mm of relief on a ~3mm half-width table) is at the tall end but acceptable for an unworn young molar; combined with fossa 0.55 and groove 0.5 the central fissure pattern is plausible (cross-shaped fissure between 4 cusps = classic molar). Anatomical liberties: all four cusps are equal height and equally spaced at 45/135/225/315 deg — a real first molar has a marginally lower distolingual cusp and the mesiolingual cusp is largest, with the fissure pattern skewed (the '+' is really more of a 'Y'/oblique-ridge for uppers). Cusps are also modeled as isotropic Gaussians (sigma 0.52) so they're round bumps rather than ridged cusps with marginal ridges. For a stylized clinical illustration this is convincing; for textbook accuracy you'd want unequal cusps, an oblique ridge, and sharper occlusal ridges.",
+  "improvements": [
+    "Drop superellipse exponent to n~2.6 for a softer, less CAD-like enamel contour at the corners.",
+    "Break the 4-fold symmetry: vary CUSP_ANGLES slightly and give per-cusp heights (e.g. mesiolingual tallest, distolingual lowest) instead of a single 1.35 amplitude.",
+    "Replace the central fossa single Gaussian with an oblique-ridge term so uppers vs lowers differ, or at least bias the groove field toward a Y-pattern.",
+    "Add a tiny cervical bulge (height of contour) — the profile already narrows the neck but a slight equatorial bulge near y=-0.3 would read more natural.",
+    "Optional: call geo.computeBoundingSphere() too, since ObjectScene only computes the box; not required but avoids a lazy recompute on first frustum cull.",
+    "Micro: orientOutward could skip near-degenerate faces (fn.lengthSq() < eps) defensively, though current geometry has none — cheap insurance if the profile is ever edited to close fully at the apex."
+  ],
+  "verdict": "SHIP-SAFE. buildCrown/orientOutward cannot throw during client render given the current parameters (index is always set before orientOutward, vertex count 4802 fits Uint16 so the typed-array cast is correct, no undefined/OOB access). The LatheGeometry->BufferGeometry return-type change breaks NO consumer — ImplantModel and ObjectScene only use base BufferGeometry members (geometry prop, computeBoundingBox/boundingBox/getSize/getCenter); nothing reads .parameters or any lathe-only API. orientOutward's centroid-dot winding flip is correct for this star-convex tooth and computeVertexNormals yields smooth outward normals. If the canvas is actually null in the page, the cause is NOT this geometry code — look elsewhere (e.g. MeshTransmissionMaterial / EffectComposer / drei-postprocessing import or a WebGL context failure)."
+}

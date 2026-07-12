@@ -1,0 +1,283 @@
+// AUTO-GENERATED — Albanian (sq) short-string overlays (names, summaries,
+// category labels/blurbs, packet titles, equipment summaries, blog categories).
+// Client-safe: strings only. Regenerate via scratch_assemble.mjs.
+import type { Locale } from "./dictionaries";
+
+export const SERVICE_NAME_SQ: Record<string, string> = {
+  "straumann-blx-implant": "Implanti Premium Straumann BLX",
+  "biodem-implant": "Implanti Gjerman Biodem",
+  "single-implant-crown": "Implant i Vetëm, Abutment dhe Kurorë",
+  "all-on-4-single": "All-on-4 (Hark i Vetëm)",
+  "all-on-4-both": "All-on-4 (Të Dy Harqet)",
+  "all-on-6-single": "All-on-6 (Hark i Vetëm)",
+  "all-on-6-both": "All-on-6 (Të Dy Harqet)",
+  "bone-augmentation": "Rigjenerim Kocke / GBR",
+  "sinus-lift": "Ngritje Sinusi",
+  "guided-implant-surgery": "Kirurgji Implanti 3D e Drejtuar nga Kompjuteri",
+  "orthognathic-surgery": "Kirurgji Korrektuese e Nofullës",
+  "zirconia-emax-layered-crown": "Kurorë Zirkoni me Shtresë E-max",
+  "zirconia-crown": "Kurorë Zirkoni me Kontur të Plotë",
+  "emax-crown": "Kurorë E-max",
+  "metal-ceramic-crown": "Kurorë Metalo-Qeramike",
+  "porcelain-veneer": "Veneera Qeramike",
+  "emax-veneer": "Veneera E-max",
+  "composite-veneer": "Veneera Komposite",
+  "hollywood-smile-16": "Buzëqeshje Hollywood (16 Veneera)",
+  "hollywood-smile-20": "Buzëqeshje Hollywood (20 Veneera)",
+  "smile-design": "Digital Smile Design",
+  "gingival-contouring": "Korrigjimi i Buzëqeshjes së Mishërt (Gummy Smile)",
+  "full-mouth-rehab": "Rehabilitim Estetik i Tërë Gojës",
+  "laser-whitening": "Zbardhim Dhëmbësh me Lazer",
+  "take-home-whitening": "Kit Zbardhimi për në Shtëpi",
+  "root-canal-single": "Trajtim Kanali - Kanal i Vetëm",
+  "root-canal-molar": "Trajtim Kanali - Molar (3+ Kanale)",
+  "teeth-cleaning": "Pastrim Profesional i Dhëmbëve",
+  "gum-disease-treatment": "Trajtimi i Sëmundjes së Mishrave të Dhëmbëve",
+  "gum-graft": "Graft për Tërheqjen e Mishrave",
+  "invisalign": "Aligner-a Transparentë Invisalign",
+  "self-ligating-braces": "Apareta Vetëlidhëse",
+  "lingual-braces": "Apareta Linguale",
+  "wisdom-tooth-removal": "Heqja Kirurgjike e Dhëmbit të Pjekurisë",
+  "cyst-removal": "Heqja e Cistit / Kirurgjia Apikale",
+  "iv-sedation": "Sedim Intravenoz në Stomatologji",
+  "remote-treatment-plan": "Plan Trajtimi Falas në Distancë",
+  "cbct-scan": "Skanim 3D CBCT",
+  "airport-transfer": "Marrje dhe Kthim në Aeroport",
+  "multilingual-coordinator": "Koordinator Shumëgjuhësh",
+  "hotel-concierge": "Koncierge Hoteli",
+  "chrome-cobalt-crown": "Kurorë Krom-Kobalt",
+  "multilayer-zirconia-crown": "Kurorë Shumështresore Zirkoni",
+  "zirconia-emax-gisi-crown": "Kurorë Zirkon E-max GiSi",
+  "zirconia-emax-ivoclar-crown": "Kurorë Zirkon E-max Ivoclar",
+  "full-emax-gisi-crown": "Kurorë E-max e Plotë GiSi II",
+  "full-emax-ivoclar-crown": "Kurorë E-max e Plotë Ivoclar II",
+  "full-emax-premium-ivoclar-crown": "Kurorë E-max e Plotë Premium Ivoclar",
+  "top-line-gisi-emax-crown": "Kurorë Top Line GiSi E-max Premium",
+  "top-line-ivoclar-emax-crown": "Kurorë Premium Top Line Ivoclar E-max",
+  "temporary-crown": "Kurorë e Përkohshme",
+  "zirconia-veneer": "Veneera Zirkoni",
+  "zirconia-emax-gisi-veneer": "Veneera Zirkon E-max GiSi",
+  "zirconia-emax-ivoclar-veneer": "Veneera Zirkon E-max Ivoclar",
+  "zirconia-emax-gisi-ii-veneer": "Veneera Zirkon E-max GiSi II",
+  "zirconia-emax-ivoclar-ii-veneer": "Veneera Zirkon E-max Ivoclar II",
+  "full-emax-gisi-veneer": "Veneera e Plotë E-max GiSi",
+  "full-emax-ivoclar-veneer": "Veneera e Plotë E-max Ivoclar",
+  "full-emax-premium-veneer": "Veneera e Plotë E-max Premium",
+  "detech-implant": "Implant Detech",
+  "implant-swiss": "Implant Swiss Premium",
+  "straumann-blt-implant": "Implant Straumann BLT",
+  "homeostatic-sponge": "Sfungjer Hemostatik",
+  "prf-platelet-rich-fibrin": "PRF (Fibrinë e Pasur me Trombocite)",
+  "membrane": "Membranë Kolagjeni (GBR)",
+  "osteotomy": "Osteotomi",
+  "split-crest": "Zgjerim i Kreshtës me Teknikën Split Crest",
+  "consultation": "Konsultë",
+  "filling-evetric": "Mbushje Kompozite (Evetric)",
+  "filling-estelite": "Mbushje Kompozite (Estelite)",
+  "filling-asteria": "Mbushje Kompozite (Asteria)",
+  "deep-cleaning-airflow": "Pastrim i Thellë (Airflow)",
+  "simple-extraction": "Heqje e Thjeshtë e Dhëmbit",
+  "retained-tooth-extraction": "Heqje e Dhëmbit të Mbetur",
+  "peek-super-structure": "Super-strukturë PEEK",
+  "titanium-bar": "Kornizë me Shufër Titani",
+  "screw-system": "Sistem Vidhash për Implante",
+  "elastic-prosthesis": "Protezë Fleksibël",
+  "elastic-prosthesis-hooks": "Protezë Fleksibël me Kapëse",
+  "prosthesis-buttons": "Mbiprotezë mbi Implante (Locators)",
+  "metal-braces": "Apareta Metalike",
+  "aesthetic-braces": "Apareta Estetike (Qeramike)"
+};
+export const SERVICE_SUMMARY_SQ: Record<string, string> = {
+  "straumann-blx-implant": "Implanti standard ari zviceran - një dizajn plotësisht konik i optimizuar për vendosje dhe ngarkim të menjëhershëm, nga sistemi klinikisht më i dokumentuar në botë. Zgjedhja jonë për pacientët që duan më të mirën absolute.",
+  "biodem-implant": "Implant i projektuar në Gjermani, me markim CE dhe me një pasaportë personale implanti që regjistron numra serialë të verifikueshëm - një opsion i rafinuar mesatar-premium që pasqyron premtimin tonë për cilësi evropiane.",
+  "single-implant-crown": "Një zgjidhje e plotë fikse për një dhëmb të vetëm: implant, abutment i personalizuar dhe një kurorë zirkoni ose E-max - restaurimi më i popullarizuar për një dhëmb të vetëm.",
+  "all-on-4-single": "Katër implante që mbajnë një urë fikse për hark të plotë, me dhëmbë të përkohshëm brenda së njëjtës ditë përmes kirurgjisë së udhëhequr në 3D - një buzëqeshje e re e plotë në një vizitë.",
+  "all-on-4-both": "Të dyja nofullat, e sipërme dhe e poshtme, të restauruara me teknikën All-on-4 për një buzëqeshje të plotë e fikse të tërë gojës.",
+  "all-on-6-single": "Gjashtë implante për një restaurim më të fortë e me rezistencë më të lartë të harkut të plotë, me stabilitet të shkëlqyer afatgjatë.",
+  "all-on-6-both": "Gjashtë implante për nofull për një rikonstruksion fiks të tërë gojës të nivelit të lartë, i ndërtuar për fuqi dhe jetëgjatësi.",
+  "bone-augmentation": "Rigjenerim i drejtuar i kockës që rindërton kockën e humbur me një graft dhe një membranë kolageni, duke krijuar një bazë solide përpara vendosjes së implantit.",
+  "sinus-lift": "Një ngritje sinusi me dritare laterale që rikthen lartësinë në nofullën e sipërme, që implantet të mund të vendosen me siguri.",
+  "guided-implant-surgery": "Planifikimi me CBCT dhe një udhëzues kirurgjikal i printuar në 3D kontrollojnë çdo hap të vendosjes, duke përmirësuar ndjeshëm saktësinë dhe rehatinë.",
+  "orthognathic-surgery": "Kirurgji e avancuar e ripozicionimit të nofullës, e kryer sipas standardeve spitalore nga ekipi ynë kirurgjikal, për të korrigjuar shqetësimet e kafshimit dhe rreshtimit.",
+  "zirconia-emax-layered-crown": "Kurora jonë e veçantë: një bërthamë e fortë zirkoni e shtresuar me dorë me qeramikë Ivoclar IPS e.max për finishimin më të gjallë e reflektues të dritës.",
+  "zirconia-crown": "Një kurorë e fortë monolitike zirkoni pa metal, e frezuar në laboratorin tonë - standardi modern për restaurime të qëndrueshme.",
+  "emax-crown": "Një kurorë qeramike qelqi me transparencë superiore - standardi i artë për dhëmbë të përparmë me pamje natyrore.",
+  "metal-ceramic-crown": "Metalo-qeramika, një restaurim i provuar në kohë dhe rezistent për dhëmbët e pasmë.",
+  "porcelain-veneer": "Një guaskë e hollë qeramike e ngjitur në dhëmb, mënyra klasike premium për të përsosur formën, ngjyrën dhe harmoninë.",
+  "emax-veneer": "Një veneera nga qeramikë e presuar që bashkon fortësinë e lartë me estetikën e përsosur, standardi ynë premium i veneerave.",
+  "composite-veneer": "Një veneera komposite e drejtpërdrejtë, brenda së njëjtës vizitë, që freskon buzëqeshjen tuaj me një qasje të kthyeshme e minimalisht invazive.",
+  "hollywood-smile-16": "Një transformim i harkut të plotë me 16 veneera në zonën e buzëqeshjes për një rezultat rrezatues dhe përsosmërisht të balancuar.",
+  "hollywood-smile-20": "Një transformim premium i tërë gojës që zgjatet deri te premolarët për transformimin më të plotë të buzëqeshjes.",
+  "smile-design": "Një protokoll fotografik dhe maketë dixhitale që ju lejon të parapashoni dhe të modeloni buzëqeshjen tuaj të re përpara se të fillojë trajtimi.",
+  "gingival-contouring": "Riformësim i butë i vijës së mishrave të dhëmbëve me lazer diode, për të sjellë ekuilibër dhe harmoni në buzëqeshjen tuaj.",
+  "full-mouth-rehab": "Një plan i kombinuar veneerash, kurorash dhe implantesh për raste komplekse, në fazë përfundimtare, estetike dhe funksionale.",
+  "laser-whitening": "Një seancë zbardhimi në klinikë e aktivizuar me dritë lazeri/LED, me rezultate të dukshme brenda 60-90 minutash.",
+  "take-home-whitening": "Kupa të personalizuara dhe xhel profesional për ta ndriçuar butësisht buzëqeshjen tuaj gjatë dy javëve në shtëpi.",
+  "root-canal-single": "Heqje e kujdesshme e pulpës së infektuar nga një dhëmb njërrënjësh, e më pas mbyllje për ta mbrojtur dhe ruajtur atë.",
+  "root-canal-molar": "Trajtim kanali molari shumëkanalësh duke përdorur sisteme rotative për të lundruar me saktësi në anatomi komplekse.",
+  "teeth-cleaning": "Një pastrim e lëmim i plotë ultrasonik - themeli i një goje të shëndetshme dhe një buzëqeshjeje më të ndritshme.",
+  "gum-disease-treatment": "Një program me disa seanca me pastrim të thellë, planim të rrënjëve dhe mirëmbajtje për të trajtuar dhe kontrolluar periodontitin.",
+  "gum-graft": "Korrigjim kirurgjik i mishrave që tërhiqen duke përdorur ind dhurues ose rigjenerues për të mbrojtur rrënjët dhe për të rikthyer vijën e mishrave.",
+  "invisalign": "Aligner-a praktikisht të padukshëm dhe të lëvizshëm që drejtojnë buzëqeshjen tuaj në mënyrë diskrete - për rastet nga të lehta deri në të rënda.",
+  "self-ligating-braces": "Mbajtëse moderne pa lidhëse elastike - shpesh duke nënkuptuar trajtim më të shpejtë me më pak fërkim dhe më pak vizita.",
+  "lingual-braces": "Apareta të ngjitura pas dhëmbëve - plotësisht të padukshme nga përpara për korrigjimin më diskret.",
+  "wisdom-tooth-removal": "Ndarje dhe heqje e butë e dhëmbëve të pjekurisë të mbërthyer, me kujdes pas trajtimit për një shërim të qetë.",
+  "cyst-removal": "Heqje e saktë e cisteve të nofullës, me graft kockor aty ku është e nevojshme - një specialitet kryesor kirurgjik i ekipit tonë.",
+  "iv-sedation": "Sedim intravenoz i administruar nga një anesteziolog, që pacientët ansiozë dhe operacionet më të gjata të jenë plotësisht të rehatshëm.",
+  "remote-treatment-plan": "Na dërgoni radiografinë dhe fotografitë tuaja dhe ne do t'ju kthejmë një plan trajtimi të personalizuar brenda 24-48 orësh - në gjuhën tuaj, pa pagesë.",
+  "cbct-scan": "Imazheri 3D me rreze koni e nofullës për diagnozë e planifikim të saktë të implanteve dhe të rasteve komplekse.",
+  "airport-transfer": "Një shofer privat midis aeroportit të Tiranës dhe klinikës - i përfshirë me paketat kryesore të trajtimit.",
+  "multilingual-coordinator": "Një koordinator i dedikuar gjatë gjithë vizitës suaj, me mbështetje në anglisht, italisht, gjermanisht, frëngjisht dhe shqip.",
+  "hotel-concierge": "Tarifa të paranegociuara në hotele partnere të rehatshme pranë klinikës - ndonjëherë të përfshira në paketën tuaj.",
+  "chrome-cobalt-crown": "Kurora krom-kobalt bashkon një bërthamë të fortë e biokompatibël prej kobalt-kromi me një sipërfaqe qeramike të aplikuar me dorë.",
+  "multilayer-zirconia-crown": "Zirkoni shumështresor frezohet nga një bllok i vetëm që përmban tashmë një gradient natyral ngjyre dhe tejdukshmërie - më i thellë te kufiri i mishrave dhe më i ndritshëm drejt tehut kafshues, ashtu si një dhëmb i vërtetë.",
+  "zirconia-emax-gisi-crown": "Kjo kurorë bashkon dy materiale për të marrë më të mirën e të dyjave: një bërthamë e fortë zirkoni për forcë, e veshur me dorë me qeramikë GiSi E-max për një sipërfaqe më të ndritshme dhe më të tejdukshme se sa mund të ofrojë zirkoni i vetëm.",
+  "zirconia-emax-ivoclar-crown": "E ndërtuar mbi një bërthamë të fortë zirkoni dhe e veshur me dorë me qeramikë autentike Ivoclar IPS e.max, kjo kurorë ofron një estetikë dukshëm më të rafinuar se qeramikat standarde.",
+  "full-emax-gisi-crown": "Kurora E-max e Plotë GiSi II bëhet tërësisht nga qeramika disilikat litiumi - pa metal dhe pa bërthamë të veçantë - kështu drita kalon nëpër të gati si smalti.",
+  "full-emax-ivoclar-crown": "Kjo kurorë frezohet nga një bllok i vetëm E-max autentik Ivoclar Vivadent - disilikati origjinal i litiumit që vendosi standardin për qeramikat estetike.",
+  "full-emax-premium-ivoclar-crown": "Kurora Premium Ivoclar E-max e çon disilikatin autentik të litiumit Ivoclar një hap më tej me karakterizim individual në laboratorin tonë - njollosje e brendshme e hollë, teksturë sipërfaqësore dhe lustrim të aplikuara me dorë për të imituar detajet e vockla të një dhëmbi të vërtetë.",
+  "top-line-gisi-emax-crown": "Gama jonë Top Line përfaqëson kulmin e punës estetike me kurora.",
+  "top-line-ivoclar-emax-crown": "Kjo është kurora kryesore e gamës sonë të kurorave.",
+  "temporary-crown": "Një kurorë e përkohshme është një provizor i punuar me porosi që vendoset mbi dhëmbin tuaj të përgatitur ndërkohë që kurora përfundimtare është duke u krijuar.",
+  "zirconia-veneer": "Një veneera zirkoni është një veshje e hollë me kontur të plotë, e frezuar në laboratorin tonë të brendshëm nga zirkon premium gjerman dhe e ngjitur në pjesën e përparme të dhëmbit tuaj.",
+  "zirconia-emax-gisi-veneer": "Kjo veneera ndërthur një bërthamë të fortë prej zirkoni me një veshje qeramike GiSi E-max, duke ju dhënë qëndrueshmërinë e zirkonit dhe një sipërfaqe të përparme më të natyrshme e të shtresuar.",
+  "zirconia-emax-ivoclar-veneer": "Këtu bërthama e zirkonit vishet me qeramikë autentike Ivoclar IPS e.max - të njëjtën qeramikë premium që përdorin kurorat tona më të mira.",
+  "zirconia-emax-gisi-ii-veneer": "Veneera GiSi II është ndërtimi ynë i përmirësuar GiSi, me shtresim shtesë me dorë të qeramikës E-max mbi bërthamën e zirkonit për thellësi, karakter dhe një rezultat më të individualizuar.",
+  "zirconia-emax-ivoclar-ii-veneer": "Veneera Ivoclar II është kryesorja e gamës sonë të shtresuar - një bërthamë zirkoni e përfunduar me qeramikë shtesë të aplikuar me dorë Ivoclar IPS e.max për tejdukshmërinë më të thellë e më natyrale që ofrojmë mbi një bazë të përforcuar.",
+  "full-emax-gisi-veneer": "Një veneera e plotë E-max GiSi presohet tërësisht nga qeramika prej qelqi GiSi, pa asnjë bërthamë zirkoni poshtë saj.",
+  "full-emax-ivoclar-veneer": "Veneera e plotë E-max Ivoclar presohet nga Ivoclar IPS E-max autentike - qeramika prej dilitium-disilikati që përbën standardin e artë - në një guaskë të vetme monolitike.",
+  "full-emax-premium-veneer": "Veneera e plotë E-max Premium është produkti ynë kryesor - çdo guaskë ndërtohet individualisht me dorë shtresë pas shtrese dhe karakterizohet nga qeramisti ynë mjeshtër, nga Ivoclar E-max premium.",
+  "detech-implant": "Detech është një implant i besueshëm e i qëndrueshëm - një sistem cilësor prej titani me sipërfaqe të mikrotekturuar që integrohet me besueshmëri me kockën e nofullës suaj.",
+  "implant-swiss": "Implanti Swiss qëndron në nivelin tonë premium - titan i projektuar në Zvicër, me prodhimin e përpiktë dhe kontrollin rigoroz të cilësisë për të cilat njihet ai emër.",
+  "straumann-blt-implant": "Straumann BLT është implanti me standard të artë zviceran, i tipit bone-level i konusuar, i projektuar për stabilitet fillestar të shkëlqyer edhe në kockë më të butë.",
+  "homeostatic-sponge": "Një sfungjer hemostatik është një fashë e butë e resorbueshme prej kolageni që e vendosim në një alveolë ose vend kirurgjik për të qetësuar shpejt gjakderdhjen dhe për të stabilizuar mpiksjen e hershme të gjakut.",
+  "prf-platelet-rich-fibrin": "PRF, ose fibrina e pasur me trombocite, përgatitet nga një mostër e vogël e gjakut tuaj, e cila rrotullohet në një centrifugë për të përqendruar trombocitet dhe faktorët e rritjes që nxisin shërimin.",
+  "membrane": "Një membranë kolagjeni është një pengesë e hollë dhe e resorbueshme që vendoset mbi një graft kockor për të udhëhequr rigjenerimin - duke e mbajtur graftin në vend dhe duke penguar indin e mishrave të dhëmbëve që rritet shpejt, ndërkohë që kocka e re formohet poshtë.",
+  "osteotomy": "Një osteotomi është përgatitja e saktë dhe e kontrolluar e kockës së nofullës që krijon një kanal të përpiktë për një implant ose riformëson kreshtën përpara ndërhyrjes.",
+  "split-crest": "Split crest është një teknikë e rafinuar që ndan e zgjeron butësisht një kreshtë nofulle që është bërë tepër e ngushtë për një implant, duke krijuar hapësirë brenda kockës suaj.",
+  "consultation": "Konsulta juaj është hapi i parë i qetë e miqësor, ku dëgjojmë shqetësimet tuaja dhe ekzaminojmë në detaje dhëmbët, mishrat e dhëmbëve dhe kafshimin tuaj.",
+  "filling-evetric": "Një mbushje kompozite Evetric është restaurimi ynë i besueshëm i përditshëm për dhëmbët e kariesuar, të konsumuar ose të thyer.",
+  "filling-estelite": "Një mbushje Estelite përdor kompozitin premium nano-hibrid japonez të Tokuyama-s, i njohur për lëmimin e butë e të ngjashëm me qelqin që merr dhe ruan.",
+  "filling-asteria": "Një mbushje Asteria është restaurimi ynë estetik më i mirë, që përdor ngjyrat më të mira të smaltit dhe dentinës nga Tokuyama për të rikrijuar thellësinë dhe tejdukshmërinë natyrale të një dhëmbi të vërtetë.",
+  "deep-cleaning-airflow": "Pastrimi ynë i thellë ndërthur heqjen e kujdesshme të gurëzave me lëmimin me ajër Airflow, një rrjedhë e butë pluhuri të imët dhe uji që arrin biofilmin dhe njollat kokëforta që një pastrim standard thjesht nuk mundet.",
+  "simple-extraction": "Një heqje e thjeshtë largon me butësi një dhëmb që është i dukshëm mbi mishrat dhe përtej shpëtimit, i prishur, i thyer ose i luajtur.",
+  "retained-tooth-extraction": "Një dhëmb i mbetur ose i mbërthyer është ai i bllokuar nën mishrat ose i ngulur në kockën e nofullës, shpesh një dhëmb pjekurie ose një rrënjë kokëforte që nuk doli kurrë plotësisht.",
+  "peek-super-structure": "Një super-strukturë PEEK është korniza e fshehur që i jep një proteze me hark të plotë fortësinë e saj, e bërë nga një polimer mjekësor me performancë të lartë në vend të metalit.",
+  "titanium-bar": "Një shufër titani është një kornizë metalike e frezuar që i bashkon implantet tuaja së bashku dhe mban protezën me hark të plotë si një njësi të vetme, të ngurtë e fikse.",
+  "screw-system": "Sistemi i vidhave është grupi i komponentëve të vegjël me saktësi të lartë, vidha mbajtëse dhe pjesë lidhëse, që e fiksojnë protezën tuaj në mënyrë të sigurt në implantet e saj.",
+  "elastic-prosthesis": "Një protezë fleksibël është një zëvendësim i lëvizshëm i punuar nga një material i butë, elastik dhe pa metal, që përshtatet butësisht me formën e mishrave tuaj të dhëmbëve.",
+  "elastic-prosthesis-hooks": "Kjo është një protezë pjesore fleksibël e pajisur me kapëse të buta, në ngjyrën e dhëmbit dhe të mishrave të dhëmbëve, që mbështillen butësisht rreth dhëmbëve tuaj natyralë të mbetur për ta mbajtur fort në vend.",
+  "prosthesis-buttons": "Një mbiprotezë mbi implante fiksohet fort mbi një numër të vogël implantesh duke përdorur lidhëset locator - lidhësit në formë butoni që e fiksojnë protezën fort në vend.",
+  "metal-braces": "Aparetat fikse metalike janë mënyra klasike dhe e provuar për të korrigjuar mbushjen, boshllëqet dhe problemet e kafshimit.",
+  "aesthetic-braces": "Aparatat estetike përdorin bravëza qeramike në ngjyrën e dhëmbit që përzihen me smaltin tuaj natyral, kështu që mund ta drejtoni buzëqeshjen tuaj shumë më diskretisht se me metalin."
+};
+export const CATEGORY_LABEL_SQ: Record<string, string> = {
+  "implants": "Implante Dentare",
+  "crowns-aesthetics": "Kurora & Estetikë",
+  "whitening": "Zbardhim Estetik",
+  "endodontics": "Endodonci",
+  "periodontics": "Periodonci",
+  "orthodontics": "Ortodonci",
+  "oral-surgery": "Kirurgji Orale",
+  "diagnostics": "Diagnostikim & Planifikim",
+  "tourism": "Kujdesi për Turizmin Dentar",
+  "restorative": "Mbushje & Kujdes i Përgjithshëm",
+  "prosthetics": "Proteza & Prostetikë"
+};
+export const CATEGORY_BLURB_SQ: Record<string, string> = {
+  "implants": "Implante titani dhe zgjidhje me hark të plotë për të zëvendësuar një dhëmb të vetëm ose për të rindërtuar një buzëqeshje të tërë - me mbi 42,000 implante të vendosura dhe një shkallë suksesi prej 98%.",
+  "crowns-aesthetics": "Kurora, veneera dhe transformime të plota të buzëqeshjes të punuara me dorë në zirkon dhe qeramikë Ivoclar IPS e.max për një rezultat natyral dhe të qëndrueshëm.",
+  "whitening": "Zbardhim profesional në klinikë dhe për në shtëpi për një buzëqeshje më të ndritshme dhe plot vetëbesim.",
+  "endodontics": "Trajtim kanali i butë dhe i saktë për të ruajtur dhe mbrojtur dhëmbët tuaj natyralë.",
+  "periodontics": "Shëndeti i mishrave të dhëmbëve, pastrim profesional dhe graft indi për ta mbajtur buzëqeshjen tuaj të shëndetshme gjatë gjithë jetës.",
+  "orthodontics": "Aligner-a transparentë Invisalign dhe apareta diskretë për të drejtuar buzëqeshjen tuaj, të ofruar nga ekipi ynë i përvojshëm i ortodoncisë.",
+  "oral-surgery": "Heqje dhëmbësh, largim cistesh dhe sedim intravenoz, të kryera me siguri dhe rehati nga ekipi ynë kirurgjik.",
+  "diagnostics": "Plane trajtimi falas nga distanca dhe imazhkapje e avancuar 3D CBCT për një kujdes të saktë dhe të parashikueshëm.",
+  "tourism": "Marrje nga aeroporti, koordinim shumëgjuhësh dhe konsierzh hoteli - i gjithë udhëtimi juaj, i menaxhuar.",
+  "restorative": "Mbushje në ngjyrën e dhëmbit, higjienë profesionale dhe kujdes dentar i përditshëm që e mban buzëqeshjen tuaj të shëndetshme midis vizitave.",
+  "prosthetics": "Proteza të lëvizshme komode dhe prostetika fikse të mbështetura në implante që rikthejnë një buzëqeshje të plotë dhe plot vetëbesim."
+};
+export const PACKET_I18N_SQ: Record<string, { title: string; subtitle: string }> = {
+  "pkt-hollywood": {
+    "title": "Buzëqeshja Hollywood",
+    "subtitle": "Një transformim i plotë kozmetik, i projektuar posaçërisht për ju."
+  },
+  "pkt-newsmile": {
+    "title": "Buzëqeshje e Re brenda një Dite",
+    "subtitle": "Implante me hark të plotë dhe dhëmbë fiksë brenda së njëjtës ditë."
+  },
+  "pkt-restore": {
+    "title": "Restaurim i Plotë i Buzëqeshjes",
+    "subtitle": "Rikthejeni forcën, funksionin dhe bukurinë - dhëmb pas dhëmbi."
+  }
+};
+export const EQUIPMENT_SUMMARY_SQ: Record<string, string> = {
+  "Vatech A9 CBCT": "Skaner 3D me rreze konike dhe rindërtim panoramik të asistuar nga inteligjenca artificiale - guri i themelit diagnostik për planifikimin e implanteve, All-on-X dhe të ndërhyrjeve kirurgjikale komplekse.",
+  "Vatech PaX-i3D Smart": "Njësi e dytë CT me rreze konike për diagnostikë 3D efikase nëpër disa dhoma trajtimi.",
+  "Vatech Green Smart": "Imazhi panoramik dixhital 2D me dozë të ulët për diagnozë të shpejtë të linjës së parë.",
+  "Vatech EzSensor": "Sensor dixhital intraoral për radiografi të menjëhershme të një dhëmbi të vetëm, pa film, drejtpërdrejt te karrigia.",
+  "3Shape / Medit Intraoral Scanner": "Një pajisje dixhitale që kap gjurmë 3D brenda pak minutash - pa pastë, duke ushqyer rrjedhën tonë të punës CAD/CAM.",
+  "iMES iCORE CORiTEC One+": "Frezë kompakte pranë karriges për kurora, inleje dhe onleje brenda së njëjtës ditë - pa nevojë për laborator të jashtëm.",
+  "iMES iCORE CORiTEC 250i PRO+": "Frezë laboratorike me 5 akse që përpunon zirkon, PMMA, dyllë dhe kompozit me një kornizë monobllok që zbut dridhjet.",
+  "iMES iCORE CORiTEC 350i PRO+": "Frezë me 5 akse me kapacitet të lartë dhe gamë më të gjerë materialesh për laboratorin tonë të brendshëm të ngarkuar.",
+  "iMES iCORE 350i Loader": "Ngarkues i automatizuar bllokash që mundëson frezim të pandërprerë, gjatë gjithë orarit, pa mbikëqyrje, për vëllime të larta.",
+  "iMES iCORE CORiTEC 650i": "Makinë industriale me 5 akse që frezon shufrat e implanteve dhe strukturat me hark të plotë brenda klinikës.",
+  "Dekema AUSTROMAT 624i": "Furrë pjekjeje qeramike që piqet qeramikë me shtresa mbi kurora, ura dhe veneera.",
+  "Dekema AUSTROMAT 654i": "Furrë presimi për restaurimet me Ivoclar E-max dhe me disilikat litiumi.",
+  "Dekema AUSTROMAT 664i": "Furrë sinterizimi me temperaturë të lartë që e sjell zirkonin e frezuar në forcën e tij përfundimtare të plotë.",
+  "Dekema AUSTROMAT 674i": "Furrë e gjithanshme e kombinuar për pjekje dhe presim, për punët qeramike më kërkuese.",
+  "Navident EVO Navigation": "Navigim kirurgjik dinamik 3D - udhëzim në kohë reale nga skanimi juaj CBCT që vendos implante me saktësi nën milimetër.",
+  "W&H / NSK Surgical Motor": "Motor kirurgjik me kontroll të momentit rrotullues për osteotomi implanti të saktë e të kontrolluar.",
+  "Mariotti Vortix3": "Mikromotor laboratorik pa brusha, i klasit të lartë, që përdoret nga qeramistët tanë për të formësuar dhe përfunduar restaurimet.",
+  "Mariotti Spring 2": "Mikromotor me spërkatje uji për bluarje të lagësht të zirkonit, të pastër dhe pa pluhur.",
+  "Mariotti FLY Brushless": "Mikromotor klinik i gjithanshëm për detyra të përditshme që kërkojnë saktësi.",
+  "Werther International TANDEM 2 Compressor": "Kompresor italian pa vaj me pompë rezervë, që siguron ajër të pastër te çdo karrige.",
+  "Werther International DENTAL3 Compressor": "Kompresor i besueshëm pa vaj, i dimensionuar për një klinikë të ngarkuar me shumë karrige.",
+  "Werther International Central Suction": "Sistem thithjeje në të gjithë klinikën që siguron vakum të qëndrueshëm në çdo dhomë trajtimi.",
+  "Tuttnauer / Faro Medical-Grade Vacuum Autoclave": "Sterilizues me avull dhe vakum që përpunon çdo instrument të ripërdorshëm midis pacientëve sipas standardeve ISO 9001.",
+  "Clinical Ultrasonic Cleaner": "Hapi i parë i dekontaminimit, që heq mbetjet përpara se instrumentet të sterilizohen.",
+  "Clinical Pouch Sealer": "Mbyll me nxehtësi instrumentet në qese sterile të gatshme për autoklavë.",
+  "Clinical Diode Laser 980nm": "Lazer për indet e buta, për konturim të mishrave pa gjak, frenektomi dhe riformësim estetik.",
+  "Zeiss / Leica Operating Microscope": "Zmadhim kirurgjik për trajtimin e kanaleve dhe mikrokirurgjinë - detaji që qëndron pas rezultateve të parashikueshme.",
+  "Castellini / Stern Weber Dental Operatory Unit": "Karrige pacientësh plotësisht të pajisura me sistem të integruar shpërndarjeje, ndriçimi dhe thithjeje në çdo dhomë trajtimi.",
+  "Clinical LED Operating Light": "Ndriçim LED i ndritshëm dhe pa hije për një pamje të qartë e të saktë gjatë çdo procedure.",
+  "Straumann BLX Implant System": "Sistemi zviceran i implanteve, standardi i artë - më i dokumentuari klinikisht në botë.",
+  "Biodem German Implant System": "Implante gjermane me shenjën CE, me pasaportë personale implanti dhe numra serial të verifikueshëm.",
+  "ETK Premium Implant": "Implant premium francez me mbi 30 vjet trashëgimi klinike dhe platformën protetike iPhysio.",
+  "Botiss Cerabone & Jason Membrane": "Biomateriale gjermane premium për rigjenerimin e kockës dhe shërimin e drejtuar të indeve.",
+  "Zirconia Discs Bio ZX2 Zirconia": "Disqe zirkoni gjerman premium, të frezuara brenda klinikës në kurora dhe ura të forta e me pamje natyrale.",
+  "Ivoclar Vivadent IPS E-max": "Qeramikë me disilikat litiumi, lidere në industri, për restaurime të tejdukshme dhe natyrale të dhëmbëve të përparmë.",
+  "Feldspathic Ceramic Willi Geller Layering": "Qeramikë feldspatike premium, e shtresuar me dorë për ngjyrën e natyrshme të çdo restaurimi."
+};
+export const BLOG_CATEGORY_SQ: Record<string, { label: string; blurb: string }> = {
+  "dental-tourism": {
+    "label": "Turizmi Dentar",
+    "blurb": "Udhëzues praktikë për kujdes dentar të sigurt e cilësor jashtë vendit - dhe pse pacientët zgjedhin Shqipërinë."
+  },
+  "dental-tips": {
+    "label": "Këshilla Dentare",
+    "blurb": "Këshilla të ndershme mbi trajtimet dhe si të përfitoni sa më shumë nga kujdesi juaj dentar."
+  },
+  "dental-med-news": {
+    "label": "Lajme nga Dental Med",
+    "blurb": "Përditësime, trajtime dhe njohuri nga ekipi i Dental Med Austria."
+  }
+};
+
+export function locServiceName(slug: string, fallback: string, locale: Locale): string {
+  return locale === "sq" ? SERVICE_NAME_SQ[slug] ?? fallback : fallback;
+}
+export function locServiceSummary(slug: string, fallback: string, locale: Locale): string {
+  return locale === "sq" ? SERVICE_SUMMARY_SQ[slug] ?? fallback : fallback;
+}
+export function locCategoryLabel(slug: string | undefined, fallback: string, locale: Locale): string {
+  if (!slug) return fallback;
+  return locale === "sq" ? CATEGORY_LABEL_SQ[slug] ?? fallback : fallback;
+}
+export function locCategoryBlurb(slug: string | undefined, fallback: string, locale: Locale): string {
+  if (!slug) return fallback;
+  return locale === "sq" ? CATEGORY_BLURB_SQ[slug] ?? fallback : fallback;
+}
+export function locEquipmentSummary(brand: string, model: string, fallback: string, locale: Locale): string {
+  return locale === "sq" ? EQUIPMENT_SUMMARY_SQ[`${brand} ${model}`] ?? fallback : fallback;
+}

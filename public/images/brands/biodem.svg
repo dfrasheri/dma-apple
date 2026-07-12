@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56">
+  <g font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#4DBFB0">
+    <text x="0" y="44">b</text>
+    <line x1="38" y1="4" x2="38" y2="44" stroke="#4DBFB0" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="38" cy="4" r="4" fill="#4DBFB0"/>
+    <text x="44" y="44">odem</text>
+  </g>
+</svg>

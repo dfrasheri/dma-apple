@@ -1,0 +1,367 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-roboto), "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-serif: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --font-heading: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --color-navy: #071522;
+  --color-ink: #343434;
+  --color-nav-bg: #e6e6e6;
+  --color-btn: #f1f1f1;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-white text-[#343434];
+    font-family: var(--font-roboto), "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.41;
+    letter-spacing: -0.17px;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  .font-serif {
+    font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  }
+}
+
+/* ---- Clone utilities ---- */
+.tpds-container {
+  width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 640px) {
+  .tpds-container { padding-inline: 40px; }
+}
+.eyebrow {
+  font-family: var(--font-roboto), "Roboto", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.serif-title {
+  font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  font-weight: 400;
+  color: var(--color-navy);
+  line-height: 1.12;
+}
+
+/* fade/slide reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* subtle ken-burns for hero slides */
+@keyframes kenburns {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.16); }
+}
+
+/* ---- Procedure flip cards (catalogue) ---- */
+/* "living" motion for the procedure image fallback: a slow, precise drift+zoom
+   so even before a Higgsfield clip is dropped in, the upper face is alive. */
+@keyframes procedure-living {
+  0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.12) translate3d(-1.4%, -1.2%, 0); }
+  100% { transform: scale(1.06) translate3d(0, 0, 0); }
+}
+
+/* a soft light sweep across the media to add a luxurious sheen */
+@keyframes procedure-sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  18%  { opacity: 0.5; }
+  40%  { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+  100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+}
+
+/* gentle perpetual float for the airy, weightless feel of the card grid */
+@keyframes procedure-float {
+  0%   { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+  50%  { transform: translateY(-10px) rotateX(1.4deg) rotateY(-1.2deg); }
+  100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+}
+
+.proc-scene {
+  perspective: 1600px;
+}
+.proc-float {
+  animation: procedure-float 9s ease-in-out infinite;
+  will-change: transform;
+}
+.proc-card {
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+}
+.proc-card.is-flipped {
+  transform: rotateY(180deg);
+}
+.proc-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.proc-face--back {
+  transform: rotateY(180deg);
+}
+.proc-living {
+  animation: procedure-living 16s ease-in-out infinite;
+  will-change: transform;
+}
+.proc-sheen {
+  animation: procedure-sheen 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proc-float.proc-living.proc-sheen {
+    animation: none;
+  }
+  .proc-card {
+    transition: transform 0.4s ease;
+  }
+}
+
+/* hide scrollbar for horizontal strips */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Brand logo marquee */
+@keyframes tpds-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.tpds-marquee-track {
+  animation: tpds-marquee 35s linear infinite;
+  will-change: transform;
+}
+/* keep logos readable: pause while the visitor inspects/hovers the strip */
+.tpds-marquee-mask:hover .tpds-marquee-track {
+  animation-play-state: paused;
+}
+.tpds-marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+/* Testimonial reels marquee: continuous, larger cards → slower; pause on hover
+   so a moving card can still be clicked. Reuses the tpds-marquee keyframe. */
+.testi-marquee-track {
+  animation: tpds-marquee 70s linear infinite;
+  will-change: transform;
+}
+.testi-marquee-mask:hover .testi-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Reviews strip marquee: continuous horizontal scroll of review cards,
+   pauses on hover so a moving card can be clicked. Reuses the tpds-marquee keyframe. */
+.tpds-reviews-track {
+  animation: tpds-marquee 50s linear infinite;
+  will-change: transform;
+}
+.tpds-reviews-track--reverse {
+  animation: tpds-marquee 50s linear infinite reverse;
+}
+.tpds-reviews-mask:hover .tpds-reviews-track {
+  animation-play-state: paused;
+}
+.tpds-reviews-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+/* Explore-treatments marquee: large cover cards on the home page. Continuous,
+   pauses on hover so a moving card stays clickable. Reuses the tpds-marquee keyframe. */
+.explore-marquee-track {
+  animation: tpds-marquee 16s linear infinite;
+  will-change: transform;
+}
+.explore-marquee:hover .explore-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Reduced motion: don't freeze the strips (it reads as broken); drift very slowly instead. */
+@media (prefers-reduced-motion: reduce) {
+  .tpds-marquee-track { animation-duration: 90s; }
+  .testi-marquee-track { animation-duration: 220s; }
+  .explore-marquee-track { animation-duration: 34s; }
+}
+
+/* ── Floating widget stack (bottom-right, right-4 axis) ────────────────────
+   Bottom → top: sticky CTA bar (bottom-0) · WhatsApp button (4.5rem) · chat
+   launcher (9.5rem), a clear gap between each so nothing overlaps. The
+   assistant's typing indicator uses this soft wave, a gentler read than the
+   default bounce. */
+@keyframes dma-chat-typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.dma-typing-dot {
+  animation: dma-chat-typing 1.15s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dma-typing-dot { animation-duration: 2.4s; }
+}
+
+/* ── Implant passport card (ImplantSystems.tsx): slow gold-foil sheen ────── */
+@keyframes dma-passport-sheen {
+  0%        { transform: translateX(-160%) skewX(-16deg); }
+  55%, 100% { transform: translateX(420%) skewX(-16deg); }
+}
+.dma-passport-sheen {
+  animation: dma-passport-sheen 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dma-passport-sheen { animation: none; }
+}
+
+/* ── CRM admin palette: obsidian black · ivory text · gold accents ─────────────
+   These power every /crm/* surface (CrmShell, Sidebar, ui.tsx, the Content
+   module, the data legend). Defined here so the whole admin shares one theme. */
+:root {
+  --elx-obsidian: #eef0ef;       /* light green-grey admin surface (Orbita-matched) */
+  --elx-obsidian-2: #ffffff;     /* raised panels */
+  --elx-gold: #0f6e56;           /* Orbita teal-green accent (var name kept) */
+  --elx-gold-soft: #0c5945;      /* darker green for active text on white */
+  --elx-ivory: #ffffff;
+}
+
+/* Green gradient for logos / headings (used via `.elx-gold-text`). */
+.elx-gold-text {
+  background: linear-gradient(135deg, #5dcaa5 0%, #0f6e56 45%, #0c5945 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* A whisper of green at the top of the surface. */
+.crm-surface {
+  background:
+    radial-gradient(1200px 360px at 50% -160px, rgba(15, 110, 86, 0.08), transparent 70%),
+    var(--elx-obsidian);
+}

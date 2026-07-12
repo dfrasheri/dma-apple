@@ -1,0 +1,42 @@
+{
+  "rootCauseOfNoCanvas": "A capture-harness timing race, NOT a code defect. scripts/r3f-shot.mjs commits to a single one-shot DOM probe after a fixed ~20s of sleeps (4s + 11s + 5s) with no readiness gate. On a cold/just-restarted Turbopack server, the next/dynamic({ssr:false}) ImplantScene chunk (three + drei + postprocessing) plus WebGL/SwiftShader init routinely takes longer than that window to compile, mount, and size the canvas, so document.querySelector('canvas') returns null and the script reports hasCanvas:false. All three validators independently confirm the scene mounts correctly on a warm server (canvas present in ~6s, real 707x520 WebGL, zero exceptions, zero console errors). The geometry/component code is correct and does not throw.",
+  "geometryVerdict": "VALID AND SHIP-SAFE. buildCrown(lod=high) produces a watertight, closed manifold: 4802 verts, 9600 tris, Euler V-E+F = 2 (genus-0 sphere), zero non-manifold edges, zero boundary edges, zero degenerate triangles, no NaN/Inf, all indices in range. Counts match closed-form expectations exactly and are well under the 12k budget. orientOutward's centroid-dot winding flip is correct for this star-convex tooth and computeVertexNormals yields smooth outward normals. The return-type change from LatheGeometry to BufferGeometry breaks no consumer (ImplantModel and ObjectScene only use base BufferGeometry members; nothing reads .parameters). Bounding box is dimensionally sane (height ~8.69mm, widthX 6.096, depthZ 5.557, molar-correct buccolingual > mesiodistal). Realism is a stylized/caricatured molar (4-fold symmetric equal cusps, slightly boxy n=3.2) — acceptable as a clinical illustration, not textbook-accurate. No blocking geometry issues.",
+  "blockingIssues": [
+    "scripts/r3f-shot.mjs uses fixed sleeps (lines 36, 40, 44) with no readiness gate, so it loses the race against cold Turbopack compile + WebGL init and falsely reports hasCanvas:false. This is the ONLY thing blocking a reliable headless capture.",
+    "scripts/r3f-shot.mjs does not fail loudly: when no canvas exists it still captures and 'saves' a poster-only frame (lines 52-54) and exits 0, masking the failure as a success."
+  ],
+  "actionItems": [
+    {
+      "action": "Replace the three fixed sleeps with a poll loop: after Page.navigate and scrolling the always-present [role=img] stage into view, loop every ~750ms up to ~90s evaluating document.querySelector('canvas') and requiring canvas.width>0 (a real sized drawing buffer, not the 300x150 default). Only call Page.captureScreenshot once that condition is true.",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\scripts\\r3f-shot.mjs",
+      "priority": "high"
+    },
+    {
+      "action": "Make the script hard-fail (process.exit(1)) if the canvas never appears within the timeout, instead of saving a poster-only frame and exiting 0.",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\scripts\\r3f-shot.mjs",
+      "priority": "high"
+    },
+    {
+      "action": "Drive the IntersectionObserver deterministically by scrolling the always-present [role=img] stage into view (document.querySelector('[role=img]').scrollIntoView({block:'center'})) BEFORE polling, rather than scrolling to 22% of body height and only calling scrollIntoView if a canvas already exists (current line 43 is a no-op in exactly the failing case).",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\scripts\\r3f-shot.mjs",
+      "priority": "medium"
+    },
+    {
+      "action": "Pre-warm the route before the real capture (fetch the URL once, or run the script twice) so the heavy three/drei/postprocessing chunk is already compiled when the screenshot is taken; also match the CDP target by URL instead of targets.find(t=>t.type==='page') (line 8) to avoid attaching to the wrong tab.",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\scripts\\r3f-shot.mjs",
+      "priority": "medium"
+    },
+    {
+      "action": "Defensive only (no current throw): wrap <ImplantScene/> in a React error boundary so any FUTURE geometry/material throw degrades visibly to StagePoster instead of a blank state that looks like a timing failure.",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\src\\components\\implant3d\\ImplantScene.tsx",
+      "priority": "low"
+    },
+    {
+      "action": "Optional realism polish (non-blocking): lower the superellipse exponent N to ~2.6, break the 4-fold cusp symmetry with per-cusp heights/angles (mesiolingual tallest, distolingual lowest), and bias the central fissure toward a Y/oblique-ridge pattern. Also call geo.computeBoundingSphere() in buildCrown since ObjectScene only computes the box.",
+      "file": "C:\\Users\\FrasheriDeni(Datwave\\.agent-workspace\\ai-website-cloner-template\\src\\components\\implant3d\\geometry.ts",
+      "priority": "low"
+    }
+  ],
+  "captureFix": "In scripts/r3f-shot.mjs, after Page.navigate, replace the fixed sleeps (lines 36/40/44) and single probe with: (1) scroll the stage into view first — await send('Runtime.evaluate', { expression: \"document.querySelector('[role=img]')?.scrollIntoView({block:'center'})\" }); (2) poll for readiness — for (let i=0;i<120;i++){ const p = await send('Runtime.evaluate',{returnByValue:true,expression:\"(()=>{const c=document.querySelector('canvas');return c&&c.width>0?c.width+'x'+c.height:'';})()\"}); if (p.result?.value){ ready=true; break;} await sleep(750);} (~90s budget); (3) only then await one extra sleep(800) for a stable frame and Page.captureScreenshot; (4) if (!ready){ console.error('canvas never mounted'); ws.close(); process.exit(1);} so failures are loud instead of saving a poster frame. Optionally pre-warm by fetching PAGE once before the CDP navigate so the three/drei/postprocessing chunk is compiled. This eliminates the cold-compile race that causes the false hasCanvas:false.",
+  "readyToRender": true
+}

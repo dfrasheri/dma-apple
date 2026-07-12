@@ -1,0 +1,64 @@
+{
+  "task": "Diagnose why headless capture reports hasCanvas:false on the catalogue detail page (/catalogue/single-implant-crown)",
+  "verifiedLive": {
+    "devServer": "http://localhost:9999 UP (200)",
+    "cdp": "http://localhost:9223 UP",
+    "warmProbe": {
+      "afterNav6s": { "hasCanvas": true, "sections": 7, "bodyH": 3967, "scrollY": 0 },
+      "after22pct8s": { "hasCanvas": true, "w": 707, "h": 520, "scrollY": 873 },
+      "pollResult": "canvas present on first poll iteration (707x520)",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    "interpretation": "On a WARM server the canvas mounts within ~6s and produces a real 707x520 WebGL canvas with zero exceptions and zero console errors. The IntersectionObserver (rootMargin:200px) trips even at scrollY:0 because the stage sits within 200px of the viewport. The geometry/buildCrown and ImplantScene do NOT throw. This isolates the original hasCanvas:false to a cold-compile timing failure, not a logic bug."
+  },
+  "rankedCauses": [
+    {
+      "cause": "Dynamic-import chunk (ImplantScene + three + drei + postprocessing) not compiled/served within the script's fixed wait budget on a cold Turbopack server. next/dynamic({ssr:false}) defers the chunk; on first hit Turbopack must compile a very heavy graph (three, @react-three/fiber, @react-three/drei Environment/Lightformer/ContactShadows/OrbitControls, @react-three/postprocessing EffectComposer/Bloom/Vignette). The script waits only 4s + 11s + 5s with NO polling for the canvas, then probes once. If compile + WebGL init exceeds that fixed window (very likely on a fresh compile, SwiftShader software GL is also slow), document.querySelector('canvas') returns null and hasCanvas:false is reported even though everything is correct.",
+      "likelihood": "very high",
+      "evidence": "Warm run: canvas present in ~6s, no errors. Task note explicitly says server 'was just restarted (fresh Turbopack compile of the dynamic ImplantScene chunk + three is slow on first load).' Cold compile of three+drei+postprocessing routinely takes 15-40s+. The script never polls; it commits to a single probe after a fixed 20s, so a slow first compile slips straight past it.",
+      "fix": "Replace the fixed sleeps with a poll loop: after navigate+scroll, loop up to ~60-90s calling document.querySelector('canvas') (and optionally checking canvas.width>0) every 500-1000ms; only screenshot once the canvas exists and has nonzero dimensions. Optionally warm the route first (fetch the page once, or run the script twice) so the chunk is compiled before the capture attempt."
+    },
+    {
+      "cause": "Single non-retried probe with no readiness gate. Even apart from cold compile, the script's timing is brittle: it does one Runtime.evaluate and trusts whatever the DOM is at that instant. Any jitter (GC pause, slow Environment HDR generation, late hydration) yields a false hasCanvas:false.",
+      "likelihood": "high",
+      "evidence": "scripts/r3f-shot.mjs lines 36-49 use sleep(4000)+sleep(11000)+sleep(5000) then a single probe at line 46. No while-loop, no condition, no retry.",
+      "fix": "Gate the screenshot on an actual condition (canvas exists AND canvas.width>0). Poll instead of sleep; fail loudly with a timeout only after e.g. 90s."
+    },
+    {
+      "cause": "IntersectionObserver never intersects at the chosen 22% scroll. Theoretically if the stage sat far below 22% of body height it would not enter viewport+200px and mounted stays false (StagePoster, no canvas).",
+      "likelihood": "low",
+      "evidence": "DISPROVEN on this page: warm probe shows hasCanvas:true at scrollY:0 (stage already within rootMargin 200px of a 900px-tall viewport). bodyH=3967, 22% = ~873px scroll lands the stage in view. The 200px rootMargin is generous. The IO fires reliably here.",
+      "fix": "Not needed for this page, but to be robust the capture should scrollIntoView the [role=img] stage (or the canvas) directly rather than a percentage; the script already does scrollIntoView at line 43 but only AFTER the sleeps and only if a canvas already exists."
+    },
+    {
+      "cause": "Thrown error in ImplantScene/geometry/buildCrown crashing the island with no error boundary (dynamic island would unmount, leaving StagePoster/loading and no canvas).",
+      "likelihood": "very low",
+      "evidence": "Live probe captured zero Runtime.exceptionThrown and zero console errors; canvas reaches 707x520 and renders. buildCrown index stays under 65536 verts (high LOD ~3.3k), so the Uint16/Uint32 cast in orientOutward is safe; no NaN/throw observed. There is genuinely no error boundary around the dynamic island, so IF the scene threw it would silently show no canvas - but it does not throw here.",
+      "fix": "Defensive only: wrap <ImplantScene/> in a React error boundary so a future geometry/material throw degrades to StagePoster visibly instead of a blank/no-canvas state that masquerades as a timing failure."
+    },
+    {
+      "cause": "Reduced-motion path suppressing the canvas. The script forces prefers-reduced-motion:reduce (Emulation.setEmulatedMedia line 34).",
+      "likelihood": "very low / ruled out",
+      "evidence": "Reduced motion only sets exploded=true (ImplantAnatomyStage lines 32-34) and disables autoRotate/postprocessing (ImplantScene lines 71,78; ImplantModel). It does NOT gate mounting or the Canvas. Live probe ran with reduce emulated and still got a canvas.",
+      "fix": "None required."
+    },
+    {
+      "cause": "SSR hydration mismatch preventing mount. useCapabilities/mounted start false on server; client effects flip them.",
+      "likelihood": "very low",
+      "evidence": "ssr:false on the dynamic import means the scene never renders on the server, so there is no SSR markup to mismatch; the gate is purely client-side useState->useEffect. No hydration errors in the live console.",
+      "fix": "None required."
+    }
+  ],
+  "mostLikely": "Cold Turbopack compile of the next/dynamic ImplantScene chunk (three + drei + postprocessing) did not finish within the script's fixed 4s+11s+5s window, so the one-shot probe ran before the canvas existed and reported hasCanvas:false. The component logic and geometry are correct (verified live: canvas mounts in ~6s warm, 707x520, no exceptions).",
+  "recommendedFix": "Make the capture poll for canvas readiness instead of using fixed sleeps. After navigate + scroll the stage into view, loop (e.g. every 750ms up to 90s) evaluating document.querySelector('canvas') with canvas.width>0; only call Page.captureScreenshot once that is true. Optionally pre-warm the route (hit the URL once before the real capture, or run the script twice) so the heavy chunk is already compiled. This eliminates the cold-compile race entirely. The 22% scroll heuristic can stay but prefer scrollIntoView on the [role=img] stage so mounting is deterministic regardless of page height.",
+  "captureScriptIssues": [
+    "Fixed sleeps with no readiness gate (lines 36,40,44): commits to a single probe after ~20s; loses to any slow first compile. Replace with a poll-until-canvas loop.",
+    "Single non-retried probe (lines 46-49): no retry, no condition. One transient null = false negative.",
+    "scrollIntoView only runs if a canvas already exists (line 43): the centering step is a no-op exactly in the failing case, so it cannot help recover. Scroll the [role=img] stage (always present) into view to drive the IntersectionObserver instead of relying on the 22% heuristic.",
+    "No timeout/error signaling: hasCanvas:false is logged but the script still proceeds to screenshot a poster-only frame and 'saves' it, masking the failure. It should hard-fail (nonzero exit) when the canvas never appears.",
+    "Probe reports w/h from canvas.width/height (drawing-buffer px) which can read 300x150 default before R3F sizes it; gate on width>0 AND a stable value, or check the WebGL context, to avoid screenshotting a not-yet-sized canvas.",
+    "target = targets.find(t=>t.type==='page') (line 8) picks the first page target arbitrarily; if multiple tabs/targets exist it may attach to the wrong one. Prefer matching by URL.",
+    "No Page.loadEventFired / network-idle wait before the first sleep; relies purely on wall-clock 4s for hydrate, which is fragile under load."
+  ]
+}

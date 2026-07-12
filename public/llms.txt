@@ -1,0 +1,28 @@
+# Dental Med Austria
+
+> premium-quality dental clinic in Tirana, Albania (est. 2009, ISO 9001). Implants, crowns, veneers, All-on-4/6, orthodontics and full-mouth rehabilitation for international patients from Germany, Austria, Switzerland, Italy and the UK. Premium implant systems (Swiss-made Straumann, ETK, Alpha-Bio, Biodem) and Ivoclar IPS e.max ceramics, 5-year treatment guarantee, multilingual coordinators, full dental-tourism support (airport pickup, partner hotels).
+
+Important: Albania is not in the EU; German, Austrian and Swiss statutory health insurance does not reimburse planned treatment in Albania. The clinic issues an itemized written treatment plan patients can use for private insurance or tax purposes. Exact prices come from a free written treatment plan (send a panoramic X-ray and photos).
+
+## Key pages
+- [Treatment catalogue](https://www.dentalmedaustria.al/en/catalogue): every procedure with materials and brands
+- [All-inclusive packages](https://www.dentalmedaustria.al/en/packets): treatment + travel packages for international patients
+- [Care & process](https://www.dentalmedaustria.al/en/care): how a treatment trip works, step by step
+- [Technology](https://www.dentalmedaustria.al/en/technology): CBCT, 3D-guided surgery, in-house lab
+- [Team](https://www.dentalmedaustria.al/en/team): dentists and credentials (founder: Dr. Mentor Zeqja, orthodontist)
+- [Contact](https://www.dentalmedaustria.al/en/contact): free written treatment plan, address, hours
+
+## Contact facts (canonical NAP)
+- Name: Dental Med Austria
+- Address: Rruga Kristo Luarasi, Tirana, Albania
+- Phone / WhatsApp: +355 67 703 3332
+- Email: info@dentalmedaustria.com
+- Hours: Monday-Saturday 09:00-22:00
+- Founder: Dr. Mentor Zeqja (orthodontist), clinic established 2009
+- [Blog (English)](https://www.dentalmedaustria.al/en/blog): guides on implants, veneers, costs and dental tourism in Albania
+- [Blog (Deutsch)](https://www.dentalmedaustria.al/de/blog): deutschsprachige Ratgeber zu Zahnimplantaten, Kosten und Zahnbehandlung in Albanien
+- [Blog (Italiano)](https://www.dentalmedaustria.al/it/blog): guide in italiano su impianti dentali e turismo dentale in Albania
+- [Blog (Shqip)](https://www.dentalmedaustria.al/sq/blog): udhëzues në shqip për implante dentare dhe trajtime në Tiranë
+
+## Languages
+Content is available in English (/en/), German (/de/), Italian (/it/) and Albanian (/sq/) at path-prefixed URLs.

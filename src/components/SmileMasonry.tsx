@@ -16,7 +16,8 @@ export type SmilePhoto = string | { before: string; after: string };
 /**
  * Irregular masonry collage. Photos keep their natural aspect ratios and flow
  * across CSS columns, so the layout is intentionally uneven, a real collage,
- * not a rigid grid. Subtle stagger-in + hover zoom, on the navy palette.
+ * not a rigid grid. Subtle stagger-in + hover zoom, on the Gilded ivory
+ * palette (warm espresso wash, soft rounded tiles, layered brand shadows).
  */
 export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
               <figure
                 key={photo.after}
                 data-tile
-                className="mb-4 block break-inside-avoid"
+                className="mb-4 block break-inside-avoid overflow-hidden rounded-2xl shadow-[var(--shadow-brand-sm)] transition-shadow duration-500 hover:shadow-[var(--shadow-brand-lg)]"
               >
                 <BeforeAfterSlider
                   before={photo.before}
@@ -67,7 +68,7 @@ export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
             <figure
               key={src}
               data-tile
-              className="group relative mb-4 block break-inside-avoid overflow-hidden rounded-sm bg-[#eee]"
+              className="group relative mb-4 block break-inside-avoid overflow-hidden rounded-2xl bg-[#f4ecdd] shadow-[var(--shadow-brand-sm)] transition-shadow duration-500 hover:shadow-[var(--shadow-brand-lg)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -76,7 +77,7 @@ export function SmileMasonry({ photos }: { photos: SmilePhoto[] }) {
                 loading="lazy"
                 className="w-full align-top transition-transform duration-[1300ms] ease-out group-hover:scale-[1.05]"
               />
-              <span className="pointer-events-none absolute inset-0 bg-[#071522]/0 transition-colors duration-300 group-hover:bg-[#071522]/10" />
+              <span className="pointer-events-none absolute inset-0 bg-[#171310]/10 transition-colors duration-300 group-hover:bg-[#171310]/25" />
             </figure>
           );
         })}

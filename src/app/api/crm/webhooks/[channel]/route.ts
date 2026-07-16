@@ -113,7 +113,8 @@ export const POST = guard(
           externalId: ev.externalId,
           body: ev.body,
           contact: ev.contact,
-          providerMessageId: ev.providerMessageId
+          providerMessageId: ev.providerMessageId,
+          meta: ev.meta
         });
         conversationIds.push(r.conversation.id);
       }

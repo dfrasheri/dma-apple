@@ -50,18 +50,20 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
   };
 
   return (
-    <div className={cn("flex items-center gap-1.5 text-[13px] tracking-[1px]", className)}>
+    <div className={cn("flex items-center gap-1.5 text-[13px] uppercase tracking-[0.14em]", className)}>
       {LOCALES.map((l, i) => (
         <span key={l.code} className="flex items-center gap-1.5">
-          {i > 0 && <span className="opacity-40">·</span>}
+          {i > 0 && <span className="text-[#c6a15b]/50" aria-hidden>·</span>}
           <button
             type="button"
             onClick={() => void choose(l.code)}
             aria-label={l.name}
             aria-pressed={locale === l.code}
             className={cn(
-              "transition-opacity hover:opacity-100",
-              locale === l.code ? "font-semibold opacity-100 underline underline-offset-4" : "opacity-60",
+              "transition-colors duration-300",
+              locale === l.code
+                ? "font-semibold text-[#9a7638] underline decoration-[#c6a15b] underline-offset-4"
+                : "text-[#6e6152] hover:text-[#9a7638]",
             )}
           >
             {l.label}

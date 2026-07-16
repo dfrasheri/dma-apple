@@ -136,7 +136,7 @@ function ensureConversation(input: {
 }
 
 export async function recordInbound(
-  input: InboundMessageInput & { providerMessageId?: string }
+  input: InboundMessageInput & { providerMessageId?: string; meta?: Record<string, unknown> }
 ): Promise<{ conversation: Conversation; message: Message; contact: Contact; duplicate?: boolean }> {
   const contact = ensureContact({
     channel: input.channel,
@@ -189,6 +189,10 @@ export async function recordInbound(
     }
   }
 
+  const inMeta = {
+    ...(input.meta ?? {}),
+    ...(input.providerMessageId ? { providerMessageId: input.providerMessageId } : {})
+  };
   const message = db
     .insert(messages)
     .values({
@@ -197,7 +201,7 @@ export async function recordInbound(
       author: "contact",
       body: input.body,
       channel: input.channel,
-      meta: input.providerMessageId ? { providerMessageId: input.providerMessageId } : null
+      meta: Object.keys(inMeta).length ? inMeta : null
     })
     .returning()
     .get();
@@ -278,6 +282,43 @@ export async function sendMessage(input: {
     .run();
 
   return { message, sendResult };
+}
+
+/**
+ * Record a bot reply that was ALREADY delivered by the caller's own transport
+ * (the website chat returns the reply in the HTTP response), so no channel
+ * send happens here — this only persists the outbound turn for the inbox and
+ * analytics. `markRead: false` keeps the staff unread flag (handoffs).
+ */
+export async function recordBotReplyLocal(input: {
+  conversationId: string;
+  body: string;
+  meta?: Record<string, unknown>;
+  markRead?: boolean;
+}): Promise<Message | null> {
+  const conv = db.select().from(conversations).where(eq(conversations.id, input.conversationId)).get();
+  if (!conv) return null;
+  const message = db
+    .insert(messages)
+    .values({
+      conversationId: conv.id,
+      direction: "out",
+      author: "bot",
+      body: input.body,
+      channel: conv.channel,
+      meta: input.meta ?? null
+    })
+    .returning()
+    .get();
+  db.update(conversations)
+    .set({
+      lastMessageAt: now(),
+      updatedAt: now(),
+      ...(input.markRead === false ? {} : { unread: false })
+    })
+    .where(eq(conversations.id, conv.id))
+    .run();
+  return message;
 }
 
 export async function draftForConversation(conversationId: string): Promise<BotDraft | null> {

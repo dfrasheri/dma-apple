@@ -5,7 +5,10 @@ import { useT, useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const fieldClass =
-  "w-full border-0 border-b border-[#c9c9c9] bg-transparent pb-2 pt-1 text-[15px] text-[#343434] placeholder:text-[#8a8a8a] focus:border-[#071522] focus:outline-none";
+  "w-full rounded-xl border border-[#9a7638]/20 bg-white px-4 py-3 text-[15px] text-[#2a2018] placeholder:text-[#a99a8b] shadow-[var(--shadow-brand-sm)] transition-colors duration-300 focus:border-[#c6a15b] focus:outline-none focus:ring-2 focus:ring-[#c6a15b]/25";
+
+const labelClass =
+  "mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9a7638]";
 
 // Submission feedback in the site's four languages (kept local to the form).
 const STATUS_TEXT: Record<string, { ok: string; err: string; need: string; sending: string }> = {
@@ -79,28 +82,44 @@ export function ContactForm() {
 
   if (status === "ok") {
     return (
-      <div className="border border-[#dfe7df] bg-[#f2f8f2] px-6 py-8 text-center">
-        <p className="text-[16px] font-light leading-[1.6] text-[#2e5d3a]">{s.ok}</p>
+      <div className="rounded-3xl border border-[#9a7638]/20 bg-[#fffefb] px-6 py-10 text-center shadow-[var(--shadow-brand-lg)] sm:px-10">
+        <div className="gold-rule mx-auto mb-6 w-16" />
+        <p className="font-serif text-[19px] font-medium leading-[1.6] text-[#2a2018]">{s.ok}</p>
       </div>
     );
   }
 
   return (
     <form className="space-y-6" onSubmit={submit}>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <input className={fieldClass} placeholder={t("footer.form.first")} aria-label={t("footer.form.first")} value={first} onChange={(e) => setFirst(e.target.value)} />
-        <input className={fieldClass} placeholder={t("footer.form.last")} aria-label={t("footer.form.last")} value={last} onChange={(e) => setLast(e.target.value)} />
-        <input className={fieldClass} placeholder={t("footer.form.email")} type="email" aria-label={t("footer.form.email")} value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input className={fieldClass} placeholder={t("footer.form.phone")} type="tel" aria-label={t("footer.form.phone")} value={phone} onChange={(e) => setPhone(e.target.value)} />
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+        <label className="block">
+          <span className={labelClass}>{t("footer.form.first")}</span>
+          <input className={fieldClass} placeholder={t("footer.form.first")} aria-label={t("footer.form.first")} value={first} onChange={(e) => setFirst(e.target.value)} />
+        </label>
+        <label className="block">
+          <span className={labelClass}>{t("footer.form.last")}</span>
+          <input className={fieldClass} placeholder={t("footer.form.last")} aria-label={t("footer.form.last")} value={last} onChange={(e) => setLast(e.target.value)} />
+        </label>
+        <label className="block">
+          <span className={labelClass}>{t("footer.form.email")}</span>
+          <input className={fieldClass} placeholder={t("footer.form.email")} type="email" aria-label={t("footer.form.email")} value={email} onChange={(e) => setEmail(e.target.value)} />
+        </label>
+        <label className="block">
+          <span className={labelClass}>{t("footer.form.phone")}</span>
+          <input className={fieldClass} placeholder={t("footer.form.phone")} type="tel" aria-label={t("footer.form.phone")} value={phone} onChange={(e) => setPhone(e.target.value)} />
+        </label>
       </div>
-      <textarea className={cn(fieldClass, "min-h-[120px] resize-y")} placeholder={t("footer.form.message")} aria-label={t("footer.form.message")} value={message} onChange={(e) => setMessage(e.target.value)} />
+      <label className="block">
+        <span className={labelClass}>{t("footer.form.message")}</span>
+        <textarea className={cn(fieldClass, "min-h-[120px] resize-y")} placeholder={t("footer.form.message")} aria-label={t("footer.form.message")} value={message} onChange={(e) => setMessage(e.target.value)} />
+      </label>
       {(status === "err" || status === "need") && (
         <p className="text-[13px] font-medium text-[#a3322d]">{status === "err" ? s.err : s.need}</p>
       )}
       <button
         type="submit"
         disabled={status === "sending"}
-        className="bg-[#f1f1f1] px-[34px] py-[14px] text-[15px] uppercase tracking-[1px] text-[#343434] transition-colors hover:bg-[#e2e2e2] disabled:cursor-not-allowed disabled:opacity-60"
+        className="gold-shimmer-host inline-flex items-center justify-center rounded-full bg-[#c6a15b] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
         {status === "sending" ? s.sending : t("footer.form.submit")}
       </button>

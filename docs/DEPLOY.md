@@ -1,4 +1,4 @@
-# Deploying dentalmedaustria.al to production
+﻿# Deploying dentalmedaustria.al to production
 
 The site ranks for nothing while it lives on `localhost:9999`. This is the exact,
 ordered runbook to take it live and get every URL indexed. Total hands-on time:
@@ -21,7 +21,7 @@ about 1–2 hours, then waiting on DNS + Google.
    |---|---|---|
    | `ANTHROPIC_API_KEY` | *(the rotated key)* | AutoSEO/Orbita/chatbot/CRM bot |
    | `AUTOSEO_DASHBOARD_KEY` | *(a strong password)* | gates the /autoseo dashboard + APIs |
-   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | `355677033332` | WhatsApp form target |
+   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | `355675562354` | WhatsApp form target |
    | CRM auth secrets | *(whatever `src/lib/crm/auth` expects)* | check `.env.local` for the full list |
 4. Deploy. Verify the `*.vercel.app` preview renders `/en`, `/de`, `/it`, `/sq`, a blog article, `/sitemap.xml`, `/robots.txt`.
 

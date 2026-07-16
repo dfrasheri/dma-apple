@@ -80,8 +80,8 @@ export default async function PrivacyPage() {
           {content.sections.map((section, i) => (
             <section key={i}>
               <h2
-                className="mb-3 text-xl font-semibold text-[#071522]"
-                style={{ fontFamily: "var(--font-bodoni)" }}
+                className="mb-3 text-xl font-semibold text-[#2a2018]"
+                style={{ fontFamily: "var(--font-newsreader)" }}
               >
                 {section.heading}
               </h2>

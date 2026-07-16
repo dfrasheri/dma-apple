@@ -2,8 +2,8 @@ import { treatmentMeta } from "@/lib/packets";
 
 /**
  * Composes 2-5 treatment photos into a single chic collage.
- * Layout adapts to the number of treatments; thin seams + a soft navy wash
- * keep it minimal and on-palette.
+ * Layout adapts to the number of treatments; thin ivory seams + a warm
+ * espresso wash keep it minimal and on the Gilded palette.
  */
 export function PacketCollage({
   slugs,
@@ -19,7 +19,7 @@ export function PacketCollage({
     return (
       <div className={`relative overflow-hidden ${className}`}>
         <div className="h-full w-full bg-cover bg-center transition-transform duration-[1200ms] group-hover:scale-[1.04]" style={{ backgroundImage: `url(${cover})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071522]/45 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#241c15]/55 via-transparent to-transparent" />
       </div>
     );
   }
@@ -41,7 +41,7 @@ export function PacketCollage({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <div className={`grid h-full w-full gap-[2px] bg-white ${layout.grid}`}>
+      <div className={`grid h-full w-full gap-[2px] bg-[#fbf7f2] ${layout.grid}`}>
         {imgs.map((src, i) => (
           <div
             key={i}
@@ -54,7 +54,7 @@ export function PacketCollage({
           </div>
         ))}
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071522]/45 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#241c15]/55 via-transparent to-transparent" />
     </div>
   );
 }

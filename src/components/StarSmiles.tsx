@@ -10,9 +10,10 @@
  * exact Instagram post that features that same smile shot (not the profile),
  * so a click lands on the star's DMA smile post.
  *
- * Design: dark-navy editorial wall between the white ImplantSystems section
- * and the SmileGallery photo banner, 4:5 portrait cards on a staggered grid
- * (even columns drop slightly on desktop), gold accents on the house palette.
+ * Design: dramatic dark-marble editorial wall (espresso ground, gold veining)
+ * between the ImplantSystems section and the SmileGallery photo banner, 4:5
+ * portrait cards on a staggered grid (even columns drop slightly on desktop),
+ * champagne-gold accents on the Gilded palette.
  *
  * SEO/GEO/AEO: the lead keeps every star's name in visible, crawlable text
  * while steering the message to the clinic's core work in the visitor's
@@ -25,7 +26,8 @@ import { Reveal } from "@/components/Reveal";
 import { InstagramIcon } from "@/components/icons";
 import { CONTACT } from "@/lib/site";
 
-const GOLD = "#d3b57f";
+/** Champagne gold — the light/glow accent on dark bands. */
+const GOLD = "#e4cd9a";
 
 type Star = {
   key: string;
@@ -189,7 +191,7 @@ function StarCard({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${star.name}, ${role} · ${visit}`}
-      className={`group relative block overflow-hidden rounded-2xl bg-[#0d2233] shadow-[0_24px_60px_-32px_rgba(0,0,0,0.9)] ring-1 ring-white/10 transition-all duration-500 hover:-translate-y-1.5 hover:ring-[#d3b57f]/60 ${
+      className={`group relative block overflow-hidden rounded-3xl border border-[#e4cd9a]/0 bg-[#241c15] shadow-[0_24px_60px_-32px_rgba(0,0,0,0.85)] transition-all duration-500 hover:-translate-y-1.5 hover:border-[#e4cd9a]/50 hover:shadow-[0_34px_80px_-32px_rgba(0,0,0,0.95)] ${
         offset ? "lg:translate-y-8 lg:hover:translate-y-[26px]" : ""
       }`}
     >
@@ -204,19 +206,17 @@ function StarCard({
       </span>
 
       {/* legibility gradient */}
-      <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#04101c]/90" />
+      <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#171310]/90" />
 
       {/* name / role / handle */}
-      <span className="absolute inset-x-0 bottom-0 p-5">
-        <span className="block font-serif text-[clamp(19px,1.6vw,24px)] leading-tight text-white">
+      <span className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+        <span className="block font-serif text-[clamp(19px,1.6vw,24px)] font-medium leading-tight text-[#fbf7f2]">
           {star.name}
         </span>
-        <span className="mt-1 block text-[12px] uppercase tracking-[1.5px] text-white/65">
+        <span className="mt-1 block text-[11px] uppercase tracking-[0.14em] text-[#e4cd9a]/75">
           {role}
         </span>
-        <span
-          className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11.5px] font-medium text-white/90 backdrop-blur-sm transition-colors duration-300 group-hover:bg-[#d3b57f] group-hover:text-[#071522]"
-        >
+        <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[#c6a15b]/25 bg-[#fbf7f2]/10 px-2.5 py-1 text-[11.5px] font-medium text-[#e4cd9a]/70 backdrop-blur-sm transition-colors duration-300 group-hover:border-[#c6a15b] group-hover:bg-[#c6a15b] group-hover:text-[#241c15]">
           <InstagramIcon className="h-3.5 w-3.5" />
           @{star.handle}
         </span>
@@ -233,32 +233,31 @@ export function StarSmiles() {
     <section
       id="star-smiles"
       aria-labelledby="star-smiles-title"
-      className="relative overflow-hidden bg-[#071522] py-24"
+      className="marble-dark section-y relative overflow-hidden"
     >
-      {/* soft gold glow accents */}
+      {/* soft champagne glow accents */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-40 top-[-120px] h-[420px] w-[420px] rounded-full opacity-[0.14]"
+        className="pointer-events-none absolute -left-40 top-[-120px] h-[420px] w-[420px] rounded-full opacity-[0.12]"
         style={{ background: `radial-gradient(circle, ${GOLD}, transparent 70%)` }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-48 bottom-[-160px] h-[520px] w-[520px] rounded-full opacity-[0.1]"
+        className="pointer-events-none absolute -right-48 bottom-[-160px] h-[520px] w-[520px] rounded-full opacity-[0.09]"
         style={{ background: `radial-gradient(circle, ${GOLD}, transparent 70%)` }}
       />
 
       <div className="tpds-container relative">
         <Reveal className="mx-auto max-w-3xl text-center" y={26}>
-          <p className="eyebrow" style={{ color: GOLD }}>
-            {t.eyebrow}
-          </p>
+          <p className="eyebrow tracking-[0.14em] text-[#e4cd9a]">{t.eyebrow}</p>
           <h2
             id="star-smiles-title"
-            className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-normal leading-[1.12] text-white"
+            className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-medium leading-[1.12] text-[#fbf7f2]"
           >
             {t.title}
           </h2>
-          <p className="mt-6 text-[15.5px] leading-relaxed text-white/60">{t.lead}</p>
+          <span aria-hidden className="gold-rule mx-auto mt-7 block w-28" />
+          <p className="mt-7 text-[15.5px] leading-relaxed text-[#fbf7f2]/70">{t.lead}</p>
         </Reveal>
 
         <Reveal
@@ -281,7 +280,7 @@ export function StarSmiles() {
             href={CONTACT.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#d3b57f]/60 px-6 py-3 text-[13px] uppercase tracking-[1.5px] text-[#d3b57f] transition-colors duration-300 hover:bg-[#d3b57f] hover:text-[#071522]"
+            className="gold-shimmer-host inline-flex items-center justify-center gap-2 rounded-full bg-[#c6a15b] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
             <InstagramIcon className="h-4 w-4" />
             {t.follow}

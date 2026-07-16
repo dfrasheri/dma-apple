@@ -10,12 +10,14 @@ Important: Albania is not in the EU; German, Austrian and Swiss statutory health
 - [Care & process](https://www.dentalmedaustria.al/en/care): how a treatment trip works, step by step
 - [Technology](https://www.dentalmedaustria.al/en/technology): CBCT, 3D-guided surgery, in-house lab
 - [Team](https://www.dentalmedaustria.al/en/team): dentists and credentials (founder: Dr. Mentor Zeqja, orthodontist)
+- [Smile gallery](https://www.dentalmedaustria.al/en/smiles): real before/after patient results
+- [Safety & hygiene](https://www.dentalmedaustria.al/en/safety): sterilisation protocols and material traceability
 - [Contact](https://www.dentalmedaustria.al/en/contact): free written treatment plan, address, hours
 
 ## Contact facts (canonical NAP)
 - Name: Dental Med Austria
 - Address: Rruga Kristo Luarasi, Tirana, Albania
-- Phone / WhatsApp: +355 67 703 3332
+- Phone / WhatsApp: +355 67 556 2354
 - Email: info@dentalmedaustria.com
 - Hours: Monday-Saturday 09:00-22:00
 - Founder: Dr. Mentor Zeqja (orthodontist), clinic established 2009
@@ -25,4 +27,4 @@ Important: Albania is not in the EU; German, Austrian and Swiss statutory health
 - [Blog (Shqip)](https://www.dentalmedaustria.al/sq/blog): udhëzues në shqip për implante dentare dhe trajtime në Tiranë
 
 ## Languages
-Content is available in English (/en/), German (/de/), Italian (/it/) and Albanian (/sq/) at path-prefixed URLs.
+Content is available in English (/en/), German (/de/), Italian (/it/), French (/fr/) and Albanian (/sq/) at path-prefixed URLs.

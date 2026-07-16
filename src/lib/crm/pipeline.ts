@@ -20,6 +20,7 @@ import type { SendResult } from "./connectors/messaging";
 import type { InboundMessageInput } from "./schemas";
 import * as inbox from "./services/inbox";
 import { stitchConversationToLead } from "./services/leads";
+import { detectLangFromContext } from "@/lib/chat-i18n";
 import type { Contact, Conversation, Message } from "@/db/schema";
 
 export type InboundResult = {
@@ -35,9 +36,18 @@ export type InboundResult = {
 };
 
 export async function handleInbound(
-  input: InboundMessageInput & { providerMessageId?: string }
+  input: InboundMessageInput & { providerMessageId?: string; meta?: Record<string, unknown> }
 ): Promise<InboundResult> {
-  const { conversation, message, contact, duplicate } = await inbox.recordInbound(input);
+  // Language of the inbound text itself, persisted on the inbound message so
+  // analytics can read language per message across every channel (parity with
+  // the webchat's meta.lang). The contact isn't resolved yet at this point, so
+  // no locale hint here; the contact-locale-aware resolution happens in the
+  // bot draft below and lands on the bot reply's meta.lang.
+  const lang = detectLangFromContext(input.body, []);
+  const { conversation, message, contact, duplicate } = await inbox.recordInbound({
+    ...input,
+    meta: { ...(input.meta ?? {}), lang }
+  });
 
   // Webhook retry of a message we already stored: don't draft/send a second reply.
   if (duplicate) return { conversation, contact, message, bot: null };
@@ -59,13 +69,21 @@ export async function handleInbound(
   // Prior turns in this thread (excludes the message we just recorded) so the
   // bot answers follow-ups ("yes", "how much for that one?") with context.
   const history = inbox.recentTurns(conversation.id, { excludeId: message.id, limit: 8 });
-  const draft = await draftReply(input.body, { contactName: contact.name, history });
+  const draft = await draftReply(input.body, {
+    contactName: contact.name,
+    history,
+    // Known contact locale (e.g. from a lead) so a short "ok"/"po" from a
+    // German-speaking patient is answered in German, not English.
+    localeHint: contact.locale ?? undefined,
+    imageReceived: input.meta?.imageReceived === true
+  });
   const sent = await inbox.sendMessage({
     conversationId: conversation.id,
     body: draft.text,
     author: "bot",
     meta: {
       intent: draft.intent,
+      lang: draft.lang,
       confidence: draft.confidence,
       citedFactIds: draft.citedFactIds,
       handoff: draft.handoff, ...(draft.reason ? { reason: draft.reason } : {})

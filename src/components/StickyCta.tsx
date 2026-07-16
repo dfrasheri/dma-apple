@@ -27,7 +27,7 @@ export function StickyCta() {
           ? { duration: 0.2, ease: "easeOut" }
           : { type: "spring", bounce: 0, duration: 0.4 }
       }
-      className="fixed inset-x-0 bottom-0 z-40 bg-[#3a3a3a] text-white"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#c6a15b]/40 bg-[#241c15]/95 text-[#fbf7f2] backdrop-blur-md"
     >
       <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-8">
         <div className="flex min-w-0 items-center gap-5 sm:gap-7">

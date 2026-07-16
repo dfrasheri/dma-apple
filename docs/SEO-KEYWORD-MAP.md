@@ -1,4 +1,4 @@
-# Keyword Map, SEM Plan & Link-Vendor Policy — Dental Med Austria
+﻿# Keyword Map, SEM Plan & Link-Vendor Policy — Dental Med Austria
 
 Companion to [AUTHORITY-PLAYBOOK.md](./AUTHORITY-PLAYBOOK.md) (off-site authority) — this file
 covers **what to rank for**, **what to pay Google for**, and **what never to buy**.
@@ -85,7 +85,7 @@ While organic authority builds (months), Ads buys the "best/cost/implants" SERP 
 **Musts**
 - Conversion tracking first: form submit, WhatsApp click, `tel:` click, email click as separate conversions in GA4 → imported to Ads. (The tel/mailto links now exist site-wide via the sticky bar.)
 - Negative keywords: jobs, salary, school, "free", competitor-brand terms you don't want to pay for.
-- Call extensions with +355 67 703 3332 · location extension via GBP · price extensions for packages.
+- Call extensions with +355 67 556 2354 · location extension via GBP · price extensions for packages.
 - Budget split at start: 50% DE / 25% IT / 15% EN / 10% SQ; rebalance monthly on cost-per-lead.
 - Landing-page rule: the ad's keyword appears in the H1 and the price-FAQ of the page it lands on.
 

@@ -6,16 +6,23 @@
  *   history?: { role: "user"|"assistant", content: string }[],
  *   image?: { data: string, mediaType: string },   // ONE X-ray/photo, base64 or data URL
  *   locale?: string,                               // site locale, language tiebreaker
+ *   lang?: "en"|"sq"|"de"|"it"|"fr",               // sticky conversation language (widget pick)
+ *   sessionId?: string,                            // anonymous widget session, for the CRM inbox
  * }
- * Returns: { text, sources, handoff, intent }
+ * Returns: { text, sources, handoff, intent, lang }
  *
  * Answers are grounded in the clinic knowledge layer (the website's own data).
  * The route is intentionally outside the i18n middleware (matcher excludes /api),
  * so it is reachable without a locale prefix. `history` lets the assistant answer
  * follow-ups with context; everything is sanitised and capped since this is public.
+ *
+ * Every turn is also persisted to the CRM inbox (channel "webchat") so the
+ * website chat feeds the same analytics as Instagram/Messenger/WhatsApp —
+ * best-effort: a CRM db hiccup must never break the visitor's chat.
  */
 import { NextResponse } from "next/server";
 import { draftReplyAI } from "@/lib/chat-bot";
+import type { Lang } from "@/lib/chat-i18n";
 import type { AiImage, ChatTurn } from "@/lib/ai";
 
 export const runtime = "nodejs";
@@ -110,6 +117,8 @@ export async function POST(req: Request) {
   let image: AiImage | null = null;
   let imageProvided = false;
   let locale = "";
+  let forceLang: Lang | undefined;
+  let sessionId: string | null = null;
   try {
     const body = await req.json();
     message = typeof body?.message === "string" ? body.message : "";
@@ -117,6 +126,11 @@ export async function POST(req: Request) {
     imageProvided = body?.image != null;
     image = sanitizeImage(body?.image);
     locale = typeof body?.locale === "string" ? body.locale.slice(0, 5) : "";
+    forceLang = LANGS.has(body?.lang) ? (body.lang as Lang) : undefined;
+    sessionId =
+      typeof body?.sessionId === "string" && /^[a-zA-Z0-9-]{8,64}$/.test(body.sessionId)
+        ? body.sessionId
+        : null;
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
@@ -129,6 +143,55 @@ export async function POST(req: Request) {
 
   if (message.length > 2000) message = message.slice(0, 2000);
 
-  const reply = await draftReplyAI(message, history, { image, localeHint: locale });
+  const reply = await draftReplyAI(message, history, { image, localeHint: locale, forceLang });
+
+  // Persist both turns to the CRM inbox — fire-and-forget, never blocks the reply.
+  if (sessionId) {
+    void persistTurn({
+      sessionId,
+      locale,
+      inbound: message || (image ? "(sent an X-ray photo)" : ""),
+      hasImage: Boolean(image),
+      reply,
+    }).catch(() => {});
+  }
+
   return NextResponse.json(reply);
+}
+
+const LANGS = new Set(["en", "sq", "de", "it", "fr"]);
+
+/**
+ * Mirror a webchat exchange into the CRM inbox so website conversations get
+ * the same analytics (top questions, per-channel volume, X-ray willingness)
+ * as the Meta channels. Imported lazily so a missing/locked sqlite file only
+ * disables persistence, never the public chat.
+ */
+async function persistTurn(input: {
+  sessionId: string;
+  locale: string;
+  inbound: string;
+  hasImage: boolean;
+  reply: { text: string; intent: string; handoff: boolean; lang: string };
+}) {
+  const { recordInbound, recordBotReplyLocal } = await import("@/lib/crm/services/inbox");
+  if (!input.inbound) return;
+  const { conversation } = await recordInbound({
+    channel: "webchat",
+    externalId: `web:${input.sessionId}`,
+    body: input.inbound,
+    contact: { handle: `web:${input.sessionId}`, name: "Website visitor" },
+    meta: {
+      lang: input.reply.lang,
+      locale: input.locale || undefined,
+      intent: input.reply.intent,
+      ...(input.hasImage ? { imageReceived: true } : {}),
+    },
+  });
+  await recordBotReplyLocal({
+    conversationId: conversation.id,
+    body: input.reply.text,
+    markRead: !input.reply.handoff,
+    meta: { lang: input.reply.lang, intent: input.reply.intent, handoff: input.reply.handoff, bot: "web" },
+  });
 }

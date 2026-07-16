@@ -13,6 +13,7 @@ import { BrandMarquee } from "@/components/BrandMarquee";
 import { BlogStrip } from "@/components/BlogStrip";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StickyCta } from "@/components/StickyCta";
+import { KineticMarquee } from "@/components/fx/KineticMarquee";
 import { JsonLd } from "@/components/JsonLd";
 import { reviewsJsonLd } from "@/lib/reviews";
 import { getT } from "@/lib/server-i18n";
@@ -25,6 +26,16 @@ export default async function Home() {
       <main>
         <Hero />
         <IntroAbout />
+        <KineticMarquee
+          goldIndex={2}
+          words={[
+            t("treat.implants"),
+            t("treat.crowns"),
+            t("treat.veneers"),
+            t("treat.prostheses"),
+            t("treat.orthodontics"),
+          ]}
+        />
         <ExploreTreatments />
         <TourOffice />
         <Accreditations />

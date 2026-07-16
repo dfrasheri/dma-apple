@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Roboto } from "next/font/google";
+import { Newsreader, Figtree } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { MotionPreferenceSync } from "@/components/MotionPreferenceSync";
 import { PublicChrome } from "@/components/PublicChrome";
@@ -10,18 +10,19 @@ import { clinicJsonLd, websiteJsonLd, SITE_URL, META, buildAlternates } from "@/
 import { DEFAULT_LOCALE } from "@/lib/dictionaries";
 import "./globals.css";
 
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
   weight: ["400", "500", "600", "700"],
 });
 
-const roboto = Roboto({
-  variable: "--font-roboto",
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,7 +64,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${bodoni.variable} ${roboto.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${figtree.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <JsonLd data={[clinicJsonLd, websiteJsonLd]} />

@@ -42,7 +42,7 @@ export function ProcedureCard({
     <Link
       href={`/${locale}/catalogue/${service.slug}`}
       aria-label={displayName}
-      className="group relative flex h-full flex-col overflow-hidden rounded-sm border border-[#ececec] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#071522]/25 hover:shadow-[0_18px_44px_-24px_rgba(0,0,0,0.4)]"
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[#e8ddc9] bg-[#fffefb] p-7 shadow-[var(--shadow-brand-sm)] transition-all duration-300 hover:-translate-y-1 hover:border-[#9a7638]/35 hover:shadow-[var(--shadow-brand-lg)]"
     >
       {/* accent bar wipes in on hover */}
       <span
@@ -51,20 +51,17 @@ export function ProcedureCard({
       />
 
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-serif text-[20px] font-normal leading-snug text-[#071522]">
+        <h3 className="font-serif text-[20px] font-normal leading-snug text-[#2a2018]">
           {displayName}
         </h3>
         {service.featured && (
-          <span
-            className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.8px] text-white"
-            style={{ backgroundColor: accent }}
-          >
+          <span className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full bg-[#c6a15b] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.8px] text-[#241c15]">
             <StarIcon className="h-2.5 w-2.5" /> Popular
           </span>
         )}
       </div>
 
-      <p className="mt-3 line-clamp-3 text-[14.5px] font-light leading-[1.55] text-[#555]">
+      <p className="mt-3 line-clamp-3 text-[14.5px] font-light leading-[1.55] text-[#6e6152]">
         {displaySummary}
       </p>
 
@@ -73,8 +70,7 @@ export function ProcedureCard({
           {service.brands.map((b) => (
             <span
               key={b}
-              className="rounded-full border px-2.5 py-[3px] text-[11px] font-medium"
-              style={{ borderColor: `${accent}33`, color: accent, backgroundColor: `${accent}0d` }}
+              className="rounded-full border border-[#9a7638]/20 bg-[#f4ecdd] px-2.5 py-[3px] text-[11px] font-medium text-[#9a7638]"
             >
               {b}
             </span>
@@ -82,7 +78,7 @@ export function ProcedureCard({
         </div>
       )}
 
-      <span className="mt-5 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[1.2px] transition-opacity group-hover:opacity-70" style={{ color: accent }}>
+      <span className="mt-auto inline-flex items-center gap-2 pt-5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#9a7638] transition-colors duration-300 group-hover:text-[#c6a15b]">
         {t("card.discover")} <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
       </span>
     </Link>

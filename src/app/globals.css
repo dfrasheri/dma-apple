@@ -7,10 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-roboto), "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), "Figtree", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, monospace;
-  --font-serif: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
-  --font-heading: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  --font-heading: var(--font-newsreader), "Newsreader", Georgia, serif;
 
   /* Size-specific type scale (opt-in utilities: text-display/h1/h2/h3), each
      paired with its own line-height + letter-spacing so tracking tightens and
@@ -35,39 +35,56 @@
   --text-h3--line-height: 1.2;
   --text-h3--letter-spacing: -0.006em;
 
-  --color-navy: #071522;
-  --color-ink: #343434;
-  --color-nav-bg: #e6e6e6;
-  --color-btn: #f1f1f1;
+  /* Legacy named tokens, re-pointed to the Gilded palette so any component
+     still referencing them inherits the new identity (values, not names). */
+  --color-navy: #2a2018;      /* was navy; now warm espresso ink */
+  --color-ink: #2a2018;
+  --color-nav-bg: #fbf7f2;    /* ivory */
+  --color-btn: #f4ecdd;       /* warm sunk */
 
-  /* Brand oklch scale — anchored on the navy (#071522) and champagne-gold
-     (#d3b57f) already used ad hoc across the site. brand-navy-900 and
-     brand-gold-400 are the exact converted anchors; the rest of each scale is
-     derived to be perceptually even at the same hue. Exposed as Tailwind
-     utilities (bg-brand-navy-500, text-brand-gold-600, ...) for material/shadow
-     work in later phases. */
-  --color-brand-navy-50: oklch(0.975 0.006 247.83);
-  --color-brand-navy-100: oklch(0.94 0.01 247.83);
-  --color-brand-navy-200: oklch(0.87 0.016 247.83);
-  --color-brand-navy-300: oklch(0.78 0.02 247.83);
-  --color-brand-navy-400: oklch(0.66 0.024 247.83);
-  --color-brand-navy-500: oklch(0.52 0.028 247.83);
-  --color-brand-navy-600: oklch(0.4 0.03 247.83);
-  --color-brand-navy-700: oklch(0.3 0.032 247.83);
-  --color-brand-navy-800: oklch(0.24 0.033 247.83);
-  --color-brand-navy-900: oklch(0.1905 0.0332 247.83);
-  --color-brand-navy-950: oklch(0.12 0.028 247.83);
-  --color-brand-gold-50: oklch(0.975 0.012 80);
-  --color-brand-gold-100: oklch(0.94 0.024 80);
-  --color-brand-gold-200: oklch(0.89 0.04 80);
-  --color-brand-gold-300: oklch(0.83 0.058 81);
-  --color-brand-gold-400: oklch(0.7866 0.0787 81.79);
-  --color-brand-gold-500: oklch(0.72 0.086 80);
-  --color-brand-gold-600: oklch(0.6545 0.0903 76.44);
-  --color-brand-gold-700: oklch(0.56 0.088 74);
-  --color-brand-gold-800: oklch(0.46 0.076 72);
-  --color-brand-gold-900: oklch(0.36 0.06 70);
-  --color-brand-gold-950: oklch(0.26 0.044 68);
+  /* ── Named Gilded tokens (ivory · gold · espresso · tiny navy) ─────────── */
+  --color-ivory: #fbf7f2;         /* page ground */
+  --color-raised: #fffefb;        /* raised cards */
+  --color-sunk: #f4ecdd;          /* sunk sections */
+  --color-espresso: #2a2018;      /* ink */
+  --color-espresso-band: #241c15; /* dramatic formal bands (footer/CTA) */
+  --color-champagne: #e4cd9a;     /* light gold / glow */
+  --color-gold: #c6a15b;          /* burnished — primary accent */
+  --color-gold-deep: #9a7638;     /* antique — legible gold text on ivory */
+  --color-accent-navy: #17233b;   /* tiny formal accent ONLY — never dominant */
+
+  /* Gold foil gradient — for eyebrows, rules, numerals, shimmer sweeps. */
+  --gold-foil: linear-gradient(135deg, #e4cd9a 0%, #c6a15b 45%, #9a7638 100%);
+
+  /* Gold oklch scale (champagne → antique), hue ~82. */
+  --color-brand-gold-50: oklch(0.975 0.012 86);
+  --color-brand-gold-100: oklch(0.955 0.022 86);
+  --color-brand-gold-200: oklch(0.915 0.04 85);
+  --color-brand-gold-300: oklch(0.8553 0.0713 86.48);
+  --color-brand-gold-400: oklch(0.80 0.088 84);
+  --color-brand-gold-500: oklch(0.7279 0.0989 82.08);
+  --color-brand-gold-600: oklch(0.66 0.095 80);
+  --color-brand-gold-700: oklch(0.5885 0.0915 78.95);
+  --color-brand-gold-800: oklch(0.50 0.078 76);
+  --color-brand-gold-900: oklch(0.40 0.06 72);
+  --color-brand-gold-950: oklch(0.30 0.045 68);
+
+  /* Warm espresso neutral scale (hue ~62, low chroma) — text, borders, grounds. */
+  --color-brand-ink-50: oklch(0.9778 0.0079 73.74);
+  --color-brand-ink-100: oklch(0.9453 0.0217 83.26);
+  --color-brand-ink-200: oklch(0.90 0.02 74);
+  --color-brand-ink-300: oklch(0.82 0.024 70);
+  --color-brand-ink-400: oklch(0.6950 0.0278 67.34);
+  --color-brand-ink-500: oklch(0.5006 0.0284 71.09);
+  --color-brand-ink-600: oklch(0.40 0.025 66);
+  --color-brand-ink-700: oklch(0.32 0.022 62);
+  --color-brand-ink-800: oklch(0.2528 0.0212 60.29);
+  --color-brand-ink-900: oklch(0.20 0.018 60);
+  --color-brand-ink-950: oklch(0.16 0.015 60);
+
+  /* Tiny formal navy accent — a couple of stops only (never a ground). */
+  --color-brand-navy-500: oklch(0.2582 0.0485 263.22);
+  --color-brand-navy-700: oklch(0.20 0.045 263);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -106,85 +123,86 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* Layered, soft, navy-tinted shadows (public site only — named "brand" so
-     they don't collide with/restyle the CRM's existing default `shadow-*`
-     utilities). Each stop pairs a tight contact shadow with a diffuse ambient
-     one, Apple-style, rather than a single hard-edged blur. */
-  --shadow-brand-xs: 0 1px 2px rgba(7, 21, 34, 0.06);
-  --shadow-brand-sm: 0 1px 2px rgba(7, 21, 34, 0.05), 0 2px 6px rgba(7, 21, 34, 0.07);
-  --shadow-brand-md: 0 2px 4px rgba(7, 21, 34, 0.06), 0 6px 16px rgba(7, 21, 34, 0.09);
-  --shadow-brand-lg: 0 4px 8px rgba(7, 21, 34, 0.06), 0 14px 32px rgba(7, 21, 34, 0.12);
-  --shadow-brand-xl: 0 8px 16px rgba(7, 21, 34, 0.08), 0 24px 48px rgba(7, 21, 34, 0.16);
-  --shadow-brand-2xl: 0 12px 24px rgba(7, 21, 34, 0.1), 0 40px 80px rgba(7, 21, 34, 0.22);
+  /* Layered, soft, warm-espresso-tinted shadows (public site only — named
+     "brand" so they don't collide with the CRM's default `shadow-*`). Each
+     stop pairs a tight contact shadow with a diffuse ambient one. */
+  --shadow-brand-xs: 0 1px 2px rgba(42, 32, 24, 0.06);
+  --shadow-brand-sm: 0 1px 2px rgba(42, 32, 24, 0.05), 0 2px 6px rgba(42, 32, 24, 0.07);
+  --shadow-brand-md: 0 2px 4px rgba(42, 32, 24, 0.06), 0 6px 16px rgba(42, 32, 24, 0.09);
+  --shadow-brand-lg: 0 4px 8px rgba(42, 32, 24, 0.06), 0 16px 34px rgba(42, 32, 24, 0.12);
+  --shadow-brand-xl: 0 10px 20px rgba(42, 32, 24, 0.08), 0 28px 56px rgba(42, 32, 24, 0.16);
+  --shadow-brand-2xl: 0 14px 28px rgba(42, 32, 24, 0.1), 0 44px 88px rgba(42, 32, 24, 0.2);
+  /* A soft gold glow for hero/CTA accents. */
+  --shadow-gold: 0 10px 30px -8px rgba(198, 161, 91, 0.45);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: var(--color-brand-navy-900);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--color-brand-navy-900);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--color-brand-navy-900);
-  --primary: var(--color-brand-navy-900);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: var(--color-brand-gold-50);
-  --secondary-foreground: var(--color-brand-navy-900);
-  --muted: var(--color-brand-navy-50);
-  --muted-foreground: var(--color-brand-navy-500);
-  --accent: var(--color-brand-gold-400);
-  --accent-foreground: var(--color-brand-navy-900);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: var(--color-brand-navy-100);
-  --input: var(--color-brand-navy-100);
+  --background: var(--color-brand-ink-50);          /* ivory */
+  --foreground: var(--color-brand-ink-800);         /* espresso */
+  --card: oklch(0.997 0.004 91);                    /* raised */
+  --card-foreground: var(--color-brand-ink-800);
+  --popover: oklch(0.997 0.004 91);
+  --popover-foreground: var(--color-brand-ink-800);
+  --primary: var(--color-brand-gold-500);           /* burnished gold */
+  --primary-foreground: var(--color-brand-ink-900);
+  --secondary: var(--color-brand-ink-100);          /* warm sunk */
+  --secondary-foreground: var(--color-brand-ink-800);
+  --muted: var(--color-brand-ink-100);
+  --muted-foreground: var(--color-brand-ink-500);
+  --accent: var(--color-brand-gold-300);            /* champagne */
+  --accent-foreground: var(--color-brand-ink-900);
+  --destructive: oklch(0.55 0.2 27);
+  --border: var(--color-brand-ink-200);
+  --input: var(--color-brand-ink-200);
   --ring: var(--color-brand-gold-500);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: var(--color-brand-navy-900);
-  --sidebar-primary: var(--color-brand-navy-900);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: var(--color-brand-gold-50);
-  --sidebar-accent-foreground: var(--color-brand-navy-900);
-  --sidebar-border: var(--color-brand-navy-100);
+  --chart-1: var(--color-brand-gold-400);
+  --chart-2: var(--color-brand-gold-600);
+  --chart-3: var(--color-brand-ink-400);
+  --chart-4: var(--color-brand-ink-600);
+  --chart-5: var(--color-brand-navy-500);
+  --radius: 0.75rem;
+  --sidebar: var(--color-brand-ink-50);
+  --sidebar-foreground: var(--color-brand-ink-800);
+  --sidebar-primary: var(--color-brand-gold-500);
+  --sidebar-primary-foreground: var(--color-brand-ink-900);
+  --sidebar-accent: var(--color-brand-ink-100);
+  --sidebar-accent-foreground: var(--color-brand-ink-800);
+  --sidebar-border: var(--color-brand-ink-200);
   --sidebar-ring: var(--color-brand-gold-500);
 }
 
 .dark {
-  --background: var(--color-brand-navy-950);
-  --foreground: oklch(0.97 0.006 247.83);
-  --card: var(--color-brand-navy-900);
-  --card-foreground: oklch(0.97 0.006 247.83);
-  --popover: var(--color-brand-navy-900);
-  --popover-foreground: oklch(0.97 0.006 247.83);
+  --background: oklch(0.2 0.016 62);                 /* warm near-espresso ground */
+  --foreground: var(--color-brand-ink-50);
+  --card: var(--color-brand-ink-900);
+  --card-foreground: var(--color-brand-ink-50);
+  --popover: var(--color-brand-ink-900);
+  --popover-foreground: var(--color-brand-ink-50);
   --primary: var(--color-brand-gold-400);
-  --primary-foreground: var(--color-brand-navy-950);
-  --secondary: var(--color-brand-navy-800);
-  --secondary-foreground: oklch(0.97 0.006 247.83);
-  --muted: var(--color-brand-navy-800);
-  --muted-foreground: var(--color-brand-navy-300);
-  --accent: var(--color-brand-navy-700);
-  --accent-foreground: var(--color-brand-gold-400);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --primary-foreground: oklch(0.18 0.016 62);
+  --secondary: var(--color-brand-ink-800);
+  --secondary-foreground: var(--color-brand-ink-50);
+  --muted: var(--color-brand-ink-800);
+  --muted-foreground: var(--color-brand-ink-300);
+  --accent: var(--color-brand-gold-700);
+  --accent-foreground: var(--color-brand-ink-50);
+  --destructive: oklch(0.62 0.19 25);
+  --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: var(--color-brand-gold-500);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: var(--color-brand-navy-900);
-  --sidebar-foreground: oklch(0.97 0.006 247.83);
+  --ring: var(--color-brand-gold-400);
+  --chart-1: var(--color-brand-gold-300);
+  --chart-2: var(--color-brand-gold-500);
+  --chart-3: var(--color-brand-ink-300);
+  --chart-4: var(--color-brand-ink-400);
+  --chart-5: var(--color-brand-navy-500);
+  --sidebar: var(--color-brand-ink-900);
+  --sidebar-foreground: var(--color-brand-ink-50);
   --sidebar-primary: var(--color-brand-gold-400);
-  --sidebar-primary-foreground: var(--color-brand-navy-950);
-  --sidebar-accent: var(--color-brand-navy-800);
-  --sidebar-accent-foreground: oklch(0.97 0.006 247.83);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--color-brand-gold-500);
+  --sidebar-primary-foreground: oklch(0.18 0.016 62);
+  --sidebar-accent: var(--color-brand-ink-800);
+  --sidebar-accent-foreground: var(--color-brand-ink-50);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: var(--color-brand-gold-400);
 }
 
 @layer base {
@@ -192,19 +210,22 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-white text-[#343434];
-    font-family: var(--font-roboto), "Roboto", sans-serif;
-    font-weight: 300;
+    background: var(--color-ivory);
+    color: var(--color-espresso);
+    font-family: var(--font-figtree), "Figtree", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
     font-size: 17px;
-    line-height: 1.41;
-    letter-spacing: -0.17px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
   }
   .font-serif {
-    font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+    font-family: var(--font-newsreader), "Newsreader", Georgia, serif;
   }
 }
 
@@ -219,17 +240,109 @@
   .tpds-container { padding-inline: 40px; }
 }
 .eyebrow {
-  font-family: var(--font-roboto), "Roboto", sans-serif;
+  font-family: var(--font-figtree), "Figtree", sans-serif;
   text-transform: uppercase;
-  letter-spacing: 1.6px;
-  font-weight: 400;
-  font-size: 14px;
+  letter-spacing: 2.4px;
+  font-weight: 600;
+  font-size: 12.5px;
 }
 .serif-title {
-  font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
-  font-weight: 400;
-  color: var(--color-navy);
+  font-family: var(--font-newsreader), "Newsreader", Georgia, serif;
+  font-weight: 500;
+  color: var(--color-espresso);
   line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+/* ── Gilded utilities ──────────────────────────────────────────────────
+   Gold-foil text (eyebrows, numerals, small accents), a hairline gold rule,
+   and a hover shimmer sweep. Foil text falls back to solid gold where
+   background-clip:text isn't supported. */
+.gold-foil {
+  background: var(--gold-foil);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--color-gold-deep);
+}
+.gold-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+}
+/* Shimmer sweep — put on a ::before-style overlay or a positioned span inside
+   a `.gold-shimmer-host` (which must be position:relative + overflow:hidden). */
+.gold-shimmer-host { position: relative; overflow: hidden; }
+.gold-shimmer-host::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-160%) skewX(-16deg);
+  background: linear-gradient(105deg, transparent, rgba(255, 245, 220, 0.55), transparent);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.gold-shimmer-host:hover::after { transform: translateX(160%) skewX(-16deg); }
+@media (prefers-reduced-motion: reduce) {
+  .gold-shimmer-host::after { transition: none; }
+}
+
+/* ── Uniform section rhythm (apply per section as components are reskinned) */
+.section-y { padding-block: clamp(4rem, 8vw, 7rem); }
+.section-y-sm { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.section-y-lg { padding-block: clamp(5rem, 10vw, 9rem); }
+
+/* ── Luxe global details ─────────────────────────────────────────────── */
+/* Lenis owns wheel scrolling; let it, not CSS, ease anchor jumps. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+::selection { background: rgba(198, 161, 91, 0.35); color: #241c15; }
+
+/* Thin espresso scrollbar with a gold thumb (desktop nicety). */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #f4ecdd; }
+  ::-webkit-scrollbar-thumb { background: #c6a15b; border-radius: 6px; border: 2px solid #f4ecdd; }
+  ::-webkit-scrollbar-thumb:hover { background: #9a7638; }
+}
+
+/* Dark marble band — deep espresso ground with wispy gold veining
+   (SVG turbulence, no image asset) and soft champagne glows. Matches the
+   clinic's real black-marble-and-gold interiors. */
+.marble-dark {
+  position: relative;
+  background-color: #171310;
+  background-image:
+    radial-gradient(90% 60% at 12% 0%, rgba(198, 161, 91, 0.12), transparent 60%),
+    radial-gradient(70% 50% at 88% 100%, rgba(154, 118, 56, 0.1), transparent 65%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.0022 0.0065' numOctaves='4' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.89 0 0 0 0 0.8 0 0 0 0 0.6 0 0 0 0.9 -0.62'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23v)'/%3E%3C/svg%3E");
+  background-size: auto, auto, 900px 900px;
+}
+
+/* Giant editorial stat numeral — the proof numbers become the composition. */
+.stat-giant {
+  font-family: var(--font-newsreader), "Newsreader", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(40px, 6vw, 92px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-giant--text {
+  font-size: clamp(26px, 3.6vw, 56px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+/* Index numerals for editorial card sequences (01–05). */
+.index-numeral {
+  font-family: var(--font-newsreader), "Newsreader", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(198, 161, 91, 0.65);
 }
 
 /* ── Translucent materials (public site) ────────────────────────────────
@@ -241,24 +354,23 @@
    mirrored by the `data-transparency-reduce` attribute MotionPreferenceSync
    sets on <html> so non-CSS consumers can key off the same signal. */
 .material-chrome {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(251, 247, 242, 0.78);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(7, 21, 34, 0.06);
+  border-bottom: 1px solid rgba(198, 161, 91, 0.28);
 }
 .material-panel {
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 254, 251, 0.9);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(198, 161, 91, 0.3);
   box-shadow: var(--shadow-brand-lg);
 }
 .material-sheet {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(251, 247, 242, 0.94);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(198, 161, 91, 0.3);
   box-shadow: var(--shadow-brand-2xl);
 }
 @media (prefers-reduced-transparency: reduce) {
@@ -268,9 +380,9 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-  .material-chrome { background: rgb(246, 246, 246); }
+  .material-chrome { background: rgb(247, 242, 234); }
   .material-panel,
-  .material-sheet { background: rgb(255, 255, 255); }
+  .material-sheet { background: rgb(255, 254, 251); }
 }
 [data-transparency-reduce] .material-chrome,
 [data-transparency-reduce] .material-panel,
@@ -278,9 +390,9 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-[data-transparency-reduce] .material-chrome { background: rgb(246, 246, 246); }
+[data-transparency-reduce] .material-chrome { background: rgb(247, 242, 234); }
 [data-transparency-reduce] .material-panel,
-[data-transparency-reduce] .material-sheet { background: rgb(255, 255, 255); }
+[data-transparency-reduce] .material-sheet { background: rgb(255, 254, 251); }
 
 /* fade/slide reveal on scroll */
 .reveal {

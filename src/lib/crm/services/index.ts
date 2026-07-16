@@ -7,3 +7,4 @@ export * as appointmentsService from "./appointments";
 export * as marketService from "./market";
 export * as dashboardService from "./dashboard";
 export * as teamService from "./team";
+export * as analyticsService from "./analytics";

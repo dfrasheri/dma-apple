@@ -28,6 +28,12 @@ export type ParsedInboundEvent = {
   /** Provider message id (`mid` / WhatsApp id), used to dedup webhook retries. */
   providerMessageId?: string;
   contact?: { name?: string; handle?: string; phone?: string };
+  /**
+   * Extra metadata persisted onto the inbound message, e.g.
+   * `{ imageReceived: true, attachments: [url-or-media-id, …] }` when the
+   * visitor sends a photo/X-ray.
+   */
+  meta?: Record<string, unknown>;
   /** Context line to record in the thread first (e.g. "opened via ad"). */
   signal?: { reason: string; meta?: Record<string, unknown> };
 };
@@ -47,7 +53,14 @@ type Referral = {
 
 type MessagingEvent = {
   sender?: { id?: string };
-  message?: { mid?: string; text?: string; is_echo?: boolean; referral?: Referral };
+  message?: {
+    mid?: string;
+    text?: string;
+    is_echo?: boolean;
+    referral?: Referral;
+    /** Messenger/Instagram media: images arrive as attachments with a CDN url. */
+    attachments?: { type?: string; payload?: { url?: string } }[];
+  };
   /** messaging_referrals, ad click / m.me link WITHOUT a typed message yet. */
   referral?: Referral;
   /** messaging_postbacks, Get Started / persistent-menu buttons. */
@@ -60,7 +73,14 @@ type ChangeValue = {
   // WhatsApp (field "messages")
   messaging_product?: string;
   contacts?: { wa_id?: string; profile?: { name?: string } }[];
-  messages?: { id?: string; from?: string; type?: string; text?: { body?: string } }[];
+  messages?: {
+    id?: string;
+    from?: string;
+    type?: string;
+    text?: { body?: string };
+    /** WhatsApp Cloud API media: `id` needs a later authed Graph fetch; `link` is rare but direct. */
+    image?: { id?: string; link?: string; caption?: string };
+  }[];
   // Facebook Page feed (field "feed")
   item?: string;
   verb?: string;
@@ -124,16 +144,25 @@ function parseMessagingEvents(
     const senderId = ev.sender?.id;
     if (!senderId) continue;
 
-    const text = ev.message?.text;
-    if (text && !ev.message?.is_echo) {
+    const msg = ev.message;
+    const text = msg?.text;
+    // Image attachments (X-rays/photos) used to be silently dropped; they now
+    // ingest like a text message. A text+image message stays ONE inbound event:
+    // the caption is the body, the image urls ride in `meta.attachments`.
+    const imageUrls = (msg?.attachments ?? [])
+      .map((a) => (a.type === "image" ? a.payload?.url : undefined))
+      .filter((u): u is string => typeof u === "string" && u.length > 0);
+    if ((text || imageUrls.length > 0) && !msg?.is_echo) {
       // Ad referral attached to a typed message: the bot pipeline answers the
       // text (no extra opener), but the thread still gets the grey "opened
       // this chat through an ad" line, exactly like Instagram shows it.
-      const ref = ev.message?.referral;
+      const ref = msg?.referral;
       out.messages.push({
         channel,
         externalId: senderId,
-        body: text, ...(ev.message?.mid ? { providerMessageId: ev.message.mid } : {}), ...(ref
+        body: text || "(sent a photo)", ...(msg?.mid ? { providerMessageId: msg.mid } : {}), ...(imageUrls.length > 0
+          ? { meta: { imageReceived: true, attachments: imageUrls } }
+          : {}), ...(ref
           ? {
               signal: {
                 reason: `Opened this chat through an ad${ref.ads_context_data?.ad_title ? ` (“${ref.ads_context_data.ad_title}”)` : ref.ad_id ? ` (${ref.ad_id})` : ""}.`,
@@ -252,15 +281,35 @@ function parseInstagramChange(
 function parseWhatsAppChange(value: ChangeValue | undefined, out: ParsedMetaWebhook): void {
   if (value?.messaging_product !== "whatsapp") return;
   for (const msg of value.messages ?? []) {
-    // Non-text types (media, reactions, statuses) are skipped for now.
-    if (msg.type !== "text" || !msg.text?.body || !msg.from) continue;
+    if (!msg.from) continue;
     const profile = value.contacts?.find((c) => c.wa_id === msg.from);
-    out.messages.push({
-      channel: "whatsapp",
-      externalId: msg.from,
-      body: msg.text.body, ...(msg.id ? { providerMessageId: msg.id } : {}),
+    const base = {
+      channel: "whatsapp" as const,
+      externalId: msg.from, ...(msg.id ? { providerMessageId: msg.id } : {}),
       contact: { name: profile?.profile?.name, phone: `+${msg.from}` }
-    });
+    };
+
+    if (msg.type === "text" && msg.text?.body) {
+      out.messages.push({ ...base, body: msg.text.body });
+      continue;
+    }
+
+    // Image messages (a patient's X-ray/photo) ingest instead of being dropped.
+    // Cloud API delivers a media `id` (downloadable only via a later authed
+    // GET /{media-id} Graph call) and occasionally a direct `link`; we record
+    // whichever exists so the inbox/analytics see the exchange either way.
+    if (msg.type === "image" && msg.image) {
+      const attachment = msg.image.link ?? msg.image.id;
+      out.messages.push({
+        ...base,
+        body: msg.image.caption?.trim() || "(sent a photo)",
+        meta: {
+          imageReceived: true,
+          attachments: attachment ? [attachment] : [], ...(msg.image.id ? { whatsappMediaId: msg.image.id } : {})
+        }
+      });
+    }
+    // Other non-text types (video, audio, reactions, statuses) are still skipped.
   }
 }
 

@@ -93,34 +93,34 @@ export function CookieConsent() {
       // z-40: above page content, but BELOW the floating chat stack (launcher
       // z-50, panel z-[70]) so the assistant stays reachable pre-consent, the
       // widget is first-party and needs no consent to render.
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#071522] px-4 py-4 text-white shadow-2xl sm:px-6"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#c6a15b]/25 bg-[#241c15]/95 px-4 py-5 text-[#fbf7f2] shadow-2xl backdrop-blur sm:px-6"
     >
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-sm leading-relaxed">
-          <p className="mb-1 font-semibold">{c.title}</p>
-          <p className="text-white/80">
+          <p className="mb-1 font-serif text-[16px] font-medium text-[#fbf7f2]">{c.title}</p>
+          <p className="text-[#fbf7f2]/70">
             {c.body}{" "}
             <Link
               href={`/${locale}/privacy`}
-              className="underline underline-offset-2 hover:text-white"
+              className="text-[#e4cd9a] underline decoration-[#c6a15b]/60 underline-offset-2 transition-colors duration-300 hover:text-[#fbf7f2] hover:decoration-[#e4cd9a]"
             >
               {c.privacy}
             </Link>
             .
           </p>
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex shrink-0 flex-wrap gap-2.5">
           <button
             type="button"
             onClick={() => choose("declined")}
-            className="rounded-md border border-white/30 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10"
+            className="rounded-full border border-[#e4cd9a]/40 px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#e4cd9a] transition-colors duration-300 hover:border-[#e4cd9a] hover:bg-[#e4cd9a]/10"
           >
             {c.decline}
           </button>
           <button
             type="button"
             onClick={() => choose("accepted")}
-            className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-[#071522] transition hover:bg-white/90"
+            className="gold-shimmer-host rounded-full bg-[#c6a15b] px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
             {c.accept}
           </button>

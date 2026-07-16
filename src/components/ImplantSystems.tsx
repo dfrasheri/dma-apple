@@ -21,8 +21,12 @@ import { JsonLd } from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { CLINIC_ID, localeUrl } from "@/lib/seo";
 
-const GOLD = "#d3b57f";
-const NAVY = "#071522";
+/** Champagne gold — light accents / gold text on dark grounds. */
+const GOLD = "#e4cd9a";
+/** Burnished gold — rules, ticks and frames on ivory grounds. */
+const GOLD_DEEP = "#c6a15b";
+/** Deepest espresso ground for the passport card. */
+const ESPRESSO = "#171310";
 
 type SystemKind = "implant" | "ceramic";
 
@@ -394,10 +398,10 @@ function systemsJsonLd(locale: Locale) {
 function Wordmark({ text }: { text: string }) {
   return (
     <span className="flex flex-col items-center gap-2.5">
-      <span className="font-serif text-[clamp(24px,2.2vw,30px)] tracking-[0.6px] text-[#071522]">
+      <span className="font-serif text-[clamp(24px,2.2vw,30px)] tracking-[0.6px] text-[#2a2018]">
         {text}
       </span>
-      <span className="block h-px w-10" style={{ backgroundColor: GOLD }} />
+      <span className="block h-px w-10" style={{ backgroundColor: GOLD_DEEP }} />
     </span>
   );
 }
@@ -410,7 +414,7 @@ function CornerTicks() {
         <span
           key={pos}
           className={`absolute h-3.5 w-3.5 ${pos}`}
-          style={{ borderColor: `${GOLD}99` }}
+          style={{ borderColor: `${GOLD_DEEP}99` }}
         />
       ))}
     </span>
@@ -420,10 +424,10 @@ function CornerTicks() {
 function PassportCard({ t }: { t: (typeof T)[Locale] }) {
   return (
     <div
-      className="relative w-full max-w-[420px] overflow-hidden rounded-3xl p-7 shadow-[0_30px_80px_rgba(7,21,34,0.45)]"
+      className="relative w-full max-w-[420px] overflow-hidden rounded-3xl p-7 shadow-[0_30px_80px_rgba(23,19,16,0.5)]"
       style={{
-        background: `linear-gradient(150deg, ${NAVY} 0%, #0c2236 55%, #123049 100%)`,
-        border: `1px solid ${GOLD}66`,
+        background: `linear-gradient(150deg, ${ESPRESSO} 0%, #241c15 55%, #2e2418 100%)`,
+        border: `1px solid ${GOLD_DEEP}66`,
       }}
     >
       {/* slow foil sheen */}
@@ -431,7 +435,7 @@ function PassportCard({ t }: { t: (typeof T)[Locale] }) {
         aria-hidden="true"
         className="dma-passport-sheen pointer-events-none absolute inset-y-0 left-0 w-1/3"
         style={{
-          background: "linear-gradient(105deg, transparent, rgba(211,181,127,0.16), transparent)",
+          background: "linear-gradient(105deg, transparent, rgba(228,205,154,0.16), transparent)",
         }}
       />
 
@@ -440,7 +444,7 @@ function PassportCard({ t }: { t: (typeof T)[Locale] }) {
           <p className="text-[10px] uppercase tracking-[3px]" style={{ color: GOLD }}>
             Dental Med Austria
           </p>
-          <p className="mt-1.5 font-serif text-[21px] tracking-[1.5px] text-white">
+          <p className="mt-1.5 font-serif text-[21px] tracking-[1.5px] text-[#fbf7f2]">
             {t.passportTitle}
           </p>
         </div>
@@ -462,9 +466,9 @@ function PassportCard({ t }: { t: (typeof T)[Locale] }) {
           [t.rowDate, "··· / ··· / ······", false],
           [t.rowVerify, t.verifyValue, false],
         ].map(([label, value, redacted], i) => (
-          <div key={i} className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-2.5">
-            <dt className="text-[10.5px] uppercase tracking-[1.8px] text-white/45">{label as string}</dt>
-            <dd className="text-right text-[13px] text-white/90">
+          <div key={i} className="flex items-baseline justify-between gap-4 border-b border-[#c6a15b]/20 pb-2.5">
+            <dt className="text-[10.5px] uppercase tracking-[1.8px] text-[#fbf7f2]/45">{label as string}</dt>
+            <dd className="text-right text-[13px] text-[#fbf7f2]/90">
               {redacted ? (
                 <span className="inline-flex gap-1" aria-label="redacted sample">
                   {[7, 5, 8].map((w, j) => (
@@ -483,7 +487,7 @@ function PassportCard({ t }: { t: (typeof T)[Locale] }) {
         ))}
       </dl>
 
-      <p className="mt-5 text-[11px] leading-relaxed text-white/50">{t.passportSystems}</p>
+      <p className="mt-5 text-[11px] leading-relaxed text-[#fbf7f2]/55">{t.passportSystems}</p>
     </div>
   );
 }
@@ -496,20 +500,20 @@ export function ImplantSystems() {
     <section
       id="implant-systems"
       aria-labelledby="implant-systems-title"
-      className="bg-[#faf9f7] py-24"
+      className="section-y bg-[#fbf7f2]"
     >
       <JsonLd data={systemsJsonLd(locale)} />
 
       <div className="tpds-container">
         <Reveal className="mx-auto max-w-3xl text-center" y={26}>
-          <p className="eyebrow text-[#9a9a9a]">{t.eyebrow}</p>
+          <p className="eyebrow gold-foil">{t.eyebrow}</p>
           <h2
             id="implant-systems-title"
-            className="serif-title mt-4 text-[clamp(30px,4vw,48px)]"
+            className="serif-title mt-4 text-[clamp(30px,4vw,48px)] [text-wrap:balance]"
           >
             {t.title}
           </h2>
-          <p className="mt-6 text-[15.5px] leading-relaxed text-[#5a5a5a]">{t.lead}</p>
+          <p className="mt-6 text-[15.5px] leading-relaxed text-[#6e6152]">{t.lead}</p>
         </Reveal>
 
         <Reveal className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3" stagger={0.09} y={30}>
@@ -517,15 +521,15 @@ export function ImplantSystems() {
             <article
               key={s.key}
               tabIndex={0}
-              className="group overflow-hidden rounded-3xl border border-black/[0.07] bg-white shadow-[0_6px_24px_rgba(7,21,34,0.06)] outline-none transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(7,21,34,0.16)] focus-visible:ring-2 focus-visible:ring-[#071522]/30"
+              className="group overflow-hidden rounded-3xl border border-[#9a7638]/15 bg-[#fffefb] shadow-[var(--shadow-brand-sm)] outline-none transition-all duration-500 hover:-translate-y-1.5 hover:border-[#9a7638]/30 hover:shadow-[var(--shadow-brand-xl)] focus-visible:ring-2 focus-visible:ring-[#9a7638]/40"
             >
               {/* logo stage + hover dossier, the mark itself is the hero, set
                   on a quiet paper plinth with specimen corner ticks and a faint
                   oversized serif initial behind it. */}
-              <div className="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-b from-[#f6f3ed] to-white">
+              <div className="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-b from-[#f4ecdd] to-[#fffefb]">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-8 -right-1 select-none font-serif text-[130px] leading-none text-[#071522]/[0.045]"
+                  className="pointer-events-none absolute -bottom-8 -right-1 select-none font-serif text-[130px] leading-none text-[#2a2018]/[0.05]"
                 >
                   {s.display.replace(/[^A-Za-z]/g, "").charAt(0)}
                 </span>
@@ -546,21 +550,21 @@ export function ImplantSystems() {
 
                 {/* the dossier, hover on pointers, focus-visible for keyboard.
                     NOT focus-within: a mouse click would pin it open. */}
-                <div className="absolute inset-0 flex flex-col justify-center gap-2.5 bg-[#071522]/[0.93] p-5 opacity-0 transition-all duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:duration-0">
+                <div className="absolute inset-0 flex flex-col justify-center gap-2.5 bg-[#241c15]/[0.94] p-5 opacity-0 transition-all duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:duration-0">
                   <p className="text-[9.5px] uppercase tracking-[2.6px]" style={{ color: GOLD }}>
                     {t.dossier}
                   </p>
-                  <p className="text-[12px] leading-relaxed text-white/85">{s.heritage[locale] ?? s.heritage.en}</p>
+                  <p className="text-[12px] leading-relaxed text-[#fbf7f2]/85">{s.heritage[locale] ?? s.heritage.en}</p>
                   <dl className="mt-1 space-y-1.5">
                     <div className="flex justify-between gap-3 text-[11px]">
-                      <dt className="uppercase tracking-[1.4px] text-white/40">{t.use}</dt>
-                      <dd className="text-right text-white/85">
+                      <dt className="uppercase tracking-[1.4px] text-[#fbf7f2]/45">{t.use}</dt>
+                      <dd className="text-right text-[#fbf7f2]/85">
                         {s.kind === "implant" ? t.useImplantValue : t.useCeramicValue}
                       </dd>
                     </div>
                     <div className="flex justify-between gap-3 text-[11px]">
-                      <dt className="uppercase tracking-[1.4px] text-white/40">{t.docs}</dt>
-                      <dd className="text-right text-white/85">
+                      <dt className="uppercase tracking-[1.4px] text-[#fbf7f2]/45">{t.docs}</dt>
+                      <dd className="text-right text-[#fbf7f2]/85">
                         {s.kind === "implant" ? t.docsValueImplant : t.docsValueCeramic}
                       </dd>
                     </div>
@@ -572,21 +576,21 @@ export function ImplantSystems() {
               {/* always-visible body (mobile parity with the hover dossier) */}
               <div className="p-6">
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="font-serif text-[21px] leading-tight text-[#071522]">{s.display}</h3>
+                  <h3 className="font-serif text-[21px] leading-tight text-[#2a2018]">{s.display}</h3>
                   {s.origin && (
-                    <span className="shrink-0 rounded-full border border-[#071522]/15 px-2.5 py-0.5 text-[10px] uppercase tracking-[1.2px] text-[#071522]/60">
+                    <span className="shrink-0 rounded-full border border-[#9a7638]/30 px-2.5 py-0.5 text-[10px] uppercase tracking-[1.2px] text-[#9a7638]">
                       {t.origins[s.origin]}
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-[11px] uppercase tracking-[1.6px] text-[#9a9a9a]">
+                <p className="mt-1 text-[11px] uppercase tracking-[1.6px] text-[#a99a8b]">
                   {s.kind === "implant" ? t.kindImplant : t.kindCeramic}
                 </p>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-[#5a5a5a]">
+                <p className="mt-3 text-[13.5px] leading-relaxed text-[#6e6152]">
                   {s.blurb[locale] ?? s.blurb.en}
                 </p>
                 {s.passport && (
-                  <p className="mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium" style={{ backgroundColor: "#f4ecdd", color: "#6d5426" }}>
+                  <p className="mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium" style={{ backgroundColor: "#f4ecdd", color: "#9a7638" }}>
                     <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                       <path d="M3 1.5h10a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Zm5 2.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM4.5 11.5h7v1h-7z" />
                     </svg>
@@ -604,11 +608,11 @@ export function ImplantSystems() {
             <PassportCard t={t} />
           </div>
           <div className="order-1 lg:order-2">
-            <p className="eyebrow" style={{ color: "#a8894f" }}>
+            <p className="eyebrow gold-foil">
               {t.passportKicker}
             </p>
-            <h3 className="serif-title mt-4 text-[clamp(26px,3vw,38px)]">{t.passportHeading}</h3>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#5a5a5a]">{t.passportBody}</p>
+            <h3 className="serif-title mt-4 text-[clamp(26px,3vw,38px)] [text-wrap:balance]">{t.passportHeading}</h3>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#6e6152]">{t.passportBody}</p>
           </div>
         </Reveal>
       </div>

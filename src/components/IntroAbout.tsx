@@ -11,11 +11,11 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-/** Deeper tint of the brand champagne (#d3b57f) that stays legible on white. */
-const GOLD = "#b0894e";
+/** Antique gold — legible on ivory, used for rules and accents. */
+const GOLD = "#9a7638";
 /** Brand champagne — used only for faint ambient light, never for text. */
-const CHAMPAGNE = "#d3b57f";
-const NAVY = "#071522";
+const CHAMPAGNE = "#e4cd9a";
+const NAVY = "#2a2018";
 
 function Arrow() {
   return (
@@ -45,11 +45,11 @@ function Button({
   variant?: "primary" | "secondary";
 }) {
   const base =
-    "group inline-flex items-center justify-center gap-2.5 px-8 py-[15px] text-[13.5px] uppercase tracking-[1.8px] transition-all duration-300 hover:-translate-y-0.5";
+    "group inline-flex items-center justify-center gap-2.5 rounded-full px-9 py-4 text-[13px] font-semibold uppercase tracking-[0.16em] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0";
   const styles =
     variant === "primary"
-      ? "bg-[#071522] text-white hover:bg-[#0d2439] hover:shadow-[0_14px_30px_rgba(7,21,34,0.25)]"
-      : "border border-[#071522]/25 text-[#343434] hover:border-[#071522] hover:bg-[#071522] hover:text-white";
+      ? "gold-shimmer-host bg-[#c6a15b] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)]"
+      : "border border-[#9a7638]/35 text-[#2a2018] hover:border-[#9a7638] hover:bg-[#f4ecdd]";
   return (
     <a href={href} className={`${base} ${styles}`}>
       {children}
@@ -189,23 +189,23 @@ function StatsBand() {
         </svg>
       </div>
 
-      <div className="relative z-10 grid grid-cols-2 gap-y-12 sm:grid-cols-4 sm:gap-y-0">
+      <div className="relative z-10 grid grid-cols-2 gap-y-14 gap-x-4 sm:gap-y-16">
         {STATS.map((s) => (
           <div
             key={s.labelKey}
-            className="stat-cell group px-4 text-center transition-transform duration-500 hover:-translate-y-1 sm:border-r sm:border-[#071522]/10 sm:last:border-r-0"
+            className="stat-cell group px-2 text-center transition-transform duration-500 hover:-translate-y-1 sm:px-4"
           >
             <p
-              className="stat-number font-serif text-[clamp(30px,3.6vw,42px)] leading-none tracking-[-0.5px] text-[#071522] tabular-nums transition-colors duration-300 group-hover:text-[#b0894e]"
+              className={`stat-number stat-giant gold-foil ${s.display ? "stat-giant--text" : ""}`}
               {...countData(s)}
             >
               {statValue(s)}
             </p>
             <span
-              className="stat-line mx-auto mt-3.5 block h-px w-9 transition-all duration-500 group-hover:w-14"
+              className="stat-line mx-auto mt-4 block h-px w-9 transition-all duration-500 group-hover:w-16"
               style={{ backgroundColor: GOLD }}
             />
-            <p className="stat-label mt-3.5 text-[12px] uppercase tracking-[1.7px] text-[#9a9a9a] transition-colors duration-300 group-hover:text-[#6b6b6b]">
+            <p className="stat-label mt-4 text-[12px] font-semibold uppercase tracking-[2.2px] text-[#a99a8b] transition-colors duration-300 group-hover:text-[#6e6152]">
               {t(s.labelKey)}
             </p>
           </div>
@@ -219,13 +219,13 @@ export function IntroAbout() {
   const t = useT();
   const { locale } = useLocale();
   return (
-    <section className="relative overflow-hidden border-t border-[#071522]/5 bg-gradient-to-b from-white via-[#fbf7f0] to-white py-20 md:py-[110px]">
+    <section className="section-y relative overflow-hidden bg-gradient-to-b from-[#fbf7f2] via-[#f4ecdd] to-[#fbf7f2]">
       {/* soft champagne light from the top */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-[440px]"
         style={{
-          background: `radial-gradient(58% 100% at 50% 0%, rgba(211,181,127,0.16), transparent 72%)`,
+          background: `radial-gradient(58% 100% at 50% 0%, rgba(228,205,154,0.28), transparent 72%)`,
         }}
       />
 
@@ -237,7 +237,7 @@ export function IntroAbout() {
               className="h-px w-8 sm:w-11"
               style={{ background: `linear-gradient(to right, transparent, ${GOLD})` }}
             />
-            <span className="text-[12px] font-normal uppercase tracking-[3px] text-[#b0894e]">
+            <span className="gold-foil text-[12px] font-semibold uppercase tracking-[3px]">
               Dental Med Austria
             </span>
             <span
@@ -256,13 +256,13 @@ export function IntroAbout() {
           <span className="mx-auto my-9 block h-px w-14" style={{ backgroundColor: GOLD }} />
 
           <div className="mx-auto max-w-[760px] space-y-5">
-            <p className="text-[18.5px] font-light leading-[1.5] tracking-[-0.17px] text-[#2b2b2b]">
+            <p className="font-serif text-[clamp(19px,2vw,23px)] italic leading-[1.55] text-[#2a2018]">
               {t("intro.p1")}
             </p>
-            <p className="text-[16.5px] font-light leading-[1.62] tracking-[-0.1px] text-[#4c4c4c]">
+            <p className="text-[16.5px] leading-[1.7] text-[#6e6152]">
               {t("intro.p2")}
             </p>
-            <p className="text-[16.5px] font-light leading-[1.62] tracking-[-0.1px] text-[#4c4c4c]">
+            <p className="text-[16.5px] leading-[1.7] text-[#6e6152]">
               {t("intro.p3")}
             </p>
           </div>

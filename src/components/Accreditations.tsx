@@ -5,11 +5,12 @@
  *
  * A continuously revolving strip of the real logos of the bodies the clinic is
  * certified by / a member of. The logos are background-removed (transparent) and
- * revolve on ONE shared light rail, no per-logo boxes, so the multi-colour
- * real marks stay legible on the house navy without recolouring anyone's
- * trademark. The strip reuses the sitewide `tpds-marquee` animation (edge fade,
- * pause-on-hover, reduced-motion aware). Each slot falls back to a clean wordmark
- * until its logo file is present, then swaps to the image automatically.
+ * revolve as raised ivory tiles on a sunk warm band, each mark rendered as an
+ * espresso silhouette that lifts to its true colours on hover, so nobody's
+ * trademark is permanently recoloured. The strip reuses the sitewide
+ * `tpds-marquee` animation (edge fade, pause-on-hover, reduced-motion aware).
+ * Each slot falls back to a clean wordmark until its logo file is present,
+ * then swaps to the image automatically.
  *
  * LOGO SOURCING, files live in public/images/accreditations/ :
  *   iso-9001-tuvnord.svg ← TÜV NORD mark (the trademark-safe ISO 9001
@@ -33,8 +34,6 @@ import type { Locale } from "@/lib/dictionaries";
 import { JsonLd } from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { CLINIC_ID, localeUrl } from "@/lib/seo";
-
-const GOLD = "#d3b57f";
 
 type Accreditation = {
   key: string;
@@ -218,27 +217,28 @@ function faqJsonLd(locale: Locale) {
 }
 
 /**
- * One revolving logo: the transparent (background-removed) mark itself, no
- * per-logo box, the shared light rail behind the strip is the only surface.
- * Until a logo file exists at `item.logo` (or if it fails to load), it renders
- * a clean serif wordmark of the acronym so the strip never looks broken.
+ * One revolving emblem tile: a raised ivory card with a gold hairline along its
+ * top edge, carrying the transparent (background-removed) mark. Until a logo
+ * file exists at `item.logo` (or if it fails to load), it renders a clean serif
+ * wordmark of the acronym so the strip never looks broken.
  */
 function LogoTile({ item, hidden }: { item: Accreditation; hidden?: boolean }) {
   const [failed, setFailed] = useState(false);
   return (
     <li
-      className="mx-9 flex h-16 shrink-0 items-center justify-center"
+      className="mx-3 flex shrink-0 items-stretch pb-6 pt-3 sm:mx-4"
       aria-hidden={hidden || undefined}
     >
       <a
         href={item.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center transition-opacity hover:opacity-75"
+        className="group/tile relative flex h-24 w-[200px] items-center justify-center overflow-hidden rounded-2xl bg-[#fffefb] px-8 shadow-[var(--shadow-brand-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-brand-md)] sm:w-[220px]"
         title={item.name.en}
       >
+        <span aria-hidden className="gold-rule absolute inset-x-5 top-0" />
         {failed ? (
-          <span className="font-serif text-[20px] tracking-wide text-[#0b1f33]">
+          <span className="font-serif text-[20px] tracking-wide text-[#2a2018]">
             {item.acronym}
           </span>
         ) : (
@@ -246,8 +246,8 @@ function LogoTile({ item, hidden }: { item: Accreditation; hidden?: boolean }) {
           <img
             src={item.logo}
             alt={`${item.acronym} logo`}
-            className="w-auto object-contain"
-            style={{ height: item.height, filter: "brightness(0) saturate(0)" }}
+            className="w-auto object-contain opacity-80 transition-all duration-300 [filter:brightness(0)_saturate(0)] group-hover/tile:opacity-100 group-hover/tile:[filter:none]"
+            style={{ height: item.height }}
             onError={() => setFailed(true)}
           />
         )}
@@ -264,31 +264,27 @@ export function Accreditations() {
     <section
       id="accreditations"
       aria-labelledby="accreditations-title"
-      className="relative overflow-hidden bg-white py-20"
+      className="section-y relative overflow-hidden bg-[#f4ecdd]"
     >
       <JsonLd data={faqJsonLd(locale)} />
 
       <div className="tpds-container relative">
         <Reveal className="mx-auto max-w-3xl text-center" y={26}>
-          <p className="eyebrow" style={{ color: GOLD }}>
-            {t.eyebrow}
-          </p>
+          <p className="eyebrow gold-foil tracking-[0.14em]">{t.eyebrow}</p>
           <h2
             id="accreditations-title"
-            className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-normal leading-[1.12] text-[#071522]"
+            className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-medium leading-[1.12] tracking-[-0.01em] text-[#2a2018]"
           >
             {t.title}
           </h2>
-          <p className="mt-6 text-[15.5px] leading-relaxed text-[#071522]/60">{t.lead}</p>
+          <p className="mt-6 text-[15.5px] leading-relaxed text-[#6e6152]">{t.lead}</p>
+          <span aria-hidden className="gold-rule mx-auto mt-8 block w-24" />
         </Reveal>
       </div>
 
-      {/* revolving logo strip */}
-      <div className="tpds-container relative mt-14">
-        <Reveal
-          className="tpds-marquee-mask relative mx-auto max-w-5xl overflow-hidden rounded-[20px] border border-[#e8e6e0] bg-[#f9f8f6] py-8 shadow-[0_4px_24px_rgba(7,21,34,0.06)]"
-          y={24}
-        >
+      {/* revolving emblem-tile strip */}
+      <div className="tpds-container relative mt-10 sm:mt-12">
+        <Reveal className="tpds-marquee-mask relative mx-auto max-w-5xl overflow-hidden" y={24}>
           <ul className="tpds-marquee-track flex w-max items-center">
             {ACCREDITATIONS.map((a) => (
               <LogoTile key={a.key} item={a} />

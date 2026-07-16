@@ -10,12 +10,14 @@
  * "answer in X" instruction. Matching is diacritic-insensitive so it works even
  * when users skip accents ("pershendetje", "kostet") or input is mis-encoded.
  */
-export type Lang = "en" | "sq" | "de";
+export type Lang = "en" | "sq" | "de" | "it" | "fr";
 
 export const LANG_NAME: Record<Lang, string> = {
   en: "English",
   sq: "Albanian",
-  de: "German"
+  de: "German",
+  it: "Italian",
+  fr: "French"
 };
 
 /** Strip diacritics + lowercase, so keyword matching is accent-insensitive. */
@@ -34,18 +36,62 @@ const SQ_MARKERS =
   /\b(ckemi|pershendetje|tungjatjeta|tung|mirembrema|miredita|faleminderit|sa|kushton|cmim|ku|jeni|sigurt|dhemb|dhembe|takim|rezervo|konsulte|dua|mire|nje|per|jam|kam|keni|beni|doni|mund|cfare|zgjat)\b/;
 const DE_MARKERS =
   /\b(hallo|guten|tag|morgen|danke|wie|viel|kostet|preis|kosten|wo|sicher|zahn|zahne|zahnarzt|termin|buchen|vereinbaren|beratung|ich|moechte|bitte|und|nicht|haben|sind|gruezi|servus)\b/;
+const IT_MARKERS =
+  /\b(ciao|salve|buongiorno|buonasera|grazie|quanto|costa|costano|prezzo|prezzi|dove|siete|sicuro|sicura|impianto|impianti|dente|denti|dentista|appuntamento|prenotare|prenotazione|vorrei|posso|potete|sono|come|quando|perche|anche|molto|avete|fare|preventivo)\b/;
+const FR_MARKERS =
+  /\b(bonjour|bonsoir|merci|combien|coute|coutent|couter|prix|tarif|tarifs|dentiste|rendez[- ]?vous|voudrais|veux|pouvez|pourriez|comment|quand|pourquoi|tres|avez|vous|votre|vos|devis|implants?|soins|combien\s+ca)\b/;
 
 /** Best-effort language of a short message. Defaults to English. */
 export function detectLang(message: string): Lang {
   const raw = (message || "").toLowerCase();
   const f = fold(message);
-  const sqDia = /[ëç]/.test(raw);
-  const deDia = /[äöüß]/.test(raw);
-  let sq = (SQ_MARKERS.test(f) ? 2 : 0) + (sqDia ? 2 : 0);
-  const de = (DE_MARKERS.test(f) ? 2 : 0) + (deDia ? 2 : 0);
+  let sq = (SQ_MARKERS.test(f) ? 2 : 0) + (/[ëç]/.test(raw) ? 2 : 0);
+  const de = (DE_MARKERS.test(f) ? 2 : 0) + (/[äöüß]/.test(raw) ? 2 : 0);
+  // é/è/à are shared Italian/French tells (weak); ê â î ô û œ are French-only.
+  const sharedDia = /[éèà]/.test(raw) ? 1 : 0;
+  const it = (IT_MARKERS.test(f) ? 2 : 0) + (/[ìòù]/.test(raw) ? 1 : 0) + sharedDia;
+  const fr = (FR_MARKERS.test(f) ? 2 : 0) + (/[êâîôûœ]/.test(raw) ? 2 : 0) + sharedDia;
   if (/\b(nje|dhe|qe)\b/.test(f)) sq += 1; // NOT "me"/"te", they collide with English
-  if (sq === 0 && de === 0) return "en";
-  return sq >= de ? "sq" : "de";
+  const best = Math.max(sq, de, it, fr);
+  if (best === 0) return "en";
+  // Deterministic tie order preserves the legacy sq >= de behaviour.
+  if (sq === best) return "sq";
+  if (de === best) return "de";
+  if (it === best) return "it";
+  return "fr";
+}
+
+// ── Explicit "answer me in X" requests ──────────────────────────────────────
+// Language names as visitors write them across all five supported languages
+// (matched against folded text, so "französisch" → "franzosisch" works).
+const LANG_NAMES_BY_TARGET: Record<Lang, RegExp> = {
+  en: /\b(english|anglisht|englisch|inglese|anglais)\b/,
+  sq: /\b(albanian|shqip|albanisch|albanese|albanais)\b/,
+  de: /\b(german|gjermanisht|deutsch|tedesco|allemand)\b/,
+  it: /\b(italian|italisht|italienisch|italiano|italien)\b/,
+  fr: /\b(french|frengjisht|franzosisch|francese|francais)\b/
+};
+const LANG_SWITCH_VERBS =
+  /\b(speak|talk|answer|reply|respond|write|switch|continue|say|flisni|flasim|pergjigju|pergjigjuni|shkruaj|vazhdo|sprechen|sprich|antworte|antworten|schreib|schreiben|weiter|parl(?:a|i|iamo)|rispond(?:i|a|ete)|scriv(?:i|a|ete)|continu(?:a|iamo|er|ez|ons)|parle[rz]?|repond(?:re|ez|s)?|ecri(?:re|vez|s)|in|ne|auf|en)\b/;
+
+/**
+ * Detect an explicit request to change the conversation language
+ * ("answer me in German", "auf Deutsch bitte", "flisni shqip", "in italiano",
+ * "en français svp", or just "deutsch?"). Returns the requested language, or
+ * null when the message isn't a language request. Callers should treat a hit
+ * as STICKY for the rest of the conversation.
+ */
+export function explicitLangRequest(message: string): Lang | null {
+  const f = fold(message);
+  const words = f.split(/\s+/).filter(Boolean);
+  for (const target of ["en", "sq", "de", "it", "fr"] as Lang[]) {
+    if (!LANG_NAMES_BY_TARGET[target].test(f)) continue;
+    // A bare language name ("deutsch", "english please") or a switch verb /
+    // preposition nearby counts as a request; a long sentence that merely
+    // mentions a language ("my dentist in Germany said...") does not.
+    if (words.length <= 4 || LANG_SWITCH_VERBS.test(f)) return target;
+  }
+  return null;
 }
 
 /**
@@ -87,7 +133,10 @@ export function resolveLang(
 ): Lang {
   const detected = detectLangFromContext(current, history);
   if (detected !== "en") return detected;
-  const hint: Lang | null = localeHint === "sq" || localeHint === "de" ? localeHint : null;
+  const hint: Lang | null =
+    localeHint === "sq" || localeHint === "de" || localeHint === "it" || localeHint === "fr"
+      ? localeHint
+      : null;
   if (!hint) return "en";
   const text = (current || "").trim();
   const words = text.split(/\s+/).filter(Boolean);
@@ -98,19 +147,19 @@ export function resolveLang(
 /** Intent keyword sets (accent-free, always test against `fold(message)`). */
 export const KEYWORDS = {
   greeting:
-    /^\s*(hi|hello|hey|good\s*(morning|afternoon|evening)|greetings|hola|ciao|hallo|hey there|ckemi|tung|tungjatjeta|pershendetje|mirembrema|miredita|guten\s*(tag|morgen|abend)|servus|gruezi|moin)\b/,
+    /^\s*(hi|hello|hey|good\s*(morning|afternoon|evening)|greetings|hola|ciao|salve|buongiorno|buonasera|bonjour|bonsoir|salut|hallo|hey there|ckemi|tung|tungjatjeta|pershendetje|mirembrema|miredita|guten\s*(tag|morgen|abend)|servus|gruezi|moin)\b/,
   price:
-    /(price|cost|how much|quote|fee|expensive|cheap|afford|€|\$|£|cmim|kushton|sa kushton|kosto|tarif|leke?|preis|kostet|wie ?viel|kosten|teuer|gunstig)/,
+    /(price|cost|how much|quote|fee|expensive|cheap|afford|€|\$|£|cmim|kushton|sa kushton|kosto|tarif|leke?|preis|kostet|wie ?viel|kosten|teuer|gunstig|quanto costa|prezz|preventivo|caro|econom|combien|coute|prix|devis|cher)/,
   booking:
-    /(book|appointment|schedule|reserve|consultation|when can|availab|takim|rezervo|rezervoj|konsult|cakto|programo|termin|buchen|vereinbaren|reservieren|beratung)/,
+    /(book|appointment|schedule|reserve|consultation|when can|availab|takim|rezervo|rezervoj|konsult|cakto|programo|termin|buchen|vereinbaren|reservieren|beratung|prenot|appuntamento|fissare|rendez[- ]?vous|rdv|reserver|consultation|disponib)/,
   safety:
-    /(safe|safety|risk|hygiene|steril|quality|trust|legit|scam|guarantee|warranty|reliable|siguri|i sigurt|e sigurt|rrezik|garanci|cilesi|higjien|sicher|risiko|garantie|qualitat|vertrauen)/,
+    /(safe|safety|risk|hygiene|steril|quality|trust|legit|scam|guarantee|warranty|reliable|siguri|i sigurt|e sigurt|rrezik|garanci|cilesi|higjien|sicher|risiko|garantie|qualitat|vertrauen|sicur|garanzia|qualita|igien|rischio|securite|surete|fiable|qualite|risque)/,
   location:
-    /(where|address|location|which city|directions|how do i get|hours|open|tirana|ku|adres|vendndodhje|orar|hape|hapur|wo|adresse|standort|offnungszeit|geoffnet)/,
+    /(where|address|location|which city|directions|how do i get|hours|open|tirana|ku|adres|vendndodhje|orar|hape|hapur|wo|adresse|standort|offnungszeit|geoffnet|dove|indirizzo|orari|aperto|ou etes|ou se trouve|horaires|ouvert)/,
   doctor:
-    /(who is|dentist|doctor|surgeon|dr\.?\s|mentor|zeqja|qualified|experience|trained|mjek|dentist|kirurg|doktor|i kualifikuar|pervoj|arzt|zahnarzt|chirurg|erfahrung|qualifiziert)/,
+    /(who is|dentist|doctor|surgeon|dr\.?\s|mentor|zeqja|qualified|experience|trained|mjek|dentist|kirurg|doktor|i kualifikuar|pervoj|arzt|zahnarzt|chirurg|erfahrung|qualifiziert|medico|chirurgo|esperienza|qualificat|medecin|chirurgien|qualifie)/,
   tourism:
-    /(travel|tourism|flight|hotel|airport|pickup|stay|trip|abroad|coordinator|translat|udhetim|fluturim|aeroport|qendrim|jashte|koordinator|perkthim|reise|flug|flughafen|aufenthalt|ausland|ubersetz)/
+    /(travel|tourism|flight|hotel|airport|pickup|stay|trip|abroad|coordinator|translat|udhetim|fluturim|aeroport|qendrim|jashte|koordinator|perkthim|reise|flug|flughafen|aufenthalt|ausland|ubersetz|viaggio|volo|aeroporto|soggiorno|estero|voyage|vol|sejour|etranger)/
 } as const;
 
 /** The free-treatment-plan call to action, localized. */
@@ -120,6 +169,10 @@ export function freePlan(email: string, lang: Lang): string {
       return `na dërgoni një radiografi panoramike dhe disa foto në ${email}, dhe ekipi ynë klinik do t'ju përgatisë falas një plan trajtimi personal me shkrim brenda 24–48 orëve`;
     case "de":
       return `senden Sie ein Panorama-Röntgenbild und einige Fotos an ${email}, und unser klinisches Team sendet Ihnen innerhalb von 24–48 Stunden einen kostenlosen persönlichen Behandlungsplan`;
+    case "it":
+      return `inviate una radiografia panoramica e alcune foto a ${email}: il nostro team clinico vi preparerà gratuitamente un piano di trattamento personalizzato per iscritto entro 24–48 ore`;
+    case "fr":
+      return `envoyez une radiographie panoramique et quelques photos à ${email} : notre équipe clinique vous préparera gratuitement un plan de traitement personnalisé par écrit sous 24 à 48 heures`;
     default:
       return `send a panoramic X-ray and a few photos to ${email} and our clinical team will send you a free, personalised written treatment plan within 24–48 hours`;
   }
@@ -183,6 +236,36 @@ export const T: Record<
       `Sehr gute Frage! Ich hole einen Koordinator dazu, der sie richtig beantworten kann. In der Zwischenzeit können Sie: ${plan}.`,
     imageAck:
       "Vielen Dank für Ihr Röntgenbild. Genau das braucht unser klinisches Team. Das Team prüft es sorgfältig und erstellt Ihnen innerhalb von 24–48 Stunden einen kostenlosen persönlichen schriftlichen Behandlungsplan. Hinterlassen Sie Ihren Namen und Ihre Telefonnummer, und ein Koordinator meldet sich persönlich bei Ihnen."
+  },
+  it: {
+    greeting: (c) =>
+      `Salve e benvenuti a ${c}! 🦷 Posso aiutarvi con i trattamenti, la nostra tecnologia e gli standard di sicurezza, l'organizzazione della visita o un piano di trattamento gratuito. Come posso aiutarvi oggi?`,
+    help: (c) =>
+      `Sono qui per aiutarvi a ${c}. Volete saperne di più su un trattamento, sui nostri standard di sicurezza o sull'organizzazione di una visita?`,
+    priceHandoff: (plan) =>
+      `Ogni caso è unico, quindi il modo migliore per avere risposte su misura è un piano di trattamento gratuito: ${plan}. Volete che un coordinatore vi aiuti a iniziarne uno?`,
+    bookingHandoff: (plan) =>
+      `Sarò felice di aiutarvi a fissare una consulenza. Il primo passo, il più semplice, è: ${plan}. Un coordinatore troverà poi l'orario più comodo per voi, senza alcun impegno.`,
+    coordinatorOffer: "Volete parlare con un coordinatore del vostro caso?",
+    fallback: (plan) =>
+      `Ottima domanda! La passo a un nostro coordinatore, che potrà rispondervi con precisione. Nel frattempo potete ${plan}.`,
+    imageAck:
+      "Grazie per averci inviato la vostra radiografia. È esattamente ciò che serve al nostro team clinico. La esaminerà con attenzione e vi preparerà gratuitamente un piano di trattamento scritto e personalizzato entro 24–48 ore. Lasciateci il vostro nome e numero di telefono e un coordinatore vi contatterà personalmente."
+  },
+  fr: {
+    greeting: (c) =>
+      `Bonjour et bienvenue chez ${c} ! 🦷 Je peux vous renseigner sur les traitements, notre technologie et nos standards de sécurité, l'organisation de votre visite ou un plan de traitement gratuit. Comment puis-je vous aider aujourd'hui ?`,
+    help: (c) =>
+      `Je suis là pour vous aider chez ${c}. Souhaitez-vous en savoir plus sur un traitement, nos standards de sécurité ou l'organisation d'une visite ?`,
+    priceHandoff: (plan) =>
+      `Chaque cas est unique : la meilleure façon d'obtenir des réponses adaptées à votre situation est un plan de traitement gratuit : ${plan}. Souhaitez-vous qu'un coordinateur vous aide à le lancer ?`,
+    bookingHandoff: (plan) =>
+      `Avec plaisir, je vous aide à organiser une consultation. La première étape est simple : ${plan}. Un coordinateur trouvera ensuite un créneau qui vous convient, sans aucun engagement.`,
+    coordinatorOffer: "Souhaitez-vous échanger avec un coordinateur au sujet de votre situation ?",
+    fallback: (plan) =>
+      `Excellente question ! Je la transmets à un coordinateur qui pourra vous répondre précisément. En attendant, vous pouvez ${plan}.`,
+    imageAck:
+      "Merci de nous avoir transmis votre radiographie. C'est exactement ce dont notre équipe clinique a besoin. Elle l'examinera attentivement et vous préparera gratuitement un plan de traitement écrit et personnalisé sous 24 à 48 heures. Laissez-nous votre nom et votre numéro de téléphone : un coordinateur vous contactera personnellement."
   }
 };
 

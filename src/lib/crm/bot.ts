@@ -18,12 +18,14 @@ import { bestFact, findFacts } from "./retrieval";
 import { CLINIC_PROFILE, searchKnowledge, knowledgeText } from "@/lib/clinic-knowledge";
 import { hasAnthropicKey, aiComplete, type ChatTurn } from "@/lib/ai";
 import {
-  detectLangFromContext,
   fold,
   freePlan,
   GUARDRAILS,
   KEYWORDS,
-  T
+  LANG_NAME,
+  resolveLang,
+  T,
+  type Lang
 } from "@/lib/chat-i18n";
 
 export type BotIntent =
@@ -41,6 +43,8 @@ export type BotDraft = {
   confidence: number;
   citedFactIds: string[];
   intent: BotIntent;
+  /** Language the reply was drafted in; the pipeline records it on the bot reply's meta for per-exchange analytics. */
+  lang: Lang;
   reason?: string;
 };
 
@@ -95,16 +99,45 @@ function classify(text: string): BotIntent {
 
 export async function draftReply(
   message: string,
-  opts: { contactName?: string; history?: ChatTurn[] } = {}
+  opts: {
+    contactName?: string;
+    history?: ChatTurn[];
+    /**
+     * The contact's stored locale (e.g. captured from a lead form), used as a
+     * tie-breaker when the message itself is too short/ambiguous to detect
+     * ("ok", "po", "2"), so known German/Albanian contacts aren't answered in
+     * English. Clearly detected text always beats the hint (see resolveLang).
+     */
+    localeHint?: string;
+    /** The inbound message carried an image (X-ray/photo): acknowledge + hand off. */
+    imageReceived?: boolean;
+  } = {}
 ): Promise<BotDraft> {
   const intent = classify(message);
   const history = opts.history ?? [];
-  const lang = detectLangFromContext(message, history);
+  const lang = resolveLang(message, history, opts.localeHint);
   const cities = parseCities(message);
   const procedures = parseProcedures(message);
   parseDates(message); // entity-parse parity with extraction (dates not needed for routing)
   const hi = opts.contactName ? `Hi ${opts.contactName.split(" ")[0]}, ` : "Hi! ";
   const plan = freePlan(CLINIC_PROFILE.email, lang);
+
+  // ── IMAGE RECEIVED (X-ray / photo attachment) ──────────────────────────────
+  // The CRM brain has no vision seam, so we never analyse the picture: thank
+  // the patient with the same localized ack the website bot uses and hand the
+  // case to the clinical team. Applies with or without a caption, an image
+  // means a human must look, and imageAck already routes to the free plan.
+  if (opts.imageReceived) {
+    return {
+      intent: "evergreen",
+      lang,
+      text: T[lang].imageAck,
+      handoff: true,
+      confidence: 0.9,
+      citedFactIds: [],
+      reason: "Visitor sent a photo/X-ray; routed to the clinical team"
+    };
+  }
 
   // ── GREETING (bare hello in any language) ──────────────────────────────────
   // Answered locally with a warm, localized greeting, NEVER routed to the LLM,
@@ -112,6 +145,7 @@ export async function draftReply(
   if (intent === "greeting") {
     return {
       intent,
+      lang,
       text: T[lang].greeting(CLINIC_PROFILE.name),
       handoff: false,
       confidence: 0.9,
@@ -131,6 +165,7 @@ export async function draftReply(
       const proc = fact.procedure ? ` for ${fact.procedure}` : "";
       return {
         intent,
+        lang,
         text: `${hi}per ${postDate(fact.post?.postTimestamp)}, ${where} is on ${humanDate(fact.date)}${proc}. Would you like me to reserve a slot for you?`,
         handoff: false,
         confidence: fact.confidence,
@@ -139,6 +174,7 @@ export async function draftReply(
     }
     return {
       intent,
+      lang,
       text: `${hi}I want to give you the exact date${cities[0] ? ` for ${cities[0]}` : ""}, so let me confirm with the team and come straight back to you.`,
       handoff: true,
       confidence: fact?.confidence ?? 0,
@@ -153,6 +189,7 @@ export async function draftReply(
   if (intent === "price") {
     return {
       intent,
+      lang,
       text: T[lang].priceHandoff(plan),
       handoff: true,
       confidence: 0,
@@ -168,6 +205,7 @@ export async function draftReply(
     if (fact) {
       return {
         intent,
+        lang,
         text: `${hi}per ${postDate(fact.post?.postTimestamp)}, we're in ${fact.venue ?? fact.city}. Want directions or a consultation slot?`,
         handoff: false,
         confidence: fact.confidence,
@@ -176,6 +214,7 @@ export async function draftReply(
     }
     return {
       intent,
+      lang,
       text: `${hi}let me confirm the exact venue with the team and send you the address right away.`,
       handoff: true,
       confidence: 0,
@@ -210,7 +249,7 @@ export async function draftReply(
       const text = await aiComplete({
         system: [
           `You are a patient-care assistant for ${p.name}, a premium dental clinic in Tirana serving international patients. Continue the conversation, answering the visitor's latest message using the prior turns, the CONTEXT and the CLINIC FACTS below. If the answer is in none of them, say a coordinator will follow up rather than guessing.`,
-          `Detect the language of the visitor's latest message and reply in that same language.`,
+          `Reply in the language of the visitor's latest message; if it is too short or ambiguous to tell, reply in ${LANG_NAME[lang]}.`,
           GUARDRAILS,
           `\nCLINIC FACTS:\n${clinicFacts}`
         ].join(" "),
@@ -221,7 +260,7 @@ export async function draftReply(
         maxTokens: 320
       });
       if (text) {
-        return { intent, text, handoff: false, confidence: 0.82, citedFactIds: [] };
+        return { intent, lang, text, handoff: false, confidence: 0.82, citedFactIds: [] };
       }
     }
 
@@ -231,6 +270,7 @@ export async function draftReply(
     if (known && known.score >= 3) {
       return {
         intent,
+        lang,
         text: `${known.entry.body} ${T[lang].coordinatorOffer}`,
         handoff: false,
         confidence: Math.min(0.9, 0.6 + known.score / 20),
@@ -242,6 +282,7 @@ export async function draftReply(
     if (hit) {
       return {
         intent,
+        lang,
         text: `${hit.answer} ${T[lang].coordinatorOffer}`,
         handoff: false,
         confidence: 0.7,
@@ -250,6 +291,7 @@ export async function draftReply(
     }
     return {
       intent,
+      lang,
       text: T[lang].fallback(plan),
       handoff: true,
       confidence: 0.3,
@@ -261,6 +303,7 @@ export async function draftReply(
   // ── SMALLTALK ──────────────────────────────────────────────────────────────
   return {
     intent: "smalltalk",
+    lang,
     text: T[lang].help(CLINIC_PROFILE.name),
     handoff: false,
     confidence: 0.6,

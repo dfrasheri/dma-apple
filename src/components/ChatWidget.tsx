@@ -153,9 +153,21 @@ async function toBoundedJpeg(file: File): Promise<Attachment> {
   }
 }
 
+type ChatLangCode = (typeof LOCALES)[number]["code"];
+const CHAT_LANG_CODES = new Set(LOCALES.map((l) => l.code));
+
 export function ChatWidget() {
   const { locale, setLocale } = useLocale();
-  const ui = CHAT_UI[locale] ?? CHAT_UI.en;
+  // The CONVERSATION language. Starts from the site locale but is owned by the
+  // widget: the header chips switch it instantly (the old chips only wrote a
+  // cookie, which changed nothing mid-chat), and the server echoes back the
+  // language it actually replied in (e.g. after "answer me in German"), which
+  // we adopt so the whole conversation stays sticky in that language.
+  const [chatLang, setChatLang] = useState<ChatLangCode>(locale);
+  // Set once the visitor (or an explicit in-message request) picked a language;
+  // from then on it is sent as a hard override rather than a hint.
+  const langPicked = useRef(false);
+  const ui = CHAT_UI[chatLang] ?? CHAT_UI.en;
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const [open, setOpen] = useState(false);
@@ -188,6 +200,22 @@ export function ChatWidget() {
   const pickSeq = useRef(0);
   const restoreFocus = useRef(false);
   const ctxRef = useRef<Ctx | null>(null);
+  // Anonymous per-tab session id: lets the server mirror the conversation
+  // into the CRM inbox (channel "webchat") for the chat analytics.
+  const sessionRef = useRef("");
+  useEffect(() => {
+    try {
+      const key = "dma-chat-sid";
+      let sid = sessionStorage.getItem(key);
+      if (!sid) {
+        sid = crypto.randomUUID();
+        sessionStorage.setItem(key, sid);
+      }
+      sessionRef.current = sid;
+    } catch {
+      sessionRef.current = crypto.randomUUID();
+    }
+  }, []);
 
   // Hand keyboard focus back to the launcher AFTER the close re-render commits
   // (while the panel is open the launcher is display:none and unfocusable).
@@ -355,6 +383,7 @@ export function ChatWidget() {
       text?: string;
       sources?: Source[];
       handoff?: boolean;
+      lang?: string;
     } | null> = fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -362,6 +391,8 @@ export function ChatWidget() {
         message,
         history,
         locale,
+        lang: langPicked.current ? chatLang : undefined,
+        sessionId: sessionRef.current || undefined,
         image: image ? { data: image.dataUrl, mediaType: image.mediaType } : undefined,
       }),
     })
@@ -382,6 +413,17 @@ export function ChatWidget() {
       setTyping(true);
       const [data] = await Promise.all([request, sleep(minTypingMs())]);
       if (data && typeof data === "object") {
+        // Adopt the language the bot actually replied in (detection or an
+        // explicit "answer me in X" request), so the widget chrome and every
+        // following turn stay sticky in that language.
+        if (
+          typeof data.lang === "string" &&
+          data.lang !== chatLang &&
+          CHAT_LANG_CODES.has(data.lang as ChatLangCode)
+        ) {
+          setChatLang(data.lang as ChatLangCode);
+          langPicked.current = true;
+        }
         setMessages((m) => [
           ...m,
           {
@@ -456,7 +498,7 @@ export function ChatWidget() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-black/10 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-[#071522]/40 focus:ring-2 focus:ring-[#071522]/10";
+    "w-full rounded-xl border border-black/10 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-[#241c15]/40 focus:ring-2 focus:ring-[#241c15]/10";
 
   const bubbleIn =
     "animate-in fade-in-0 slide-in-from-bottom-2 duration-300 ease-out motion-reduce:animate-none";
@@ -474,12 +516,12 @@ export function ChatWidget() {
         aria-label={ui.openChat}
         aria-expanded={open}
         aria-controls="dma-chat-panel"
-        className={`fixed bottom-[9.5rem] right-4 z-50 h-14 w-14 items-center justify-center rounded-full bg-[#071522] text-white shadow-[0_10px_32px_rgba(7,21,34,0.38)] ring-1 ring-white/10 transition-all duration-300 hover:scale-105 hover:bg-[#0c2236] hover:shadow-[0_14px_40px_rgba(7,21,34,0.5)] active:scale-95 ${
+        className={`fixed bottom-[9.5rem] right-4 z-50 h-14 w-14 items-center justify-center rounded-full bg-[#241c15] text-[#e4cd9a] shadow-[var(--shadow-brand-lg)] ring-1 ring-[#c6a15b]/50 transition-all duration-300 hover:scale-105 hover:bg-[#c6a15b] hover:text-[#241c15] active:scale-95 ${
           open ? "hidden" : "flex"
         }`}
       >
         <MessageCircle className="h-6 w-6" />
-        <span className="absolute right-1 top-1 h-3 w-3 rounded-full border-2 border-[#071522] bg-emerald-400" />
+        <span className="absolute right-1 top-1 h-3 w-3 rounded-full border-2 border-[#241c15] bg-[#e4cd9a]" />
       </button>
 
       {/* Panel, full-screen sheet on phones, floating card from sm: up. Springs in
@@ -512,11 +554,11 @@ export function ChatWidget() {
           className="material-sheet fixed inset-0 z-[70] flex flex-col overflow-hidden sm:inset-auto sm:bottom-24 sm:right-4 sm:h-[min(660px,calc(100dvh-8rem))] sm:w-[min(400px,calc(100vw-2.5rem))] sm:origin-bottom-right sm:rounded-3xl"
         >
           {/* Header */}
-          <div className="bg-gradient-to-br from-[#071522] via-[#0c2236] to-[#123049] px-5 pb-3.5 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:pt-4">
+          <div className="bg-gradient-to-br from-[#241c15] via-[#3a2d20] to-[#171310] px-5 pb-3.5 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:pt-4">
             <div className="flex items-center gap-3.5">
               <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15">
                 <Stethoscope className="h-5 w-5" />
-                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0c2236] bg-emerald-400" />
+                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#3a2d20] bg-[#e4cd9a]" />
               </span>
               <div className="min-w-0 leading-tight">
                 <p className="truncate font-serif text-[17px]">Dental Med Austria</p>
@@ -540,12 +582,19 @@ export function ChatWidget() {
                   <button
                     key={l.code}
                     type="button"
-                    onClick={() => setLocale(l.code)}
+                    onClick={() => {
+                      // Switch the CONVERSATION language immediately (widget
+                      // chrome + all following bot replies), and remember the
+                      // preference in the locale cookie for future page loads.
+                      setChatLang(l.code);
+                      langPicked.current = true;
+                      setLocale(l.code);
+                    }}
                     aria-label={l.name}
-                    aria-pressed={l.code === locale}
+                    aria-pressed={l.code === chatLang}
                     title={l.name}
                     className={`rounded-full border px-2 py-0.5 text-[9.5px] font-medium uppercase tracking-[1px] transition ${
-                      l.code === locale
+                      l.code === chatLang
                         ? "border-white/40 bg-white/15 text-white"
                         : "border-white/15 text-white/50 hover:border-white/30 hover:text-white"
                     }`}
@@ -578,7 +627,7 @@ export function ChatWidget() {
                 <div
                   className={
                     m.role === "user"
-                      ? "max-w-[85%] min-w-0 rounded-2xl rounded-br-md bg-[#071522] px-4 py-3 text-[13.5px] leading-relaxed text-white shadow-sm"
+                      ? "max-w-[85%] min-w-0 rounded-2xl rounded-br-md bg-[#241c15] px-4 py-3 text-[13.5px] leading-relaxed text-white shadow-sm"
                       : "max-w-[88%] min-w-0 rounded-2xl rounded-bl-md border border-black/5 bg-white px-4 py-3 text-[13.5px] leading-relaxed text-[#343434] shadow-sm"
                   }
                 >
@@ -599,7 +648,7 @@ export function ChatWidget() {
                           <a
                             key={j}
                             href={s.url}
-                            className="rounded-full border border-[#071522]/15 bg-white px-2.5 py-1 text-[11px] text-[#071522] transition hover:bg-[#071522] hover:text-white"
+                            className="rounded-full border border-[#241c15]/15 bg-white px-2.5 py-1 text-[11px] text-[#241c15] transition hover:bg-[#241c15] hover:text-white"
                           >
                             {s.title}
                           </a>
@@ -623,7 +672,7 @@ export function ChatWidget() {
                     <button
                       type="button"
                       onClick={openLead}
-                      className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#071522] px-3.5 py-1.5 text-[11px] font-medium text-white transition hover:bg-[#0c2236] active:scale-95"
+                      className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#241c15] px-3.5 py-1.5 text-[11px] font-medium text-white transition hover:bg-[#3a2d20] active:scale-95"
                     >
                       <ClipboardList className="h-3.5 w-3.5" /> {ui.planCta}
                     </button>
@@ -668,7 +717,7 @@ export function ChatWidget() {
                     type="button"
                     onClick={() => send(s)}
                     style={{ animationDelay: `${120 + i * 70}ms` }}
-                    className="animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards motion-reduce:animate-none rounded-full border border-[#071522]/20 bg-white px-3.5 py-1.5 text-xs text-[#071522] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#071522] hover:text-white hover:shadow-md active:translate-y-0"
+                    className="animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards motion-reduce:animate-none rounded-full border border-[#241c15]/20 bg-white px-3.5 py-1.5 text-xs text-[#241c15] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#241c15] hover:text-white hover:shadow-md active:translate-y-0"
                   >
                     {s}
                   </button>
@@ -683,7 +732,7 @@ export function ChatWidget() {
               onSubmit={submitLead}
               className={`space-y-2.5 border-t border-black/10 bg-neutral-50 px-4 py-4 sm:px-5 ${bubbleIn}`}
             >
-              <p className="text-xs font-semibold text-[#071522]">{ui.leadTitle}</p>
+              <p className="text-xs font-semibold text-[#241c15]">{ui.leadTitle}</p>
               <div className="flex gap-2">
                 <input
                   value={first}
@@ -732,7 +781,7 @@ export function ChatWidget() {
                 <button
                   type="submit"
                   disabled={lsending}
-                  className="flex-1 rounded-xl bg-[#071522] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-[#0c2236] active:scale-[0.99] disabled:opacity-50"
+                  className="flex-1 rounded-xl bg-[#241c15] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-[#3a2d20] active:scale-[0.99] disabled:opacity-50"
                 >
                   {lsending ? ui.sending : ui.sendRequest}
                 </button>
@@ -748,7 +797,7 @@ export function ChatWidget() {
           )}
 
           {leadSent && (
-            <div className="flex items-center gap-2 border-t border-emerald-200 bg-emerald-50 px-5 py-3 text-[12px] text-emerald-800">
+            <div className="flex items-center gap-2 border-t border-[#e4cd9a] bg-[#f4ecdd] px-5 py-3 text-[12px] text-[#9a7638]">
               <Check className="h-4 w-4 shrink-0" /> {ui.leadReceived}
             </div>
           )}
@@ -760,7 +809,7 @@ export function ChatWidget() {
                 <button
                   type="button"
                   onClick={openLead}
-                  className="flex w-full items-center justify-center gap-1.5 border-t border-black/10 bg-[#071522]/[0.03] py-2.5 text-[12px] font-medium text-[#071522] transition hover:bg-[#071522]/[0.07]"
+                  className="flex w-full items-center justify-center gap-1.5 border-t border-black/10 bg-[#241c15]/[0.03] py-2.5 text-[12px] font-medium text-[#241c15] transition hover:bg-[#241c15]/[0.07]"
                 >
                   <ClipboardList className="h-3.5 w-3.5" /> {ui.planCtaFooter}
                 </button>
@@ -784,7 +833,7 @@ export function ChatWidget() {
                       aria-label={ui.removePhoto}
                       className="absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full transition hover:scale-110"
                     >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#071522] text-white shadow">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#241c15] text-white shadow">
                         <X className="h-3 w-3" />
                       </span>
                     </button>
@@ -822,7 +871,7 @@ export function ChatWidget() {
                   onClick={() => fileRef.current?.click()}
                   aria-label={ui.attach}
                   title={ui.attach}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-100 hover:text-[#071522] active:scale-95"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-100 hover:text-[#241c15] active:scale-95"
                 >
                   <Paperclip className="h-5 w-5" />
                 </button>
@@ -832,13 +881,13 @@ export function ChatWidget() {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={ui.placeholder}
                   aria-label={ui.placeholder}
-                  className="min-w-0 flex-1 rounded-full border border-black/10 bg-neutral-100/70 px-4 py-2.5 text-sm outline-none transition focus:border-[#071522]/30 focus:bg-white focus:ring-2 focus:ring-[#071522]/10"
+                  className="min-w-0 flex-1 rounded-full border border-black/10 bg-neutral-100/70 px-4 py-2.5 text-sm outline-none transition focus:border-[#241c15]/30 focus:bg-white focus:ring-2 focus:ring-[#241c15]/10"
                 />
                 <button
                   type="submit"
                   disabled={busy || (!input.trim() && !attached)}
                   aria-label={ui.send}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#071522] text-white transition-all duration-200 hover:scale-105 hover:bg-[#0c2236] active:scale-95 disabled:scale-100 disabled:opacity-40"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#241c15] text-white transition-all duration-200 hover:scale-105 hover:bg-[#3a2d20] active:scale-95 disabled:scale-100 disabled:opacity-40"
                 >
                   <Send className="h-4 w-4" />
                 </button>

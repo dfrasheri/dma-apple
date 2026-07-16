@@ -55,3 +55,6 @@ temp/
 
 # Higgsfield API key (local only)
 .hf_key
+
+# vendored skill bundle (own git repo, not app source)
+awesome-claude-skills/

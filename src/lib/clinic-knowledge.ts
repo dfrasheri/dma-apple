@@ -23,6 +23,8 @@ import { getTreatmentContent } from "./catalogue-content";
 import { CLINIC_PAGES, DENTIST_BIOS, PROCEDURES } from "./pages";
 import { EQUIPMENT, EQUIPMENT_CATEGORIES, TECH_BRANDS } from "./equipment";
 import { CONTACT } from "./site";
+// Server-safe static blog data (NOT ./blog, which is a "use client" module).
+import { ALL_SEED_POSTS } from "./blog-data";
 
 // ── structured clinic profile ────────────────────────────────────────────────
 
@@ -473,6 +475,29 @@ function buildKnowledge(): KnowledgeEntry[] {
     keywords: ["contact", "address", "location", "where", "hours", "open", "email", "phone", "tirana", "albania"],
     url: `/contact`,
   });
+
+  // Every published blog post (all locales). The bot previously knew nothing
+  // the blog says — the "blog" kind existed but was never emitted. Bodies are
+  // ~1500-word markdown: index the citable summary (excerpt + key takeaways +
+  // the opening of the body), NOT the full text — knowledgeText() output goes
+  // into the model prompt uncapped, and the tokenized INDEX stays lean. The
+  // full keyword list still drives retrieval scoring.
+  for (const p of ALL_SEED_POSTS) {
+    const opening = p.body
+      .replace(/^#{1,3}\s+.*$/gm, "") // strip markdown headings
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 400);
+    const takeaways = p.keyTakeaways?.length ? ` Key facts: ${p.keyTakeaways.join(" ")}` : "";
+    entries.push({
+      id: `blog:${p.id}`,
+      kind: "blog",
+      title: p.title,
+      body: `${p.excerpt}${takeaways} ${opening}`.trim(),
+      keywords: [...p.keywords, ...(p.targetKeyword ? [p.targetKeyword] : []), p.category],
+      url: `/${p.locale ?? "en"}/blog/${p.category}/${p.slug}`,
+    });
+  }
 
   return entries;
 }

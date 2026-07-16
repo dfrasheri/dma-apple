@@ -2,7 +2,7 @@
 
 /**
  * Press features, the clinic's international print appearances, staged as
- * physical magazines on the house navy.
+ * physical magazines on the gilded espresso band (.marble-dark).
  *
  * Two editorial rows, alternating sides:
  *   · Capital Point, "A Dawn of Excellence" (presented with Forbes Global
@@ -29,7 +29,7 @@ import { useLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/dictionaries";
 import { cn } from "@/lib/utils";
 
-const GOLD = "#d3b57f";
+const GOLD = "#e4cd9a";
 
 const animationStyles = `
   @keyframes fadeInUp {
@@ -218,7 +218,7 @@ const T: Record<Locale, { eyebrow: string; title: string; lead: string; cta: str
 function ForbesWordmark({ size = "md" }: { size?: "sm" | "md" }) {
   return (
     <span className="flex flex-col leading-none">
-      <span className={cn("font-serif tracking-tight text-white", size === "sm" ? "text-[15px]" : "text-[20px]")}>
+      <span className={cn("font-serif tracking-tight text-[#fbf7f2]", size === "sm" ? "text-[15px]" : "text-[20px]")}>
         Forbes
       </span>
       <span
@@ -235,7 +235,7 @@ function ForbesWordmark({ size = "md" }: { size?: "sm" | "md" }) {
 function GateWordmark() {
   return (
     <span className="flex flex-col leading-none">
-      <span className="font-serif text-[20px] tracking-tight text-white">
+      <span className="font-serif text-[20px] tracking-tight text-[#fbf7f2]">
         GATE <span className="italic">mag</span>
       </span>
       <span className="mt-[3px] text-[7.5px] uppercase tracking-[2.6px]" style={{ color: GOLD }}>
@@ -253,10 +253,10 @@ function FeaturedBadge({ href, kind }: { href: string; kind: "forbes" | "gate" }
       target="_blank"
       rel="noopener"
       aria-label={kind === "forbes" ? "Forbes Global Properties" : "GATE mag"}
-      className="group/fb mt-7 inline-flex items-center gap-3.5 rounded-full border border-white/15 bg-white/[0.03] py-2.5 pl-4 pr-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d3b57f]/45 hover:bg-white/[0.06]"
+      className="group/fb mt-7 inline-flex items-center gap-3.5 rounded-full border border-[#c6a15b]/25 bg-[#fbf7f2]/[0.03] py-2.5 pl-4 pr-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c6a15b]/60 hover:bg-[#fbf7f2]/[0.06]"
     >
-      <span className="text-[10px] uppercase tracking-[1.7px] text-white/45">As featured with</span>
-      <span className="h-5 w-px bg-white/15" />
+      <span className="text-[10px] uppercase tracking-[1.7px] text-[#fbf7f2]/50">As featured with</span>
+      <span className="h-5 w-px bg-[#c6a15b]/25" />
       {kind === "forbes" ? <ForbesWordmark /> : <GateWordmark />}
       <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 opacity-0 transition-all duration-300 group-hover/fb:translate-x-0 group-hover/fb:opacity-100" style={{ color: GOLD }} />
     </a>
@@ -324,11 +324,11 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
   return (
     <div ref={rootRef} className="relative">
       {/* sheet stack peeking out behind the book */}
-      <div className="absolute inset-x-5 -bottom-2 top-2 rotate-[0.9deg] rounded-[4px] bg-white/[0.07]" />
-      <div className="absolute inset-x-2.5 -bottom-1 top-1 rotate-[-0.6deg] rounded-[4px] bg-white/[0.14]" />
+      <div className="absolute inset-x-5 -bottom-2 top-2 rotate-[0.9deg] rounded-[4px] bg-[#fbf7f2]/[0.07]" />
+      <div className="absolute inset-x-2.5 -bottom-1 top-1 rotate-[-0.6deg] rounded-[4px] bg-[#fbf7f2]/[0.14]" />
 
       <div
-        className="group/book relative w-full select-none overflow-hidden rounded-[5px] bg-[#0a0a0b] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.7)] ring-1 ring-white/12"
+        className="group/book relative w-full select-none overflow-hidden rounded-[5px] bg-[#171310] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.7)] ring-1 ring-[#e4cd9a]/20"
         style={{ aspectRatio: "1934 / 1350", perspective: "2400px" }}
       >
         {/* static LEFT page (revealed leaf-back covers it when turned) */}
@@ -413,7 +413,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
           aria-label="Previous page"
           onClick={prev}
           disabled={!flipped}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-25"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c6a15b]/25 text-[#fbf7f2]/70 transition-all hover:border-[#c6a15b]/60 hover:text-[#e4cd9a] disabled:cursor-not-allowed disabled:opacity-25"
         >
           <ArrowRight className="h-4 w-4 rotate-180" />
         </button>
@@ -426,7 +426,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
               aria-current={flipped === f}
               onClick={() => setFlipped(f)}
               className="h-2 rounded-full transition-all duration-300"
-              style={{ width: flipped === f ? 22 : 8, backgroundColor: flipped === f ? GOLD : "rgba(255,255,255,0.28)" }}
+              style={{ width: flipped === f ? 22 : 8, backgroundColor: flipped === f ? GOLD : "rgba(251,247,242,0.28)" }}
             />
           ))}
         </div>
@@ -435,7 +435,7 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
           aria-label="Next page"
           onClick={next}
           disabled={flipped}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-25"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c6a15b]/25 text-[#fbf7f2]/70 transition-all hover:border-[#c6a15b]/60 hover:text-[#e4cd9a] disabled:cursor-not-allowed disabled:opacity-25"
         >
           <ArrowRight className="h-4 w-4" />
         </button>
@@ -447,10 +447,10 @@ function MagazineFlip({ pages, alt }: { pages: string[]; alt: string }) {
 function SpreadVisual({ item, alt }: { item: PressItem; alt: string }) {
   return (
     <div className="relative">
-      <div className="absolute inset-x-6 -bottom-2.5 top-2.5 rotate-[1.1deg] rounded-[4px] bg-white/[0.08]" />
-      <div className="absolute inset-x-3 -bottom-1 top-1 rotate-[-0.7deg] rounded-[4px] bg-white/[0.16]" />
+      <div className="absolute inset-x-6 -bottom-2.5 top-2.5 rotate-[1.1deg] rounded-[4px] bg-[#fbf7f2]/[0.08]" />
+      <div className="absolute inset-x-3 -bottom-1 top-1 rotate-[-0.7deg] rounded-[4px] bg-[#fbf7f2]/[0.16]" />
 
-      <div className="relative flex overflow-hidden rounded-[5px] bg-[#f6f3ec] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.65)] ring-1 ring-white/15 transition duration-700 ease-out group-hover:-translate-y-2 group-hover:shadow-[0_46px_90px_-24px_rgba(0,0,0,0.75)]">
+      <div className="relative flex overflow-hidden rounded-[5px] bg-[#fbf7f2] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.65)] ring-1 ring-[#e4cd9a]/20 transition duration-700 ease-out group-hover:-translate-y-2 group-hover:shadow-[0_46px_90px_-24px_rgba(0,0,0,0.75)]">
         <img src={item.images[0]} alt="" aria-hidden className="w-1/2 object-cover" loading="lazy" decoding="async" />
         <img src={item.images[1]} alt={alt} className="w-1/2 object-cover" loading="lazy" decoding="async" />
         <div className="pointer-events-none absolute inset-y-0 left-1/2 w-14 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.14)_42%,rgba(0,0,0,0.34)_50%,rgba(0,0,0,0.14)_58%,transparent)]" />
@@ -469,9 +469,9 @@ function FanVisual({ item, alt }: { item: PressItem; alt: string }) {
         aria-hidden
         loading="lazy"
         decoding="async"
-        className="absolute left-0 top-8 w-[52%] rotate-[-7deg] rounded-[4px] shadow-[0_24px_50px_-18px_rgba(0,0,0,0.7)] ring-1 ring-white/15 transition duration-700 ease-out group-hover:rotate-[-9deg] group-hover:-translate-x-1"
+        className="absolute left-0 top-8 w-[52%] rotate-[-7deg] rounded-[4px] shadow-[0_24px_50px_-18px_rgba(0,0,0,0.7)] ring-1 ring-[#e4cd9a]/20 transition duration-700 ease-out group-hover:rotate-[-9deg] group-hover:-translate-x-1"
       />
-      <div className="relative overflow-hidden rounded-[4px] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.7)] ring-1 ring-white/15 transition duration-700 ease-out group-hover:-translate-y-2 group-hover:rotate-[0.8deg] group-hover:shadow-[0_46px_90px_-24px_rgba(0,0,0,0.8)]">
+      <div className="relative overflow-hidden rounded-[4px] shadow-[0_34px_70px_-22px_rgba(0,0,0,0.7)] ring-1 ring-[#e4cd9a]/20 transition duration-700 ease-out group-hover:-translate-y-2 group-hover:rotate-[0.8deg] group-hover:shadow-[0_46px_90px_-24px_rgba(0,0,0,0.8)]">
         <img src={item.images[1]} alt={alt} className="w-[300px] max-w-[62vw] sm:w-[340px]" loading="lazy" decoding="async" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.14),transparent_38%)]" />
       </div>
@@ -489,15 +489,15 @@ export function PressFeatures() {
       <section
         id="press"
         aria-labelledby="press-title"
-        className="relative overflow-hidden bg-[#071522] py-24"
+        className="marble-dark relative overflow-hidden section-y"
       >
         <div
           className="pointer-events-none absolute left-1/2 top-[-260px] h-[520px] w-[860px] -translate-x-1/2 rounded-full blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(211,181,127,0.16), transparent)" }}
+          style={{ background: "radial-gradient(closest-side, rgba(228,205,154,0.16), transparent)" }}
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-4 top-2 select-none font-serif text-[110px] leading-none text-white/[0.04] md:text-[210px]"
+          className="pointer-events-none absolute -right-4 top-2 select-none font-serif text-[110px] leading-none text-transparent [-webkit-text-stroke:1px_rgba(228,205,154,0.16)] md:text-[210px]"
         >
           PRESS
         </span>
@@ -509,11 +509,11 @@ export function PressFeatures() {
             </p>
             <h2
               id="press-title"
-              className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-normal leading-[1.12] text-white"
+              className="mt-4 font-serif text-[clamp(30px,4vw,48px)] font-medium leading-[1.12] text-[#fbf7f2]"
             >
               {t.title}
             </h2>
-            <p className="mt-6 text-[15.5px] leading-relaxed text-white/55">{t.lead}</p>
+            <p className="mt-6 text-[15.5px] leading-relaxed text-[#fbf7f2]/70">{t.lead}</p>
           </Reveal>
 
           <div className="mt-20 space-y-24">
@@ -530,7 +530,7 @@ export function PressFeatures() {
                   {item.variant === "flipbook" ? (
                     <div className={cn("lg:col-span-7 animate-magazine", reversed && "lg:order-2")}>
                       <MagazineFlip pages={item.images} alt={alt} />
-                      <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-3 text-[10.5px] uppercase tracking-[0.24em] text-white/40">
+                      <div className="mt-6 flex items-center justify-between border-t border-[#c6a15b]/25 pt-3 text-[10.5px] uppercase tracking-[0.24em] text-[#fbf7f2]/45">
                         <span>{item.folioLeft}</span>
                         <span>{item.folioRight}</span>
                       </div>
@@ -548,7 +548,7 @@ export function PressFeatures() {
                       ) : (
                         <FanVisual item={item} alt={alt} />
                       )}
-                      <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-3 text-[10.5px] uppercase tracking-[0.24em] text-white/40">
+                      <div className="mt-6 flex items-center justify-between border-t border-[#c6a15b]/25 pt-3 text-[10.5px] uppercase tracking-[0.24em] text-[#fbf7f2]/45">
                         <span>{item.folioLeft}</span>
                         <span>{item.folioRight}</span>
                       </div>
@@ -557,21 +557,21 @@ export function PressFeatures() {
 
                   <div className={cn("lg:col-span-5 animate-magazine-delayed", reversed && "lg:order-1")}>
                     <div className="flex items-center gap-3">
-                      <span className="h-px w-10 shrink-0" style={{ backgroundColor: GOLD }} />
+                      <span className="gold-rule w-10 shrink-0" />
                       <p className="eyebrow !text-[12px] !tracking-[1.8px]" style={{ color: GOLD }}>
                         {item.kicker[locale] ?? item.kicker.en}
                       </p>
                     </div>
-                    <h3 className="mt-5 font-serif text-[clamp(26px,2.6vw,36px)] font-normal leading-[1.15] text-white">
+                    <h3 className="mt-5 font-serif text-[clamp(26px,2.6vw,36px)] font-medium leading-[1.15] text-[#fbf7f2]">
                       &ldquo;{item.headline}&rdquo;
                     </h3>
                     {gloss && (
-                      <p className="mt-2 font-serif text-[17px] italic leading-snug text-white/50">{gloss}</p>
+                      <p className="mt-2 font-serif text-[17px] italic leading-snug text-[#e4cd9a]/80">{gloss}</p>
                     )}
-                    <p className="mt-5 text-[15.5px] leading-relaxed text-white/60">
+                    <p className="mt-5 text-[15.5px] leading-relaxed text-[#fbf7f2]/70">
                       {item.description[locale] ?? item.description.en}
                     </p>
-                    <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] uppercase tracking-[0.18em] text-white/40">
+                    <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] uppercase tracking-[0.18em] text-[#fbf7f2]/45">
                       <span>{item.issue}</span>
                       <span className="h-1 w-1 rounded-full" style={{ backgroundColor: `${GOLD}99` }} />
                       <span>{item.pages[locale] ?? item.pages.en}</span>
@@ -580,7 +580,7 @@ export function PressFeatures() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/cta mt-8 inline-flex items-center gap-3 border-b pb-1.5 text-[13px] uppercase tracking-[0.2em] transition-colors hover:text-white"
+                      className="group/cta mt-8 inline-flex items-center gap-3 border-b pb-1.5 text-[13px] uppercase tracking-[0.2em] transition-colors hover:text-[#fbf7f2]"
                       style={{ color: GOLD, borderColor: `${GOLD}66` }}
                     >
                       {t.cta}

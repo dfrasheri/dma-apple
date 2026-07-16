@@ -22,6 +22,7 @@ import { hasAnthropicKey, aiComplete, type AiImage, type ChatTurn } from "./ai";
 import { brainGroundingFor } from "./brain";
 import {
   detectLang,
+  explicitLangRequest,
   fold,
   freePlan,
   GUARDRAILS,
@@ -40,6 +41,9 @@ export type ChatReply = {
   /** True → a human coordinator should follow up (e.g. exact pricing). */
   handoff: boolean;
   intent: ChatIntent;
+  /** Language the reply was written in — the client keeps the conversation
+      sticky on this (e.g. after "answer me in German" it stays German). */
+  lang: Lang;
 };
 
 export type ChatIntent =
@@ -100,6 +104,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
     case "greeting":
       return {
         intent,
+        lang,
         handoff: false,
         sources: [],
         text: T[lang].greeting(CLINIC_PROFILE.name),
@@ -108,6 +113,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
     case "price":
       return {
         intent,
+        lang,
         handoff: true,
         sources: [{ title: "Contact & free treatment plan", url: "/contact" }],
         text: T[lang].priceHandoff(plan),
@@ -116,6 +122,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
     case "booking":
       return {
         intent,
+        lang,
         handoff: true,
         sources: [{ title: "Contact", url: "/contact" }],
         text: T[lang].bookingHandoff(plan),
@@ -127,6 +134,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
       );
       return {
         intent,
+        lang,
         handoff: false,
         sources: sourcesFrom(safetyHits),
         text:
@@ -137,6 +145,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
     case "location":
       return {
         intent,
+        lang,
         handoff: false,
         sources: [{ title: "Contact & location", url: "/contact" }],
         text:
@@ -148,6 +157,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
       const doc = CLINIC_PROFILE.doctor;
       return {
         intent,
+        lang,
         handoff: false,
         sources: [{ title: "Our clinical team", url: "/team" }],
         text: `Care at Dental Med Austria is delivered by our experienced clinical team. ${trim(doc.bio, 360)}`,
@@ -160,6 +170,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
       const top = tourismHits[0];
       return {
         intent,
+        lang,
         handoff: false,
         sources: sourcesFrom(tourismHits),
         text: top
@@ -178,6 +189,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
       : "";
     return {
       intent: "knowledge",
+      lang,
       handoff: false,
       sources: sourcesFrom(hits),
       text: `${trim(top.body)}${tail}`,
@@ -187,6 +199,7 @@ function compose(message: string, langOverride?: Lang): ChatReply {
   // ── nothing matched → graceful handoff ─────────────────────────────────────
   return {
     intent: "fallback",
+    lang,
     handoff: true,
     sources: [{ title: "Contact", url: "/contact" }],
     text: T[lang].fallback(plan),
@@ -198,6 +211,7 @@ export function draftReply(message: string): ChatReply {
   if (!clean) {
     return {
       intent: "greeting",
+      lang: "en",
       handoff: false,
       sources: [],
       text: `Hi! Ask me about our treatments, technology, safety standards, or planning a visit to ${CLINIC_PROFILE.name}.`,
@@ -209,7 +223,7 @@ export function draftReply(message: string): ChatReply {
 // ── Claude-grounded reply (used by /api/chat) ────────────────────────────────
 // Keeps the rule-based answer as the guaranteed fallback. Pricing and booking
 // ALWAYS use the rule-based handoff so the model can never quote a price.
-function chatSystem(lang: Lang, hasImage: boolean): string {
+function chatSystem(lang: Lang, hasImage: boolean, forcedLang: boolean): string {
   const p = CLINIC_PROFILE;
   const facts = [
     `Clinic: ${p.name}. Address: ${p.address}. Hours: ${p.hours}. Email: ${p.email}.`,
@@ -221,7 +235,9 @@ function chatSystem(lang: Lang, hasImage: boolean): string {
   return [
     `You are the friendly website assistant for ${p.name}, a premium dental and medical-tourism clinic in Tirana, Albania serving international patients (especially German-speaking / DACH patients).`,
     `Continue the conversation, answering the visitor's latest message using the prior turns, the CONTEXT passages and the clinic facts below. If the answer is in none of them, say you will connect them with a coordinator rather than guessing.`,
-    `Detect the language of the visitor's latest message and reply in that same language. The visitor is browsing the site in ${LANG_NAME[lang]}; when their message is too short or ambiguous to tell, reply in ${LANG_NAME[lang]}.`,
+    forcedLang
+      ? `Reply in ${LANG_NAME[lang]}, regardless of the language of the visitor's latest message: the visitor explicitly chose ${LANG_NAME[lang]} for this conversation. Keep replying in ${LANG_NAME[lang]} until they ask for another language.`
+      : `Detect the language of the visitor's latest message and reply in that same language. The visitor is browsing the site in ${LANG_NAME[lang]}; when their message is too short or ambiguous to tell, reply in ${LANG_NAME[lang]}.`,
     hasImage
       ? `The visitor attached a photo, most likely a dental X-ray or panoramic image. Thank them warmly. You may say whether it looks like a panoramic X-ray / dental photo and whether it is readable, and explain in general terms how the clinical team uses such an image, but you must NOT diagnose, name conditions, count or identify teeth, or estimate treatment or cost from it; the clinic's clinical team reviews every image personally. Invite them to leave their name and phone number so a coordinator can send their free written treatment plan within 24-48 hours.`
       : "",
@@ -237,6 +253,12 @@ export type DraftReplyOptions = {
   image?: AiImage | null;
   /** Site locale the visitor is browsing in (e.g. "sq"), language tiebreaker. */
   localeHint?: string;
+  /**
+   * Hard language override — set when the visitor picked a language in the
+   * widget or previously asked the bot to switch ("answer me in German").
+   * Wins over detection so the conversation language is sticky.
+   */
+  forceLang?: Lang;
 };
 
 export async function draftReplyAI(
@@ -246,7 +268,11 @@ export async function draftReplyAI(
 ): Promise<ChatReply> {
   const clean = (message ?? "").trim();
   const image = opts.image ?? null;
-  const lang = resolveLang(clean, history, opts.localeHint);
+  // Explicit wins: a widget language pick or an in-message "answer in X"
+  // request beats text detection; otherwise resolve from text + site locale.
+  const requested = explicitLangRequest(clean);
+  const forced = requested ?? opts.forceLang ?? null;
+  const lang = forced ?? resolveLang(clean, history, opts.localeHint);
   if (!clean && !image) return draftReply(clean);
 
   // A visitor-sent X-ray/photo goes to the vision model when a key is
@@ -255,6 +281,7 @@ export async function draftReplyAI(
   if (image) {
     const ack: ChatReply = {
       intent: "knowledge",
+      lang,
       handoff: true,
       sources: [{ title: "Contact", url: "/contact" }],
       text: T[lang].imageAck,
@@ -270,7 +297,7 @@ export async function draftReplyAI(
     const hits = clean ? searchKnowledge(clean, 4).map((s) => s.entry) : [];
     const kb = hits.map((e, i) => `[${i + 1}] ${e.title}\n${knowledgeText(e)}`).join("\n\n");
     const text = await aiComplete({
-      system: chatSystem(lang, true),
+      system: chatSystem(lang, true, forced !== null),
       messages: [
         ...history,
         {
@@ -284,7 +311,19 @@ export async function draftReplyAI(
       maxTokens: 500,
     });
     if (!text) return ack;
-    return { intent: "knowledge", handoff: true, sources: sourcesFrom(hits), text };
+    return { intent: "knowledge", lang, handoff: true, sources: sourcesFrom(hits), text };
+  }
+
+  // A bare language request ("auf Deutsch bitte") is answered with a localized
+  // greeting in the new language rather than being sent to retrieval.
+  if (requested && fold(clean).split(/\s+/).length <= 4) {
+    return {
+      intent: "greeting",
+      lang,
+      handoff: false,
+      sources: [],
+      text: T[lang].help(CLINIC_PROFILE.name),
+    };
   }
 
   const intent = classify(clean);
@@ -302,7 +341,7 @@ export async function draftReplyAI(
     [kb, ig && `FROM OUR INSTAGRAM (real patient content):\n${ig}`].filter(Boolean).join("\n\n") ||
     "(no specific page matched)";
   const text = await aiComplete({
-    system: chatSystem(lang, false),
+    system: chatSystem(lang, false, forced !== null),
     messages: [
       ...history,
       { role: "user", content: `CONTEXT:\n${grounding}\n\nVisitor: ${clean}` },
@@ -310,5 +349,5 @@ export async function draftReplyAI(
     maxTokens: 500,
   });
   if (!text) return compose(clean, lang); // no key / API error → rule-based fallback
-  return { intent, handoff: false, sources: sourcesFrom(hits), text };
+  return { intent, lang, handoff: false, sources: sourcesFrom(hits), text };
 }

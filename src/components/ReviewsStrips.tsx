@@ -18,7 +18,7 @@ function Stars({ rating }: { rating: number }) {
           key={i}
           viewBox="0 0 24 24"
           className="h-[15px] w-[15px]"
-          fill={i < rating ? "#FBBC04" : "#e4e4e4"}
+          fill={i < rating ? "#c6a15b" : "#e8ddc9"}
           aria-hidden="true"
         >
           <path d="M12 17.27l5.18 3.12-1.37-5.9 4.58-3.97-6.03-.52L12 4.5 9.64 9.99l-6.03.52 4.58 3.97-1.37 5.9z" />
@@ -41,23 +41,32 @@ function GoogleGlyph() {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <article className="mx-3 flex w-[340px] shrink-0 flex-col rounded-2xl border border-[#ececec] bg-white p-6 shadow-[0_2px_16px_rgba(7,21,34,0.05)] sm:w-[380px]">
+    <article className="group relative mx-3 flex w-[340px] shrink-0 flex-col rounded-3xl border border-[#9a7638]/15 bg-[#fffefb] p-7 shadow-[var(--shadow-brand-md)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-brand-lg)] sm:w-[380px]">
+      {/* oversized Newsreader italic quote glyph, gold watermark */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-2 right-6 select-none font-serif text-[88px] italic leading-none text-[#c6a15b]/15"
+      >
+        &rdquo;
+      </span>
       <div className="mb-3 flex items-center gap-3">
         <span
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[16px] font-medium text-white"
-          style={{ backgroundColor: review.color }}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f4ecdd] font-serif text-[18px] font-medium text-[#9a7638] ring-1 ring-[#9a7638]/25"
           aria-hidden="true"
         >
           {review.initial}
         </span>
-        <div className="min-w-0">
-          <p className="truncate font-serif text-[16px] leading-tight text-[#071522]">{review.author}</p>
-          <p className="text-[12px] text-[#9a9a9a]">{review.timeAgo}</p>
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-serif text-[17px] leading-tight text-[#2a2018]">{review.author}</p>
+          <p className="text-[12px] text-[#a99a8b]">{review.timeAgo}</p>
         </div>
         <GoogleGlyph />
       </div>
       <Stars rating={review.rating} />
-      <p className="mt-3 line-clamp-6 text-[14px] leading-[1.55] text-[#4a4a4a]">{review.text}</p>
+      <span aria-hidden="true" className="mt-4 block font-serif text-[38px] italic leading-[0.5] text-[#c6a15b]">
+        &ldquo;
+      </span>
+      <p className="mt-1.5 line-clamp-6 text-[14px] leading-[1.6] text-[#6e6152]">{review.text}</p>
     </article>
   );
 }
@@ -80,28 +89,29 @@ export function ReviewsStrips() {
   const t = useT();
 
   return (
-    <section id="reviews" className="bg-[#f7f8f9] py-[80px]">
+    <section id="reviews" className="section-y bg-[#f4ecdd]">
       <div className="tpds-container mb-10 text-center">
-        <p className="eyebrow mb-3 text-[#9a9a9a]">{t("reviews.eyebrow")}</p>
-        <h2 className="serif-title text-[clamp(28px,3.4vw,42px)] leading-[1.12]">{t("reviews.heading")}</h2>
+        <p className="eyebrow gold-foil mb-3">{t("reviews.eyebrow")}</p>
+        <h2 className="serif-title text-[clamp(30px,3.8vw,48px)] leading-[1.1]">{t("reviews.heading")}</h2>
+        <div className="gold-rule mx-auto mt-6 w-24" aria-hidden="true" />
 
         <a
           href={CONTACT.maps}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-3 rounded-full border border-[#ececec] bg-white px-5 py-2.5 shadow-[0_2px_12px_rgba(7,21,34,0.06)] transition-shadow hover:shadow-[0_4px_18px_rgba(7,21,34,0.1)]"
+          className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-full border border-[#9a7638]/20 bg-[#fffefb] px-6 py-3 shadow-[var(--shadow-brand-sm)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#9a7638]/40 hover:shadow-[var(--shadow-brand-md)]"
         >
           <GoogleGlyph />
-          <span className="text-[20px] font-semibold text-[#071522]">{REVIEW_STATS.ratingValue.toFixed(1)}</span>
+          <span className="font-serif text-[22px] font-medium text-[#2a2018]">{REVIEW_STATS.ratingValue.toFixed(1)}</span>
           <Stars rating={5} />
-          <span className="text-[13px] text-[#6a6a6a]">
+          <span className="text-[13px] text-[#6e6152]">
             {REVIEW_STATS.reviewCount}+ {t("reviews.ratingLabel")}
           </span>
         </a>
       </div>
 
       <Reveal y={20}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <Strip items={REVIEW_STRIP_A} />
           <Strip items={REVIEW_STRIP_B} reverse />
         </div>

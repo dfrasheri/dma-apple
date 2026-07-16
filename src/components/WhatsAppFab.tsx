@@ -77,22 +77,22 @@ export function WhatsAppFab() {
   }
 
   const inputCls =
-    "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-[#111b21] outline-none focus:border-[#25D366]";
+    "w-full rounded-lg border border-[#9a7638]/20 bg-white px-3 py-2 text-sm text-[#2a2018] outline-none focus:border-[#c6a15b]";
 
   return (
     <>
       {/* In-site panel */}
       {open && (
         // opens ABOVE the chat launcher (at 9.5rem) so the widgets never overlap
-        <div className="fixed bottom-[13.5rem] right-4 z-50 w-[min(340px,calc(100vw-2rem))] max-h-[calc(100svh-15rem)] overflow-y-auto overscroll-contain rounded-2xl border border-black/10 bg-white shadow-2xl">
+        <div className="fixed bottom-[13.5rem] right-4 z-50 w-[min(340px,calc(100vw-2rem))] max-h-[calc(100svh-15rem)] overflow-y-auto overscroll-contain rounded-2xl border border-[#c6a15b]/30 bg-white shadow-[var(--shadow-brand-xl)]">
           {/* Header */}
-          <div className="flex items-center gap-3 bg-[#075E54] px-4 py-3 text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
+          <div className="marble-dark flex items-center gap-3 px-4 py-3 text-[#fbf7f2]">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c6a15b]/20 text-[#e4cd9a] ring-1 ring-[#e4cd9a]/30">
               <WaIcon className="h-5 w-5" />
             </span>
             <div className="leading-tight">
               <p className="font-serif text-[15px]">Chat on WhatsApp</p>
-              <p className="text-[11px] text-white/70">Dental Med Austria · replies quickly</p>
+              <p className="text-[11px] text-[#e4cd9a]/80">Dental Med Austria · replies quickly</p>
             </div>
             <button
               type="button"
@@ -105,8 +105,8 @@ export function WhatsAppFab() {
           </div>
 
           {/* Form (WhatsApp-paper background) */}
-          <form onSubmit={openWhatsApp} className="space-y-2 px-4 py-4" style={{ background: "#efeae2" }}>
-            <p className="text-[12px] leading-snug text-[#54656f]">
+          <form onSubmit={openWhatsApp} className="space-y-2 px-4 py-4" style={{ background: "#f4ecdd" }}>
+            <p className="text-[12px] leading-snug text-[#6e6152]">
               Leave your details and we&rsquo;ll open WhatsApp with your message ready, just press send.
             </p>
             <div className="flex gap-2">
@@ -118,7 +118,7 @@ export function WhatsAppFab() {
             {error && <p className="text-[11px] font-medium text-red-600">{error}</p>}
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1ebe5d] active:scale-[0.99]"
+              className="gold-shimmer-host flex w-full items-center justify-center gap-2 rounded-full bg-[#c6a15b] px-3 py-2.5 text-sm font-semibold text-[#241c15] transition hover:-translate-y-0.5 active:translate-y-0"
             >
               <WaIcon className="h-4 w-4" /> Open WhatsApp
             </button>
@@ -132,7 +132,7 @@ export function WhatsAppFab() {
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Close WhatsApp form" : "Chat with us on WhatsApp"}
         title="Chat with us on WhatsApp"
-        className="fixed bottom-[4.5rem] right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl ring-1 ring-black/10 transition hover:scale-105 hover:bg-[#1ebe5d] active:scale-95"
+        className="fixed bottom-[4.5rem] right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#241c15] text-[#e4cd9a] shadow-[var(--shadow-brand-lg)] ring-1 ring-[#c6a15b]/50 transition hover:scale-105 hover:bg-[#c6a15b] hover:text-[#241c15] active:scale-95"
       >
         {open ? <CloseIcon className="h-6 w-6" /> : <WaIcon className="h-7 w-7" />}
       </button>

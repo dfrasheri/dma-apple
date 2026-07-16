@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, type ReactElement, type ReactNode } from "react";
 import { useParams } from "next/navigation";
+import { motion, useScroll } from "motion/react";
 import { PageShell } from "@/components/PageShell";
 import { LeadRailForm } from "@/components/LeadRailForm";
 import { PageHero } from "@/components/PageHero";
@@ -33,7 +34,7 @@ function renderInline(text: string) {
     const parts = s.split(/\*\*([^*]+)\*\*/g);
     for (let i = 0; i < parts.length; i++) {
       if (!parts[i]) continue;
-      if (i % 2 === 1) out.push(<strong key={`b${k++}`} className="font-medium text-[#071522]">{parts[i]}</strong>);
+      if (i % 2 === 1) out.push(<strong key={`b${k++}`} className="font-medium text-[#2a2018]">{parts[i]}</strong>);
       else out.push(parts[i]);
     }
   };
@@ -41,7 +42,7 @@ function renderInline(text: string) {
     if (m.index > last) pushText(text.slice(last, m.index));
     const href = m[2];
     out.push(
-      <Link key={`l${k++}`} href={href} className="text-[#9a7b3f] underline underline-offset-2 hover:opacity-70">
+      <Link key={`l${k++}`} href={href} className="text-[#9a7638] underline decoration-[#c6a15b]/60 underline-offset-2 transition-colors hover:text-[#c6a15b]">
         {m[1]}
       </Link>,
     );
@@ -81,8 +82,8 @@ function Figure({ img }: { img: InlineImage }) {
           aria-label={img.alt}
           className={
             img.aspect === "video"
-              ? "mx-auto block aspect-video w-full max-w-[640px] rounded-2xl object-cover shadow-[0_14px_40px_rgba(7,21,34,0.10)]"
-              : "mx-auto block aspect-square w-full max-w-[460px] rounded-2xl object-cover shadow-[0_14px_40px_rgba(7,21,34,0.10)]"
+              ? "mx-auto block aspect-video w-full max-w-[640px] rounded-2xl object-cover shadow-[var(--shadow-brand-md)]"
+              : "mx-auto block aspect-square w-full max-w-[460px] rounded-2xl object-cover shadow-[var(--shadow-brand-md)]"
           }
         />
       ) : (
@@ -92,11 +93,11 @@ function Figure({ img }: { img: InlineImage }) {
           alt={img.alt}
           loading="lazy"
           style={{ objectPosition: img.pos ?? "center" }}
-          className="mx-auto max-h-[460px] w-full max-w-[600px] rounded-2xl object-contain shadow-[0_14px_40px_rgba(7,21,34,0.10)]"
+          className="mx-auto max-h-[460px] w-full max-w-[600px] rounded-2xl object-contain shadow-[var(--shadow-brand-md)]"
         />
       )}
       {img.caption && (
-        <figcaption className="mt-3 text-center text-[13px] italic text-[#9a9a9a]">{img.caption}</figcaption>
+        <figcaption className="mt-3 text-center font-serif text-[13px] italic text-[#a99a8b]">{img.caption}</figcaption>
       )}
     </figure>
   );
@@ -131,7 +132,7 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
           <h2
             key={`h2-${i}`}
             id={id}
-            className="serif-title mb-3 mt-12 scroll-mt-28 text-[clamp(21px,2.3vw,27px)] text-[#071522]"
+            className="serif-title mb-3 mt-12 scroll-mt-28 text-[clamp(21px,2.3vw,27px)] text-[#2a2018]"
           >
             {text}
           </h2>
@@ -145,7 +146,7 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
       blocks.push({
         kind: "other",
         el: (
-          <h3 key={`h3-${i}`} className="serif-title mb-2 mt-8 text-[clamp(17px,1.7vw,20px)] text-[#071522]">
+          <h3 key={`h3-${i}`} className="serif-title mb-2 mt-8 text-[clamp(17px,1.7vw,20px)] text-[#2a2018]">
             {line.slice(4)}
           </h3>
         ),
@@ -182,8 +183,8 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
       blocks.push({
         kind: "other",
         el: (
-          <div key={`q-${start}`} className="my-7 rounded-r-2xl border-l-[3px] border-[#d3b57f] bg-[#faf7f0] px-6 py-5">
-            <p className="text-[16px] italic leading-relaxed text-[#5a5347]">{renderInline(parts.join(" "))}</p>
+          <div key={`q-${start}`} className="my-7 rounded-r-2xl border-l-[3px] border-[#c6a15b] bg-[#f4ecdd] px-6 py-5">
+            <p className="font-serif text-[16.5px] italic leading-relaxed text-[#6e6152]">{renderInline(parts.join(" "))}</p>
           </div>
         ),
       });
@@ -205,12 +206,12 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
             {items.map((it, j) => (
               <li
                 key={j}
-                className="flex gap-4 rounded-2xl border border-[#ece5d4] bg-[#fbfaf7] p-5 transition-shadow duration-300 hover:shadow-[0_10px_30px_rgba(7,21,34,0.07)]"
+                className="flex gap-4 rounded-2xl border border-[#e8ddc9] bg-[#fffefb] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c6a15b]/40 hover:shadow-[var(--shadow-brand-md)]"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#071522] font-serif text-[16px] text-[#d3b57f]">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#241c15] font-serif text-[16px] text-[#e4cd9a]">
                   {j + 1}
                 </span>
-                <span className="pt-1 text-[16px] leading-relaxed text-[#343434]">{renderInline(it)}</span>
+                <span className="pt-1 text-[16px] leading-relaxed text-[#2a2018]">{renderInline(it)}</span>
               </li>
             ))}
           </ol>
@@ -257,7 +258,7 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
                 <thead>
                   <tr>
                     {tableCells(head).map((c, j) => (
-                      <th key={j} className="border-b border-[#d9c9a8] bg-[#faf7f0] px-3 py-2 text-left font-medium text-[#071522]">
+                      <th key={j} className="border-b border-[#c6a15b]/50 bg-[#f4ecdd] px-3 py-2 text-left font-medium text-[#2a2018]">
                         {renderInline(c)}
                       </th>
                     ))}
@@ -267,7 +268,7 @@ function parseArticle(body: string): { blocks: Block[]; headings: Heading[]; has
                   {bodyRows.map((r, ri) => (
                     <tr key={ri}>
                       {tableCells(r).map((c, ci) => (
-                        <td key={ci} className="border-b border-[#ececec] px-3 py-2 align-top text-[#343434]">
+                        <td key={ci} className="border-b border-[#e8ddc9] px-3 py-2 align-top text-[#2a2018]">
                           {renderInline(c)}
                         </td>
                       ))}
@@ -320,16 +321,16 @@ function assembleArticle(post: BlogPost): { nodes: ReactNode[]; headings: Headin
   const cta = (
     <div
       key="article-cta"
-      className="my-12 overflow-hidden rounded-3xl bg-gradient-to-br from-[#071522] via-[#0c2236] to-[#123049] px-7 py-9 text-white sm:px-9"
+      className="marble-dark my-12 overflow-hidden rounded-3xl px-7 py-10 text-[#fbf7f2] sm:px-10"
     >
-      <p className="eyebrow" style={{ color: "#d3b57f" }}>
-        {ui.ctaKicker}
-      </p>
-      <h3 className="mt-3 font-serif text-[clamp(21px,2.4vw,28px)] leading-snug">{ui.ctaTitle}</h3>
-      <p className="mt-3 max-w-xl text-[15px] font-light leading-relaxed text-white/75">{ui.ctaBody}</p>
+      <p className="eyebrow text-[#e4cd9a]">{ui.ctaKicker}</p>
+      <h3 className="mt-3 font-serif text-[clamp(21px,2.4vw,28px)] font-medium leading-snug text-[#fbf7f2]">
+        {ui.ctaTitle}
+      </h3>
+      <p className="mt-3 max-w-xl text-[15px] font-light leading-relaxed text-[#fbf7f2]/70">{ui.ctaBody}</p>
       <Link
         href={localeUrl(plocale, "/contact").replace(SITE_URL, "")}
-        className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[13px] font-medium uppercase tracking-[1.2px] text-[#071522] transition hover:bg-[#d3b57f] hover:text-[#071522]"
+        className="gold-shimmer-host mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#c6a15b] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
       >
         {ui.ctaButton} <ArrowRight className="h-4 w-4" />
       </Link>
@@ -359,6 +360,8 @@ export function BlogPostClient() {
   const { locale } = useLocale();
   const t = useT();
   const posts = useBlogPosts();
+  // Reading-progress for the fixed gold bar at the top of the article page.
+  const { scrollYProgress } = useScroll();
 
   const post: BlogPost | undefined =
     posts.find((p) => p.category === category && p.slug === slug && (p.locale ?? "en") === locale) ??
@@ -388,9 +391,9 @@ export function BlogPostClient() {
     return (
       <PageShell>
         <PageHero title={t("blog.notFound.title")} image="/images/dma/interiors/reception-wide.jpg" crumbs={[{ label: t("nav.home"), href: `/${locale}` }, { label: t("blog.crumb"), href: `/${locale}/blog` }]} />
-        <section className="bg-white py-[90px] text-center">
-          <p className="text-[17px] text-[#6f6f6f]">{t("blog.notFound.text")}</p>
-          <Link href={`/${locale}/blog`} className="mt-6 inline-flex items-center gap-2 text-[14px] uppercase tracking-[1.2px] text-[#071522] hover:opacity-60">
+        <section className="section-y bg-[#fbf7f2] text-center">
+          <p className="text-[17px] text-[#6e6152]">{t("blog.notFound.text")}</p>
+          <Link href={`/${locale}/blog`} className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-[#9a7638] transition-colors hover:text-[#2a2018]">
             {t("blog.backToBlog")} <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
@@ -453,6 +456,11 @@ export function BlogPostClient() {
 
   return (
     <PageShell>
+      {/* Gold reading-progress bar, scaleX driven by page scroll */}
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#e4cd9a] via-[#c6a15b] to-[#9a7638]"
+      />
       <JsonLd data={articleLd} />
       {faqLd && <JsonLd data={faqLd} />}
       <JsonLd data={breadcrumbLd} />
@@ -471,16 +479,16 @@ export function BlogPostClient() {
         ]}
       />
 
-      <article className="bg-white py-[70px]">
+      <article className="section-y bg-[#fbf7f2]">
         <Reveal className="tpds-container max-w-[760px]" stagger={0.1} y={26}>
           {/* meta row: date · author · reading time */}
-          <p className="eyebrow mb-4 text-[#9a9a9a]">
+          <p className="eyebrow mb-4 text-[#a99a8b]">
             {post.date}
             {post.author?.name ? ` · ${ui.by} ${post.author.name}` : ""}
             {` · ${ui.minRead(minutes)}`}
           </p>
           {(post.reviewedBy?.name || post.reviewedDate) && (
-            <p className="mb-6 text-[13px] text-[#8a8a8a]">
+            <p className="mb-6 text-[13px] text-[#a99a8b]">
               {post.reviewedBy?.name
                 ? `${t("blog.reviewedBy")} ${post.reviewedBy.name}${post.reviewedBy.jobTitle ? `, ${post.reviewedBy.jobTitle}` : ""}`
                 : t("blog.medicallyReviewed")}
@@ -489,9 +497,9 @@ export function BlogPostClient() {
           )}
 
           {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-            <div className="mb-8 rounded-2xl border border-[#e6dcc6] bg-[#faf7f0] px-6 py-5">
-              <p className="eyebrow mb-3 text-[#9a7b3f]">{ui.takeaways}</p>
-              <ul className="ml-5 list-disc space-y-2 text-[16px] font-light leading-[1.55] text-[#343434]">
+            <div className="mb-8 rounded-2xl border border-[#e8ddc9] border-l-[3px] border-l-[#c6a15b] bg-[#f4ecdd] px-6 py-5">
+              <p className="eyebrow gold-foil mb-3">{ui.takeaways}</p>
+              <ul className="ml-5 list-disc space-y-2 text-[16px] font-light leading-[1.55] text-[#2a2018]">
                 {post.keyTakeaways.map((t, i) => (
                   <li key={i}>{renderInline(t)}</li>
                 ))}
@@ -503,20 +511,20 @@ export function BlogPostClient() {
           {headings.length >= 3 && (
             <nav
               aria-label={ui.toc}
-              className="mb-10 rounded-2xl border border-[#ececec] bg-[#fbfbfa] px-6 py-5"
+              className="mb-10 rounded-3xl border border-[#9a7638]/10 bg-[#fffefb] px-6 py-6 shadow-[var(--shadow-brand-sm)] sm:px-7"
             >
-              <p className="eyebrow mb-3 text-[#9a9a9a]">{ui.toc}</p>
-              <ol className="space-y-2">
+              <p className="eyebrow gold-foil mb-4">{ui.toc}</p>
+              <ol className="space-y-2.5">
                 {headings.map((h, i) => (
                   <li key={h.id}>
                     <a
                       href={`#${h.id}`}
-                      className="group flex items-baseline gap-3 text-[15px] text-[#343434] transition hover:text-[#071522]"
+                      className="group flex items-baseline gap-3 text-[15px] text-[#2a2018] transition-colors duration-300 hover:text-[#9a7638]"
                     >
-                      <span className="font-serif text-[13px] text-[#d3b57f]">
+                      <span className="gold-foil font-serif text-[14px] font-medium italic">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="underline-offset-4 group-hover:underline">{h.text}</span>
+                      <span className="decoration-[#c6a15b] underline-offset-4 group-hover:underline">{h.text}</span>
                     </a>
                   </li>
                 ))}
@@ -524,27 +532,28 @@ export function BlogPostClient() {
             </nav>
           )}
 
-          <div className="space-y-5 text-[18px] font-light leading-[1.6] text-[#343434]">{nodes}</div>
+          <div className="space-y-5 text-[18px] font-light leading-[1.6] text-[#2a2018]">{nodes}</div>
 
           {/* FAQ, open/close accordion (FAQPage JSON-LD emitted above) */}
           {post.faq && post.faq.length > 0 && (
-            <div className="mt-14 border-t border-[#ececec] pt-10">
-              <h2 className="serif-title mb-6 text-[clamp(22px,2.6vw,30px)] text-[#071522]">{ui.faqTitle}</h2>
-              <div className="overflow-hidden rounded-2xl border border-[#ececec] bg-white">
+            <div className="mt-14 pt-10">
+              <div className="gold-rule mb-10" />
+              <h2 className="serif-title mb-6 text-[clamp(22px,2.6vw,30px)] text-[#2a2018]">{ui.faqTitle}</h2>
+              <div className="overflow-hidden rounded-3xl border border-[#e8ddc9] bg-[#fffefb] shadow-[var(--shadow-brand-sm)]">
                 {post.faq.map((f, i) => (
-                  <details key={i} open={i === 0} className="group border-b border-[#ececec] last:border-b-0">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-[17px] font-normal text-[#071522] transition-colors hover:bg-[#fbfaf7] [&::-webkit-details-marker]:hidden">
+                  <details key={i} open={i === 0} className="group border-b border-[#e8ddc9] last:border-b-0">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-[17px] font-medium text-[#2a2018] transition-colors duration-300 hover:bg-[#f4ecdd]/60 [&::-webkit-details-marker]:hidden">
                       {f.q}
                       <span
                         aria-hidden="true"
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#071522]/15 text-[#071522] transition-transform duration-300 group-open:rotate-45"
+                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#9a7638]/35 text-[#9a7638] transition-transform duration-300 group-open:rotate-45"
                       >
                         <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5">
                           <path d="M6 1v10M1 6h10" strokeLinecap="round" />
                         </svg>
                       </span>
                     </summary>
-                    <p className="px-6 pb-6 text-[15.5px] font-light leading-[1.65] text-[#555]">{f.a}</p>
+                    <p className="px-6 pb-6 text-[15.5px] font-light leading-[1.65] text-[#6e6152]">{f.a}</p>
                   </details>
                 ))}
               </div>
@@ -554,7 +563,7 @@ export function BlogPostClient() {
           {post.keywords.length > 0 && (
             <div className="mt-9 flex flex-wrap gap-2">
               {post.keywords.map((kw) => (
-                <span key={kw} className="bg-[#f1f1f1] px-3 py-1.5 text-[12px] uppercase tracking-[1px] text-[#555]">
+                <span key={kw} className="rounded-full bg-[#f4ecdd] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9a7638]">
                   {kw}
                 </span>
               ))}
@@ -564,21 +573,25 @@ export function BlogPostClient() {
       </article>
 
       {related.length > 0 && (
-        <section className="bg-[#f7f7f5] py-[70px]">
+        <section className="section-y-sm bg-[#f4ecdd]">
           <div className="tpds-container">
-            <h2 className="serif-title mb-8 text-[clamp(22px,2.6vw,30px)]">
+            <h2 className="serif-title mb-8 text-[clamp(22px,2.6vw,30px)] text-[#2a2018]">
               {ui.related} {cat?.label ?? "this category"}
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               {related.map((p) => (
-                <Link key={p.id} href={`/${locale}/blog/${p.category}/${p.slug}`} className="group block bg-white">
+                <Link
+                  key={p.id}
+                  href={`/${locale}/blog/${p.category}/${p.slug}`}
+                  className="group block overflow-hidden rounded-3xl bg-[#fffefb] shadow-[var(--shadow-brand-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-brand-lg)]"
+                >
                   <div className="relative h-[200px] overflow-hidden">
                     <div
-                      className="h-full w-full bg-cover bg-center transition-transform duration-[1100ms] group-hover:scale-105"
+                      className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                       style={{ backgroundImage: `url(${p.image})` }}
                     />
                   </div>
-                  <h3 className="px-5 py-4 font-serif text-[18px] font-normal leading-snug text-[#071522] group-hover:opacity-70">
+                  <h3 className="px-5 py-5 font-serif text-[18px] font-medium leading-snug text-[#2a2018] decoration-[#c6a15b] decoration-1 underline-offset-4 group-hover:underline">
                     {p.title}
                   </h3>
                 </Link>

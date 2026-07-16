@@ -92,7 +92,7 @@ export function LeadRailForm({ service }: { service?: string }) {
   }
 
   const inputCls =
-    "w-full border-0 border-b border-[#d8d8d5] bg-transparent pb-1.5 pt-1 text-[14px] text-[#343434] placeholder:text-[#9a9a9a] focus:border-[#071522] focus:outline-none";
+    "w-full rounded-xl border border-[#9a7638]/20 bg-white px-3.5 py-2.5 text-[14px] text-[#2a2018] placeholder:text-[#a99a8b] transition-colors duration-300 focus:border-[#c6a15b] focus:outline-none focus:ring-2 focus:ring-[#c6a15b]/25";
 
   return (
     <>
@@ -102,7 +102,7 @@ export function LeadRailForm({ service }: { service?: string }) {
         onClick={() => setOpen(true)}
         aria-label={t("lead.rail.tab")}
         className={cn(
-          "fixed right-0 top-[42%] z-40 -translate-y-1/2 rounded-l-md bg-[#071522] px-2 py-4 text-[11px] font-medium uppercase tracking-[1.6px] text-white shadow-lg transition-opacity hover:bg-[#0d2233]",
+          "fixed right-0 top-[42%] z-40 -translate-y-1/2 rounded-l-xl border border-r-0 border-[#c6a15b]/40 bg-[#241c15] px-2.5 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#e4cd9a] shadow-[var(--shadow-brand-lg)] transition-all duration-300 hover:bg-[#2a2018] hover:pr-3.5",
           open ? "pointer-events-none opacity-0" : "opacity-100",
         )}
         style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
@@ -116,20 +116,21 @@ export function LeadRailForm({ service }: { service?: string }) {
         className={cn(
           // top-[42%] (not dead centre) keeps clear of the WhatsApp FAB + chat
           // launcher that live in the lower-right corner.
-          "fixed right-4 top-[42%] z-40 w-[300px] max-w-[calc(100vw-2rem)] -translate-y-1/2 border border-[#ececec] bg-white shadow-[0_24px_60px_-30px_rgba(7,21,34,0.45)] transition-all duration-500",
+          "fixed right-4 top-[42%] z-40 w-[300px] max-w-[calc(100vw-2rem)] -translate-y-1/2 overflow-hidden rounded-3xl border border-[#9a7638]/15 bg-[#fffefb] shadow-[var(--shadow-brand-lg)] transition-all duration-500",
           open ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-6 opacity-0",
         )}
       >
-        <div className="flex items-start justify-between gap-3 bg-[#071522] px-5 py-4 text-white">
+        <div className="gold-rule" aria-hidden />
+        <div className="flex items-start justify-between gap-3 px-5 pb-1 pt-5">
           <div>
-            <p className="font-serif text-[17px] leading-tight">{t("lead.rail.title")}</p>
-            <p className="mt-1 text-[11.5px] font-light leading-snug text-white/70">{t("lead.rail.subtitle")}</p>
+            <p className="font-serif text-[19px] font-medium leading-tight text-[#2a2018]">{t("lead.rail.title")}</p>
+            <p className="mt-1.5 text-[11.5px] leading-snug text-[#6e6152]">{t("lead.rail.subtitle")}</p>
           </div>
           <button
             type="button"
             onClick={dismiss}
             aria-label="Close"
-            className="mt-0.5 text-white/70 transition hover:text-white"
+            className="mt-0.5 text-[#a99a8b] transition-colors duration-300 hover:text-[#9a7638]"
           >
             <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
@@ -139,13 +140,13 @@ export function LeadRailForm({ service }: { service?: string }) {
 
         {state === "sent" ? (
           <div className="px-5 py-6">
-            <p className="font-serif text-[18px] text-[#071522]">{t("lead.rail.success")}</p>
-            <p className="mt-2 text-[13px] font-light leading-[1.55] text-[#555]">
+            <p className="font-serif text-[19px] font-medium text-[#2a2018]">{t("lead.rail.success")}</p>
+            <p className="mt-2 text-[13px] leading-[1.55] text-[#6e6152]">
               {t("lead.rail.successNote")}
               {refCode && (
                 <>
                   {" "}
-                  <span className="font-medium text-[#071522]">{refCode}</span>
+                  <span className="font-semibold text-[#9a7638]">{refCode}</span>
                 </>
               )}
             </p>
@@ -153,7 +154,7 @@ export function LeadRailForm({ service }: { service?: string }) {
               href={CONTACT.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-[#071522] px-4 py-2.5 text-[12px] uppercase tracking-[1.4px] text-white transition hover:bg-[#0d2233]"
+              className="gold-shimmer-host mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c6a15b] px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
             >
               {t("lead.rail.whatsapp")}
             </a>
@@ -174,16 +175,16 @@ export function LeadRailForm({ service }: { service?: string }) {
               className={cn(inputCls, "min-h-[54px] resize-y")}
             />
             {state === "error" && (
-              <p className="text-[11.5px] font-medium text-red-600">{t("lead.rail.error")}</p>
+              <p className="text-[11.5px] font-medium text-[#a3322d]">{t("lead.rail.error")}</p>
             )}
             <button
               type="submit"
               disabled={state === "sending"}
-              className="w-full bg-[#071522] px-4 py-2.5 text-[12px] uppercase tracking-[1.4px] text-white transition hover:bg-[#0d2233] disabled:opacity-60"
+              className="gold-shimmer-host inline-flex w-full items-center justify-center rounded-full bg-[#c6a15b] px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#241c15] shadow-[0_12px_34px_-8px_rgba(198,161,91,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {state === "sending" ? t("lead.rail.sending") : t("lead.rail.send")}
             </button>
-            <p className="text-[10.5px] font-light leading-snug text-[#9a9a9a]">{t("lead.rail.privacy")}</p>
+            <p className="text-[10.5px] leading-snug text-[#a99a8b]">{t("lead.rail.privacy")}</p>
           </form>
         )}
       </aside>

@@ -33,6 +33,19 @@ export type GeneratedVariant = {
   metaDescription: string;
 };
 
+/**
+ * The slice of a competitor row the generator reads (structurally compatible
+ * with `Competitor` from the DB, kept minimal so this module stays pure).
+ * Competitor NAMES are used only to group signals — they NEVER appear in any
+ * generated title, keyword, or brief.
+ */
+export type CompetitorSignal = {
+  name: string;
+  services?: string[] | null;
+  priceBand?: string | null;
+  notes?: string | null;
+};
+
 export type GeneratedTopic = {
   slotDay: number; // 1..daysInMonth
   format: ContentFormat;
@@ -346,13 +359,23 @@ function briefFor(
     lines.push("H2: overview · candidacy · the procedure · recovery · cost · aftercare.");
   }
 
-  if (format.channel === "seo") {
+  appendGlobalRules(lines, format.channel, market.id);
+  return lines;
+}
+
+/** Shared SEO/GEO + compliance guidance appended to EVERY brief. */
+function appendGlobalRules(
+  lines: string[],
+  channel: ContentChannel,
+  marketId: string
+): void {
+  if (channel === "seo") {
     lines.push("SEO: put the exact keyword in H1 + first 100 words; internal-link to /catalogue and /care; add the ItemList/Article schema.");
   } else {
     lines.push("GEO: open with a 40–60 word direct answer (AI engines quote this); add the FAQ/MedicalWebPage schema; include a comparison table and cite ISO 9001, Straumann/Ivoclar and the implant passport with verifiable serial numbers as evidence.");
   }
 
-  if (["germany", "switzerland"].includes(market.id)) {
+  if (["germany", "switzerland"].includes(marketId)) {
     lines.push("Compliance (DACH): this counts as advertising, NO before/after imagery; for Switzerland use formal 'Sie' and 'ss' (never ß). Never state or compare prices in any currency.");
   }
 
@@ -365,7 +388,186 @@ function briefFor(
   lines.push(
     "Guarantee rule: state the clinic's own treatment guarantee only as a general 'written treatment guarantee' (localized per market), never as a specific number of years (no '5-year guarantee' or any duration). The manufacturer implant warranty is separate and may still be mentioned as coming from the manufacturer."
   );
-  return lines;
+}
+
+// ── competitor-derived topics (deterministic, name-free) ─────────────────────
+/**
+ * Maps free-text competitor services/notes onto our subject catalogue. Patterns
+ * cover English, Albanian and Italian tags as they appear in the competitor map.
+ */
+const SERVICE_SIGNALS: Array<{ pattern: RegExp; subjectId: string }> = [
+  { pattern: /all[\s-]?on[\s-]?(4|four|6|six)/i, subjectId: "all-on-4" },
+  { pattern: /implant/i, subjectId: "dental-implants" },
+  { pattern: /veneer|faccett|faset|hollywood/i, subjectId: "veneers" },
+  { pattern: /crown|corona|kuror|zircon|zirkon/i, subjectId: "dental-crowns" },
+  { pattern: /denture|prosthes|protez|protesi/i, subjectId: "dental-prostheses" },
+  { pattern: /invisalign|aligner|braces|orthodon|aparat|ortodonc/i, subjectId: "orthodontics" },
+  { pattern: /whiten|bleach|zbardhim|sbiancament/i, subjectId: "teeth-whitening" },
+  { pattern: /root\s?canal|endodon|devitaliz|kanal/i, subjectId: "root-canal" },
+  { pattern: /tourism|turizm|abroad|package|paket|pacchett/i, subjectId: "dental-tourism" }
+];
+
+const PROMO_PATTERN = /promo|offer|offert|discount|deal|sale|zbritje|kampanj|special/i;
+const VALUE_BAND_PATTERN = /^€$|(^|\W)(low|budget|cheap|econom)($|\W)/i;
+
+/** A response angle to competitive pressure. Reuses existing format ids so the
+ *  stored `format` stays inside `ContentFormat` (no schema/UI ripple). */
+type CompetitorAngle = {
+  format: ContentFormat;
+  channel: ContentChannel;
+  schema: ContentSchemaType;
+  /** tokens: {subject} */
+  title: LocaleMap;
+  keywordSuffix: string;
+  briefLead: (subjectName: string) => string[];
+};
+
+const COMPETITOR_ANGLES: CompetitorAngle[] = [
+  {
+    format: "cost_guide",
+    channel: "seo",
+    schema: "Article",
+    title: {
+      en: "{subject} in Tirana: What a Premium Package Includes",
+      sq: "{subject} në Tiranë: Çfarë Përfshin një Paketë Premium",
+      it: "{subject} a Tirana: Cosa Include un Pacchetto Premium",
+      de: "{subject} in Tirana: Was ein Premium-Paket umfasst",
+      fr: "{subject} à Tirana : Ce qu'Inclut un Forfait Premium"
+    },
+    keywordSuffix: "premium package",
+    briefLead: (name) => [
+      `H1: what a genuinely premium ${name} package in Tirana includes, end to end.`,
+      "H2: the clinical essentials (3D planning, branded materials, documented sterilisation).",
+      "H2: what surrounds the treatment (travel help, multilingual care, aftercare, written guarantee).",
+      "H2: how to compare packages fairly, substance over headline offers (no price talk)."
+    ]
+  },
+  {
+    format: "how_to",
+    channel: "seo",
+    schema: "Article",
+    title: {
+      en: "Choosing {subject} in Tirana: A Quality Checklist Beyond the Ads",
+      sq: "Si të Zgjidhni {subject} në Tiranë: Një Listë Cilësie Përtej Reklamave",
+      it: "Scegliere {subject} a Tirana: una Checklist di Qualità Oltre la Pubblicità",
+      de: "{subject} in Tirana wählen: eine Qualitäts-Checkliste jenseits der Werbung",
+      fr: "Choisir {subject} à Tirana : une Checklist Qualité au-delà des Publicités"
+    },
+    keywordSuffix: "quality checklist",
+    briefLead: (name) => [
+      `H1: a practical quality checklist for choosing a ${name} provider in Tirana.`,
+      "H2: verify materials and brands (ask for names, serial numbers, the implant passport).",
+      "H2: verify standards (ISO 9001, sterilisation protocols, clinician experience).",
+      "H2: verify accountability (written treatment plan, written guarantee, aftercare)."
+    ]
+  },
+  {
+    format: "qa",
+    channel: "geo",
+    schema: "FAQPage",
+    title: {
+      en: "{subject} Offers in Tirana: Questions to Ask Before You Book",
+      sq: "Ofertat për {subject} në Tiranë: Pyetjet Para se të Rezervoni",
+      it: "Offerte per {subject} a Tirana: le Domande da Fare Prima di Prenotare",
+      de: "{subject}-Angebote in Tirana: Fragen vor der Buchung",
+      fr: "Offres de {subject} à Tirana : les Questions à Poser Avant de Réserver"
+    },
+    keywordSuffix: "what to ask",
+    briefLead: (name) => [
+      `H1: the questions every patient should ask before booking ${name} in Tirana.`,
+      "FAQ: 5–7 question/answer pairs (which brand exactly, who operates, what is documented, what happens if something goes wrong, what the free written treatment plan covers)."
+    ]
+  }
+];
+
+type SubjectPressure = { subjectId: string; weight: number; priceLed: boolean };
+
+/**
+ * Reduce competitor rows to per-subject pressure. Deterministic: competitors
+ * are sorted by name, subjects come out sorted by weight then id. No RNG.
+ */
+function competitorPressure(competitors: CompetitorSignal[]): SubjectPressure[] {
+  const bySubject = new Map<string, { weight: number; priceLed: boolean }>();
+  const sorted = [...competitors].sort((a, b) => a.name.localeCompare(b.name));
+
+  for (const c of sorted) {
+    const text = [...(c.services ?? []), c.notes ?? ""].join(" · ");
+    if (!text.trim()) continue;
+    const priceLed =
+      VALUE_BAND_PATTERN.test(c.priceBand ?? "") || PROMO_PATTERN.test(c.notes ?? "");
+    const hit = new Set<string>();
+    for (const sig of SERVICE_SIGNALS) {
+      if (sig.pattern.test(text)) hit.add(sig.subjectId);
+    }
+    for (const subjectId of hit) {
+      const cur = bySubject.get(subjectId) ?? { weight: 0, priceLed: false };
+      cur.weight += 1;
+      cur.priceLed = cur.priceLed || priceLed;
+      bySubject.set(subjectId, cur);
+    }
+  }
+
+  return [...bySubject.entries()]
+    .map(([subjectId, v]) => ({ subjectId, ...v }))
+    .sort((a, b) => b.weight - a.weight || a.subjectId.localeCompare(b.subjectId));
+}
+
+/** Build competitor-response topics (slotDay assigned later, after blending). */
+function deriveCompetitorTopics(
+  competitors: CompetitorSignal[],
+  locales: ContentLocale[],
+  marketOrder: Market[]
+): Omit<GeneratedTopic, "slotDay">[] {
+  const pressures = competitorPressure(competitors);
+  const topics: Omit<GeneratedTopic, "slotDay">[] = [];
+
+  pressures.forEach((p, i) => {
+    const subject = SUBJECTS.find((s) => s.id === p.subjectId);
+    if (!subject) return;
+    // Price-led rivals alternate the premium-package rebuttal (SEO) with the
+    // questions-to-ask angle (GEO); others rotate checklist/questions. Purely
+    // index-based, fully deterministic.
+    const angle = p.priceLed
+      ? COMPETITOR_ANGLES[i % 2 === 0 ? 0 : 2]
+      : COMPETITOR_ANGLES[1 + (i % (COMPETITOR_ANGLES.length - 1))];
+    const market = marketOrder[i % marketOrder.length];
+
+    const schemaType: ContentSchemaType =
+      angle.schema === "MedicalWebPage" && !subject.medical ? "Article" : angle.schema;
+
+    const subjectName = subject.noun.en.replace(/^(the|gli|le|la|les)\s+/i, "");
+    const brief: string[] = [
+      `Competitive context: ${p.weight} rival clinic${p.weight === 1 ? "" : "s"} in the market actively push${p.weight === 1 ? "es" : ""} ${subjectName}${p.priceLed ? " with price-led offers" : ""}. Respond on substance. NEVER name, quote, or allude to any specific competitor clinic.`,
+      ...angle.briefLead(subjectName)
+    ];
+    appendGlobalRules(brief, angle.channel, market.id);
+
+    const keyword = `${subject.keyword.replace(/\balbania\b/i, "tirana")} ${angle.keywordSuffix}`;
+
+    const variants: GeneratedVariant[] = locales.map((locale) => {
+      const subjectNoun = subject.noun[locale];
+      const title = titleCaseFirst(
+        fill(angle.title[locale], { subject: subjectNoun, place: PLACE[locale] })
+      );
+      const metaDescription = titleCaseFirst(
+        fill(META[locale], { subject: subjectNoun, place: PLACE[locale] })
+      );
+      return { locale, title, slug: slugify(title), metaDescription };
+    });
+
+    topics.push({
+      format: angle.format,
+      channel: angle.channel,
+      market: market.id,
+      subject: subject.id,
+      keyword,
+      schemaType,
+      brief,
+      variants
+    });
+  });
+
+  return topics;
 }
 
 function shuffle<T>(arr: T[], rng: () => number): T[] {
@@ -384,6 +586,14 @@ export type GenerateOptions = {
   locales?: ContentLocale[];
   count?: number; // topics in the month
   seed?: number;
+  /**
+   * Optional competitor rows (from the competitors service). When present, up
+   * to ~40% of the month is replaced by topics that answer competitor pressure
+   * (their services / price bands / notes), so evergreen subjects survive.
+   * Deterministic and name-free; with no competitors the output is identical
+   * to the pre-competitor generator for the same seed.
+   */
+  competitors?: CompetitorSignal[];
 };
 
 export function generateCalendar(opts: GenerateOptions): {
@@ -408,13 +618,16 @@ export function generateCalendar(opts: GenerateOptions): {
   const subjectOrder = shuffle(SUBJECTS, rng);
   const marketOrder = shuffle(MARKETS, rng);
 
-  const topics: GeneratedTopic[] = [];
-  for (let i = 0; i < count; i++) {
-    const slotDay = Math.min(
-      daysInMonth,
-      Math.max(1, Math.round(((i + 0.5) * daysInMonth) / count))
-    );
+  // Competitor-derived pool first (RNG-free, so the evergreen stream below
+  // consumes exactly the same rng draws as it always did), capped at ~40%.
+  const competitorPool = opts.competitors?.length
+    ? deriveCompetitorTopics(opts.competitors, locales, marketOrder)
+    : [];
+  const competitorTopics = competitorPool.slice(0, Math.floor(count * 0.4));
+  const evergreenCount = count - competitorTopics.length;
 
+  const evergreen: Omit<GeneratedTopic, "slotDay">[] = [];
+  for (let i = 0; i < evergreenCount; i++) {
     const channel: ContentChannel = rng() < 0.6 ? "seo" : "geo";
     const format = pick(channel === "seo" ? seoFormats : geoFormats);
     const subject = subjectOrder[i % subjectOrder.length];
@@ -442,8 +655,7 @@ export function generateCalendar(opts: GenerateOptions): {
       return { locale, title, slug: slugify(title), metaDescription };
     });
 
-    topics.push({
-      slotDay,
+    evergreen.push({
       format: format.id,
       channel,
       market: market.id,
@@ -454,6 +666,24 @@ export function generateCalendar(opts: GenerateOptions): {
       variants
     });
   }
+
+  // Blend: spread competitor topics evenly through the evergreen stream.
+  const blended: Omit<GeneratedTopic, "slotDay">[] = [...evergreen];
+  competitorTopics.forEach((t, k) => {
+    const pos = Math.min(
+      blended.length,
+      Math.round(((k + 0.5) * count) / competitorTopics.length)
+    );
+    blended.splice(pos, 0, t);
+  });
+
+  const topics: GeneratedTopic[] = blended.map((t, i) => ({
+    ...t,
+    slotDay: Math.min(
+      daysInMonth,
+      Math.max(1, Math.round(((i + 0.5) * daysInMonth) / count))
+    )
+  }));
 
   return { seed, locales, topics };
 }

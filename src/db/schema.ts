@@ -477,6 +477,8 @@ export const contentTopicVariants = sqliteTable(
     title: text("title").notNull(),
     slug: text("slug").notNull(),
     metaDescription: text("meta_description").notNull(),
+    /** Generated article body (markdown). Null until drafted (AI or fallback). */
+    body: text("body"),
     createdAt: createdAt()
   },
   (t) => ({
@@ -484,6 +486,49 @@ export const contentTopicVariants = sqliteTable(
       t.topicId,
       t.locale
     )
+  })
+);
+
+// ── published_posts (live blog articles, served to the public site) ──────────
+export const publishedPosts = sqliteTable(
+  "published_posts",
+  {
+    id: id(),
+    /** Originating topic; kept nullable so a published post survives topic cleanup. */
+    topicId: text("topic_id").references(() => contentTopics.id, {
+      onDelete: "set null"
+    }),
+    /** Shared key linking the language versions of one article (hreflang). */
+    grp: text("grp").notNull(),
+    locale: text("locale").$type<ContentLocale>().notNull(),
+    title: text("title").notNull(),
+    slug: text("slug").notNull(),
+    /** Public blog category slug (see BLOG_CATEGORIES in src/lib/blog-data.ts). */
+    category: text("category").notNull(),
+    excerpt: text("excerpt").notNull(),
+    /** Full article body, markdown. */
+    body: text("body").notNull(),
+    metaDescription: text("meta_description").notNull(),
+    keywords: text("keywords", { mode: "json" }).$type<string[]>().notNull(),
+    /** Hero image path under /images/…; null lets the blog fall back. */
+    image: text("image"),
+    faq: text("faq", { mode: "json" }).$type<{ q: string; a: string }[]>(),
+    targetKeyword: text("target_keyword"),
+    /** Publish date as ISO `YYYY-MM-DD` (set on first publish, kept on re-publish). */
+    date: text("date").notNull(),
+    publishedAt: integer("published_at", { mode: "timestamp_ms" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: updatedAt()
+  },
+  (t) => ({
+    slugLocaleUnique: uniqueIndex("published_posts_slug_locale_unique").on(
+      t.slug,
+      t.locale
+    ),
+    grpIdx: index("published_posts_grp_idx").on(t.grp),
+    topicIdx: index("published_posts_topic_idx").on(t.topicId),
+    localeIdx: index("published_posts_locale_idx").on(t.locale)
   })
 );
 
@@ -586,6 +631,13 @@ export const contentTopicVariantsRelations = relations(
   })
 );
 
+export const publishedPostsRelations = relations(publishedPosts, ({ one }) => ({
+  topic: one(contentTopics, {
+    fields: [publishedPosts.topicId],
+    references: [contentTopics.id]
+  })
+}));
+
 // ── inferred row types (import these in libs / UI) ───────────────────────────
 export type Contact = typeof contacts.$inferSelect;
 export type NewContact = typeof contacts.$inferInsert;
@@ -617,3 +669,5 @@ export type ContentTopic = typeof contentTopics.$inferSelect;
 export type NewContentTopic = typeof contentTopics.$inferInsert;
 export type ContentTopicVariant = typeof contentTopicVariants.$inferSelect;
 export type NewContentTopicVariant = typeof contentTopicVariants.$inferInsert;
+export type PublishedPost = typeof publishedPosts.$inferSelect;
+export type NewPublishedPost = typeof publishedPosts.$inferInsert;

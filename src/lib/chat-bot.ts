@@ -57,6 +57,51 @@ export type ChatIntent =
   | "knowledge"
   | "fallback";
 
+/**
+ * Up to `limit` CRM-published blog articles matching the visitor's message
+ * (token match on title/keywords), formatted like the `brainGroundingFor`
+ * Instagram passages: ~320-char snippet + the article's public URL so the
+ * model can point the visitor at the full read.
+ *
+ * Lazy + best-effort BY DESIGN: the sqlite-backed module is imported on
+ * demand and ANY failure (missing db file, read-only serverless fs, native
+ * driver absent) resolves to "" — the public chat must never break because
+ * the blog db is unavailable.
+ */
+async function blogGroundingFor(query: string, limit = 2): Promise<string> {
+  try {
+    const { loadPublishedBlogPosts } = await import("./blog-db");
+    const posts = await loadPublishedBlogPosts();
+    if (!posts.length) return "";
+    const tokens = Array.from(
+      new Set(fold(query).split(/[^a-z0-9]+/).filter((w) => w.length >= 3)),
+    );
+    if (!tokens.length) return "";
+    const scored = posts
+      .map((post) => {
+        const hay = fold(
+          [post.title, post.targetKeyword ?? "", ...post.keywords].join(" "),
+        );
+        let score = 0;
+        for (const tok of tokens) if (hay.includes(tok)) score += 1;
+        return { post, score };
+      })
+      .filter((s) => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+    if (!scored.length) return "";
+    return scored
+      .map(({ post }, i) => {
+        const snippet = post.body.replace(/\s+/g, " ").trim().slice(0, 320);
+        const url = `/${post.locale ?? "en"}/blog/${post.category}/${post.slug}`;
+        return `[BLOG${i + 1}] ${post.title}\n${snippet}\nFull article: ${url}`;
+      })
+      .join("\n\n");
+  } catch {
+    return "";
+  }
+}
+
 function sourcesFrom(entries: KnowledgeEntry[], limit = 3): ChatSource[] {
   const seen = new Set<string>();
   const out: ChatSource[] = [];
@@ -335,11 +380,18 @@ export async function draftReplyAI(
 
   const hits = searchKnowledge(clean, 6).map((s) => s.entry);
   const kb = hits.map((e, i) => `[${i + 1}] ${e.title}\n${knowledgeText(e)}`).join("\n\n");
-  // Also ground in DMA's real Instagram voice (captions + video transcripts).
+  // Also ground in DMA's real Instagram voice (captions + video transcripts)
+  // and in the CRM-published blog articles (best-effort, "" when db is away).
   const ig = brainGroundingFor(clean, 2);
+  const blog = await blogGroundingFor(clean, 2);
   const grounding =
-    [kb, ig && `FROM OUR INSTAGRAM (real patient content):\n${ig}`].filter(Boolean).join("\n\n") ||
-    "(no specific page matched)";
+    [
+      kb,
+      ig && `FROM OUR INSTAGRAM (real patient content):\n${ig}`,
+      blog && `FROM OUR BLOG (published articles — share the link when relevant):\n${blog}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n") || "(no specific page matched)";
   const text = await aiComplete({
     system: chatSystem(lang, false, forced !== null),
     messages: [

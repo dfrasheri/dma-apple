@@ -5,8 +5,10 @@ import {
   CalendarDays,
   CheckCircle2,
   Database,
+  LineChart,
   Map as MapIcon,
   MessagesSquare,
+  Newspaper,
   TrendingUp,
   Trophy,
   Users
@@ -27,6 +29,8 @@ import { cn } from "@/lib/utils";
 const QUICK_LINKS = [
   { href: "/crm/leads", label: "Leads", icon: Users },
   { href: "/crm/inbox", label: "Inbox", icon: MessagesSquare },
+  { href: "/crm/content", label: "Auto-SEO", icon: Newspaper },
+  { href: "/crm/insights", label: "Insights", icon: LineChart },
   { href: "/crm/knowledge", label: "Knowledge", icon: Database },
   { href: "/crm/competitors", label: "Competitors", icon: MapIcon },
   { href: "/crm/appointments", label: "Appointments", icon: CalendarDays },
@@ -36,7 +40,7 @@ const QUICK_LINKS = [
 export default async function Page() {
   const m = await dashboardService.getDashboard();
   const maxStage = Math.max(1, ...m.stageCounts.map((s) => s.count));
-  const needsAttention = m.reviewQueue > 0 || m.conversationsUnread > 0;
+  const needsAttention = m.reviewQueue > 0 || m.conversationsUnread > 0 || m.contentSuggested > 0;
 
   return (
     <div>
@@ -93,6 +97,13 @@ export default async function Page() {
           sub="Closed-won lifetime"
           icon={<Trophy className="h-5 w-5" />}
         />
+        <StatCard
+          label="Auto-SEO articles"
+          value={<span className="tabular-nums">{m.contentPublished}</span>}
+          sub={`${m.contentApproved} approved · ${m.contentSuggested} to review`}
+          icon={<Newspaper className="h-5 w-5" />}
+          accent={m.contentSuggested > 0}
+        />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -146,6 +157,22 @@ export default async function Page() {
                       </span>{" "}
                       unread {m.conversationsUnread === 1 ? "conversation" : "conversations"} in the
                       inbox
+                    </span>
+                  </Link>
+                </li>
+              )}
+              {m.contentSuggested > 0 && (
+                <li>
+                  <Link
+                    href="/crm/content"
+                    className="flex items-start gap-3 px-5 py-4 transition-colors hover:bg-white/[0.03]"
+                  >
+                    <Newspaper className="mt-0.5 h-4 w-4 shrink-0 text-[var(--elx-gold)]" />
+                    <span className="text-sm text-zinc-800">
+                      <span className="font-semibold text-[var(--elx-gold)] tabular-nums">
+                        {m.contentSuggested}
+                      </span>{" "}
+                      auto-SEO {m.contentSuggested === 1 ? "topic" : "topics"} awaiting proofread
                     </span>
                   </Link>
                 </li>

@@ -8,3 +8,4 @@ export * as marketService from "./market";
 export * as dashboardService from "./dashboard";
 export * as teamService from "./team";
 export * as analyticsService from "./analytics";
+export * as contentService from "./content";

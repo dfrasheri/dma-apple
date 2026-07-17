@@ -5,21 +5,42 @@
 // layout would be wrong here). The interactive rendering stays in BlogPostClient.
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { findPost, postAlternates } from "@/lib/blog-data";
+import { findPost, postAlternates, type BlogPost } from "@/lib/blog-data";
+import { loadPublishedBlogPosts, findDbPost, dbPostAlternates } from "@/lib/blog-db";
 import { getLocale } from "@/lib/server-i18n";
 import { SITE_URL, localeUrl } from "@/lib/seo";
 import { BlogPostClient } from "./BlogPostClient";
 
 type Params = { category: string; slug: string };
 
+/**
+ * Resolve an article on the server: static seeds first, then the CRM
+ * `published_posts` table (AutoSEO articles published from the CRM). The db
+ * lookup is best-effort (loadPublishedBlogPosts resolves [] on any failure),
+ * and its hreflang siblings come from the db list — the static
+ * `postAlternates` cannot see them.
+ */
+async function resolvePost(
+  category: string,
+  slug: string,
+  locale?: string,
+): Promise<{ post: BlogPost | undefined; alternates: BlogPost[]; fromDb: boolean }> {
+  const post = findPost(category, slug, locale);
+  if (post) return { post, alternates: postAlternates(post), fromDb: false };
+  const all = await loadPublishedBlogPosts();
+  const dbPost = findDbPost(all, category, slug, locale);
+  if (dbPost) return { post: dbPost, alternates: dbPostAlternates(dbPost, all), fromDb: true };
+  return { post: undefined, alternates: [], fromDb: false };
+}
+
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { category, slug } = await params;
-  const post = findPost(category, slug);
+  const { post, alternates } = await resolvePost(category, slug);
   if (!post) return { title: "Story Not Found | Dental Med Austria", robots: { index: false } };
 
   const locale = post.locale ?? "en";
   const languages: Record<string, string> = {};
-  for (const alt of postAlternates(post)) {
+  for (const alt of alternates) {
     languages[alt.locale ?? "en"] = localeUrl(alt.locale ?? "en", `/blog/${alt.category}/${alt.slug}`);
   }
   if (languages.en) languages["x-default"] = languages.en;
@@ -51,12 +72,15 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
   // in the active locale so the switch lands on the translated version.
   const { category, slug } = await params;
   const locale = await getLocale();
-  const post = findPost(category, slug);
+  const { post, alternates, fromDb } = await resolvePost(category, slug);
   if (post && (post.locale ?? "en") !== locale) {
-    const alt = postAlternates(post).find((p) => (p.locale ?? "en") === locale);
+    const alt = alternates.find((p) => (p.locale ?? "en") === locale);
     if (alt && (alt.slug !== slug || alt.category !== category)) {
       redirect(`/${locale}/blog/${alt.category}/${alt.slug}`);
     }
   }
-  return <BlogPostClient />;
+  // A db-published article is unknown to the static seeds the client renders
+  // from on the server pass, so hand it down for SSR; the client's own
+  // /api/blog/published merge takes over after hydration (identical object).
+  return <BlogPostClient fallbackPost={fromDb ? post ?? null : null} />;
 }

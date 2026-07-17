@@ -1,4 +1,4 @@
-﻿// Central translation dictionary, pure data, safe to import from both
+// Central translation dictionary, pure data, safe to import from both
 // Server Components (via lib/server-i18n) and Client Components (via lib/i18n).
 // Locales: en (English), sq (Albanian/Shqip), it (Italian), de (German), fr (French).
 
@@ -68,6 +68,10 @@ const EN: Dict = {
 
   // ── Tour Our Clinic ──
   "tour.title": "Tour Our Clinic",
+  "tour360.eyebrow": "Step Inside",
+  "tour360.title": "Explore the Clinic in 360°",
+  "tour360.hint": "Drag to look around, tap the arrows to walk through every room of Dental Med Austria.",
+  "tour360.cta": "Take the 360° virtual tour",
   "tour.tech.eyebrow": "State-of-the-Art Equipment",
   "tour.tech.title": "Advanced Technology",
   "tour.tourism.title": "Dental Tourism",
@@ -608,6 +612,10 @@ const SQ: Dict = {
   "explore.title": "Eksploroni Trajtimet Dentare",
 
   "tour.title": "Vizitoni Klinikën Tonë",
+  "tour360.eyebrow": "Hyni Brenda",
+  "tour360.title": "Eksploroni Klinikën në 360°",
+  "tour360.hint": "Zvarritni për të parë përreth dhe prekni shigjetat për të ecur nëpër çdo ambient të Dental Med Austria.",
+  "tour360.cta": "Bëni turin virtual 360°",
   "tour.tech.eyebrow": "Pajisje të Teknologjisë së Fundit",
   "tour.tech.title": "Teknologji e Avancuar",
   "tour.tourism.title": "Turizmi Dentar",
@@ -1129,6 +1137,10 @@ const IT: Dict = {
   "card.viewDetails": "Vedi i dettagli",
 
   "tour.title": "Visita la Nostra Clinica",
+  "tour360.eyebrow": "Entrate con Noi",
+  "tour360.title": "Esplorate la Clinica a 360°",
+  "tour360.hint": "Trascinate per guardarvi intorno e toccate le frecce per attraversare ogni ambiente di Dental Med Austria.",
+  "tour360.cta": "Fate il tour virtuale a 360°",
   "tour.tech.eyebrow": "Attrezzature all'Avanguardia",
   "tour.tech.title": "Tecnologia Avanzata",
   "tour.tourism.title": "Turismo Dentale",
@@ -1600,6 +1612,10 @@ const DE: Dict = {
   "card.viewDetails": "Details ansehen",
 
   "tour.title": "Unsere Klinik Entdecken",
+  "tour360.eyebrow": "Treten Sie Ein",
+  "tour360.title": "Erkunden Sie die Klinik in 360°",
+  "tour360.hint": "Ziehen Sie, um sich umzusehen, und tippen Sie auf die Pfeile, um durch jeden Raum von Dental Med Austria zu gehen.",
+  "tour360.cta": "360°-Rundgang starten",
   "tour.tech.eyebrow": "Modernste Ausstattung",
   "tour.tech.title": "Fortschrittliche Technologie",
   "tour.tourism.title": "Zahntourismus",
@@ -2078,6 +2094,10 @@ const FR: Dict = {
 
   // ── Tour Our Clinic ──
   "tour.title": "Visiter notre clinique",
+  "tour360.eyebrow": "Entrez avec Nous",
+  "tour360.title": "Explorez la clinique à 360°",
+  "tour360.hint": "Faites glisser pour regarder autour de vous et touchez les flèches pour parcourir chaque espace de Dental Med Austria.",
+  "tour360.cta": "Faire la visite virtuelle 360°",
   "tour.tech.eyebrow": "Équipements de dernière génération",
   "tour.tech.title": "Technologie de pointe",
   "tour.tourism.title": "Tourisme dentaire",

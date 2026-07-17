@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { Intro, ProseSection, CtaBand } from "@/components/content";
+import { VirtualTour } from "@/components/VirtualTour";
 import { CLINIC_PAGES } from "@/lib/pages";
 import { getT } from "@/lib/server-i18n";
 
@@ -32,6 +33,9 @@ export default async function ClinicSubPage({ params }: { params: Promise<{ slug
         crumbs={[{ label: t("nav.home"), href: "/" }, { label: t("nav.clinic"), href: "/clinic/our-story" }, { label: title }]}
       />
       <Intro text={t(`clinic.${page.slug}.intro`)} />
+      {/* 360° Tourmake walkthrough — the "our clinic" page is where visitors
+          scout the ambient before booking (mirrors dentalmedtravel.com/our-clinic). */}
+      {page.slug === "our-clinic" && <VirtualTour />}
       {page.sections.map((s, i) => (
         <ProseSection
           key={s.heading}

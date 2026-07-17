@@ -7,6 +7,7 @@ import { db } from "@/db/client";
 import {
   appointments,
   competitors,
+  contentTopics,
   conversations,
   leads,
   socialFacts
@@ -26,6 +27,10 @@ export type DashboardMetrics = {
   approvedFacts: number;
   upcomingAppointments: number;
   competitors: number;
+  /** Auto-SEO content pipeline (topics across all calendars). */
+  contentSuggested: number;
+  contentApproved: number;
+  contentPublished: number;
 };
 
 export async function getDashboard(): Promise<DashboardMetrics> {
@@ -54,6 +59,13 @@ export async function getDashboard(): Promise<DashboardMetrics> {
 
   const competitorsCount = db.select().from(competitors).all().length;
 
+  const topics = db.select().from(contentTopics).all();
+  const contentSuggested = topics.filter((t) => t.status === "suggested").length;
+  const contentApproved = topics.filter(
+    (t) => t.status === "approved" || t.status === "scheduled"
+  ).length;
+  const contentPublished = topics.filter((t) => t.status === "published").length;
+
   return {
     leadsTotal: allLeads.length,
     openLeads: open.length,
@@ -65,6 +77,9 @@ export async function getDashboard(): Promise<DashboardMetrics> {
     reviewQueue,
     approvedFacts,
     upcomingAppointments: upcoming,
-    competitors: competitorsCount
+    competitors: competitorsCount,
+    contentSuggested,
+    contentApproved,
+    contentPublished
   };
 }

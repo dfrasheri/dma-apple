@@ -28,7 +28,7 @@ function multi(path: string, priority: number, changeFrequency: Freq): MetadataR
   }));
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   // Core pages
@@ -58,6 +58,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7, ...(Object.keys(languages).length > 1 ? { alternates: { languages } } : {}),
     });
+  }
+
+  // CRM-published articles (AutoSEO → published_posts), same per-post shape as
+  // the static articles above but with hreflang siblings resolved from the db
+  // list. Best-effort: a missing/locked CRM sqlite file (fresh checkout,
+  // read-only serverless fs) contributes no entries rather than breaking the
+  // whole sitemap.
+  try {
+    const { loadPublishedBlogPosts, dbPostAlternates } = await import("@/lib/blog-db");
+    const dbPosts = await loadPublishedBlogPosts();
+    const urlKey = (p: { locale?: string; category: string; slug: string }) =>
+      `${p.locale ?? "en"}|${p.category}|${p.slug}`;
+    const staticKeys = new Set(ALL_SEED_POSTS.map(urlKey));
+    for (const post of dbPosts) {
+      if (staticKeys.has(urlKey(post))) continue; // static article wins the URL
+      const locale = post.locale ?? "en";
+      const languages: Record<string, string> = {};
+      for (const a of dbPostAlternates(post, dbPosts)) {
+        languages[a.locale ?? "en"] = localeUrl(a.locale ?? "en", `/blog/${a.category}/${a.slug}`);
+      }
+      if (languages.en) languages["x-default"] = languages.en;
+      entries.push({
+        url: localeUrl(locale, `/blog/${post.category}/${post.slug}`),
+        lastModified: post.dateModified
+          ? new Date(post.dateModified)
+          : post.date
+            ? new Date(post.date)
+            : NOW,
+        changeFrequency: "monthly",
+        priority: 0.7, ...(Object.keys(languages).length > 1 ? { alternates: { languages } } : {}),
+      });
+    }
+  } catch {
+    /* db unavailable — the static sitemap stands alone */
   }
 
   return entries;

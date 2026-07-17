@@ -247,6 +247,49 @@ export const contentTopicStatusSchema = z.object({
   status: enumOf(CONTENT_TOPIC_STATUSES)
 });
 
+/** URL slug: lowercase kebab-case (matches `slugify()` in blog-data.ts). */
+const slugSchema = z
+  .string()
+  .min(3)
+  .max(80)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase kebab-case");
+
+/**
+ * Human edit of one localized topic variant. `locale` selects the variant;
+ * title/slug/metaDescription/body are variant-level, keyword/brief apply to
+ * the whole topic (every locale). `body: null` clears a generated draft.
+ * At least one editable field is required.
+ */
+export const contentTopicEditSchema = z
+  .object({
+    locale: enumOf(CONTENT_LOCALES),
+    title: z.string().min(3).max(200).optional(),
+    slug: slugSchema.optional(),
+    metaDescription: z.string().min(10).max(320).optional(),
+    body: z.string().min(1).nullable().optional(),
+    keyword: z.string().min(2).max(120).optional(),
+    brief: z.array(z.string().min(1)).min(1).max(20).optional()
+  })
+  .refine(
+    (o) => Object.keys(o).some((k) => k !== "locale"),
+    "No fields to update"
+  );
+
+/**
+ * PATCH /api/crm/content/topics/:id accepts EITHER a HIL status change OR a
+ * variant edit. Discriminated by the `status` key (status wins when both
+ * shapes are present).
+ */
+export const contentTopicPatchSchema = z.union([
+  contentTopicStatusSchema,
+  contentTopicEditSchema
+]);
+
+/** POST /api/crm/content/topics/:id/body → draft the article for one locale. */
+export const contentBodyGenerateSchema = z.object({
+  locale: enumOf(CONTENT_LOCALES)
+});
+
 // ── inferred input types ─────────────────────────────────────────────────────
 export type LeadCreateInput = z.infer<typeof leadCreateSchema>;
 export type LeadUpdateInput = z.infer<typeof leadUpdateSchema>;
@@ -266,5 +309,8 @@ export type AffiliateCreateInput = z.infer<typeof affiliateCreateSchema>;
 export type AffiliateRegisterInput = z.infer<typeof affiliateRegisterSchema>;
 export type ContentGenerateInput = z.infer<typeof contentGenerateSchema>;
 export type ContentTopicStatusInput = z.infer<typeof contentTopicStatusSchema>;
+export type ContentTopicEditInput = z.infer<typeof contentTopicEditSchema>;
+export type ContentTopicPatchInput = z.infer<typeof contentTopicPatchSchema>;
+export type ContentBodyGenerateInput = z.infer<typeof contentBodyGenerateSchema>;
 export type TeamMemberCreateInput = z.infer<typeof teamMemberCreateSchema>;
 export type TeamMemberUpdateInput = z.infer<typeof teamMemberUpdateSchema>;

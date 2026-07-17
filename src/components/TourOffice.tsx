@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronLeft, ChevronRight } from "@/components/icons";
-import { useT } from "@/lib/i18n";
+import { useT, useLocale } from "@/lib/i18n";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,7 @@ const TOUR = [
 export function TourOffice() {
   const [active, setActive] = useState(0);
   const t = useT();
+  const { locale } = useLocale();
   const prefersReducedMotion = usePrefersReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -95,6 +97,13 @@ export function TourOffice() {
           <h2 className="font-serif text-[clamp(34px,5vw,58px)] font-medium leading-none text-[#fbf7f2]">
             {t("tour.title")}
           </h2>
+          <Link
+            href={`/${locale}/clinic/our-clinic#virtual-tour`}
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#e4cd9a]/50 px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#fbf7f2] backdrop-blur-sm transition-colors duration-200 hover:border-[#e4cd9a] hover:bg-[#fbf7f2]/10"
+          >
+            {t("tour360.cta")}
+            <span aria-hidden>→</span>
+          </Link>
         </div>
 
         {/* frame counter, formal and precise */}

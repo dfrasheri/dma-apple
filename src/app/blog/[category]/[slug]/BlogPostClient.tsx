@@ -353,7 +353,17 @@ function JsonLd({ data }: { data: unknown }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
 
-export function BlogPostClient() {
+export function BlogPostClient({
+  fallbackPost = null,
+}: {
+  /**
+   * Server-resolved article for posts the static seeds don't contain (CRM
+   * `published_posts` articles): keeps SSR + the first client render showing
+   * the real article instead of "story not found" until the client-side
+   * /api/blog/published merge in useBlogPosts() catches up with the same post.
+   */
+  fallbackPost?: BlogPost | null;
+}) {
   const params = useParams<{ category: string; slug: string }>();
   const category = params?.category ?? "";
   const slug = params?.slug ?? "";
@@ -365,7 +375,10 @@ export function BlogPostClient() {
 
   const post: BlogPost | undefined =
     posts.find((p) => p.category === category && p.slug === slug && (p.locale ?? "en") === locale) ??
-    posts.find((p) => p.category === category && p.slug === slug);
+    posts.find((p) => p.category === category && p.slug === slug) ??
+    (fallbackPost && fallbackPost.category === category && fallbackPost.slug === slug
+      ? fallbackPost
+      : undefined);
   const cat = categoryBySlug(category);
   const catLabel =
     (locale === "sq" ? BLOG_CATEGORY_SQ[category]?.label : undefined) ?? cat?.label ?? t("blog.crumb");

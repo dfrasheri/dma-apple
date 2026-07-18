@@ -171,7 +171,7 @@ const EN: Dict = {
   "care.hero.title": "Our Care",
   "care.intro.eyebrow": "Implants, Crowns, Veneers & More",
   "care.intro.text":
-    "From dental implants and crowns to veneers, prostheses, and orthodontics, we offer comprehensive dental solutions to premium quality standards - all under one roof.",
+    "From dental implants and crowns to veneers, prostheses, and orthodontics, we offer comprehensive dental solutions to premium quality standards - all in one place.",
   "care.cta.heading": "Not sure where to start? We'll guide you.",
   "care.cta.text": "Book a consultation and we'll design the right plan for your smile.",
 
@@ -197,7 +197,7 @@ const EN: Dict = {
   "cat.stats.treatments": "Treatments",
   "cat.stats.specialties": "Specialties",
   "cat.stats.requested": "Most-Requested",
-  "cat.intro.heading": "Every treatment we offer, under one roof",
+  "cat.intro.heading": "Every treatment we offer, in one place",
   "cat.intro.text":
     "From single implants to complete smile makeovers, every procedure is delivered with premium materials and premium quality standards. Every plan is tailored to your case - send us your X-ray for a free written plan in 24-48 hours.",
   "cat.cta.eyebrow": "Free · No Obligation",
@@ -293,7 +293,7 @@ const EN: Dict = {
   "tech.hero.title": "Technology & Equipment",
   "tech.stats.devices": "Devices",
   "tech.stats.categories": "Categories",
-  "tech.stats.oneRoof": "One Roof",
+  "tech.stats.oneRoof": "One Place",
   "tech.intro.heading": "The technology behind premium-quality results",
   "tech.intro.text":
     "From 3D CBCT imaging and computer-guided surgery to our own in-house CAD/CAM milling and ceramic laboratory, every device is chosen for precision, safety, and beautiful, lasting outcomes.",
@@ -712,7 +712,7 @@ const SQ: Dict = {
   "care.hero.title": "Trajtimet Tona",
   "care.intro.eyebrow": "Implante, Kurora, Veneera & Më Shumë",
   "care.intro.text":
-    "Nga implantet dhe kurorat dentare te veneerat, protezat dhe ortodoncia, ofrojmë zgjidhje dentare gjithëpërfshirëse sipas standardeve premium të cilësisë - të gjitha nën një çati.",
+    "Nga implantet dhe kurorat dentare te veneerat, protezat dhe ortodoncia, ofrojmë zgjidhje dentare gjithëpërfshirëse sipas standardeve premium të cilësisë - të gjitha në një vend.",
   "care.cta.heading": "Nuk dini nga të filloni? Ne ju udhëzojmë.",
   "care.cta.text": "Rezervoni një konsultë dhe ne do të hartojmë planin e duhur për buzëqeshjen tuaj.",
 
@@ -735,7 +735,7 @@ const SQ: Dict = {
   "cat.stats.treatments": "Trajtime",
   "cat.stats.specialties": "Specialitete",
   "cat.stats.requested": "Më të Kërkuarat",
-  "cat.intro.heading": "Çdo trajtim që ofrojmë, nën një çati",
+  "cat.intro.heading": "Çdo trajtim që ofrojmë, në një vend",
   "cat.intro.text":
     "Nga implantet e vetme te transformimet e plota të buzëqeshjes, çdo procedurë kryhet me materiale premium dhe standarde premium të cilësisë. Çdo plan përshtatet me rastin tuaj - na dërgoni radiografinë tuaj për një plan të shkruar falas brenda 24-48 orëve.",
   "cat.cta.eyebrow": "Falas · Pa Detyrim",
@@ -827,7 +827,7 @@ const SQ: Dict = {
   "tech.hero.title": "Teknologjia & Pajisjet",
   "tech.stats.devices": "Pajisje",
   "tech.stats.categories": "Kategori",
-  "tech.stats.oneRoof": "Një Çati",
+  "tech.stats.oneRoof": "Një Vend",
   "tech.intro.heading": "Teknologjia pas rezultateve me cilësi premium",
   "tech.intro.text":
     "Nga imazheria 3D CBCT dhe kirurgjia e udhëhequr nga kompjuteri te frezimi ynë i brendshëm CAD/CAM dhe laboratori i qeramikës, çdo pajisje zgjidhet për precizion, siguri dhe rezultate të bukura e të qëndrueshme.",
@@ -1243,7 +1243,7 @@ const IT: Dict = {
   "care.hero.title": "Le Nostre Cure",
   "care.intro.eyebrow": "Impianti, Corone, Faccette & Altro",
   "care.intro.text":
-    "Dagli impianti dentali e dalle corone alle faccette, protesi e ortodonzia, offriamo soluzioni dentali complete secondo gli standard di qualità premium - tutto sotto lo stesso tetto.",
+    "Dagli impianti dentali e dalle corone alle faccette, protesi e ortodonzia, offriamo soluzioni dentali complete secondo gli standard di qualità premium - tutto in un unico centro.",
   "care.cta.heading": "Non sai da dove iniziare? Ti guidiamo noi.",
   "care.cta.text": "Prenota una consulenza e progetteremo il piano giusto per il tuo sorriso.",
 
@@ -1266,7 +1266,7 @@ const IT: Dict = {
   "cat.stats.treatments": "Trattamenti",
   "cat.stats.specialties": "Specialità",
   "cat.stats.requested": "Più Richiesti",
-  "cat.intro.heading": "Ogni trattamento che offriamo, sotto lo stesso tetto",
+  "cat.intro.heading": "Ogni trattamento che offriamo, in un unico centro",
   "cat.intro.text":
     "Dagli impianti singoli alle trasformazioni complete del sorriso, ogni procedura è eseguita con materiali premium e standard di qualità premium. Ogni piano è personalizzato per il tuo caso - inviaci la tua radiografia per un piano scritto gratuito in 24-48 ore.",
   "cat.cta.eyebrow": "Gratuito · Senza Impegno",
@@ -1358,7 +1358,7 @@ const IT: Dict = {
   "tech.hero.title": "Tecnologia & Attrezzature",
   "tech.stats.devices": "Dispositivi",
   "tech.stats.categories": "Categorie",
-  "tech.stats.oneRoof": "Un Unico Tetto",
+  "tech.stats.oneRoof": "Un Unico Centro",
   "tech.intro.heading": "La tecnologia dietro i risultati di qualità premium",
   "tech.intro.text":
     "Dall'imaging 3D CBCT e dalla chirurgia computer-guidata alla nostra fresatura CAD/CAM interna e al laboratorio ceramico, ogni dispositivo è scelto per precisione, sicurezza e risultati belli e duraturi.",
@@ -1724,7 +1724,7 @@ const DE: Dict = {
   "care.hero.title": "Unsere Behandlungen",
   "care.intro.eyebrow": "Implantate, Kronen, Veneers & Mehr",
   "care.intro.text":
-    "Von Zahnimplantaten und Kronen über Veneers bis hin zu Prothesen und Kieferorthopädie bieten wir umfassende Zahnlösungen nach Premium-Qualitätsstandards - alles unter einem Dach.",
+    "Von Zahnimplantaten und Kronen über Veneers bis hin zu Prothesen und Kieferorthopädie bieten wir umfassende Zahnlösungen nach Premium-Qualitätsstandards - alles an einem Ort.",
   "care.cta.heading": "Sie wissen nicht, wo Sie anfangen sollen? Wir begleiten Sie.",
   "care.cta.text": "Buchen Sie eine Beratung und wir gestalten den passenden Plan für Ihr Lächeln.",
 
@@ -1747,7 +1747,7 @@ const DE: Dict = {
   "cat.stats.treatments": "Behandlungen",
   "cat.stats.specialties": "Fachbereiche",
   "cat.stats.requested": "Am häufigsten gewünscht",
-  "cat.intro.heading": "Jede Behandlung, die wir anbieten, unter einem Dach",
+  "cat.intro.heading": "Jede Behandlung, die wir anbieten, an einem Ort",
   "cat.intro.text":
     "Von Einzelimplantaten bis zu kompletten Lächeln-Verwandlungen wird jeder Eingriff mit hochwertigen Materialien und Premium-Qualitätsstandards durchgeführt. Jeder Plan richtet sich nach Ihrem Fall - senden Sie uns Ihr Röntgenbild für einen kostenlosen schriftlichen Plan in 24-48 Stunden.",
   "cat.cta.eyebrow": "Kostenlos · Unverbindlich",
@@ -1839,7 +1839,7 @@ const DE: Dict = {
   "tech.hero.title": "Technologie & Ausstattung",
   "tech.stats.devices": "Geräte",
   "tech.stats.categories": "Kategorien",
-  "tech.stats.oneRoof": "Ein Dach",
+  "tech.stats.oneRoof": "Ein Ort",
   "tech.intro.heading": "Die Technologie hinter Ergebnissen in Premium-Qualität",
   "tech.intro.text":
     "Von der 3D-DVT-Bildgebung und computergestützter Chirurgie bis zu unserer eigenen CAD/CAM-Fräsung und unserem Keramiklabor wird jedes Gerät für Präzision, Sicherheit und schöne, dauerhafte Ergebnisse ausgewählt.",
@@ -2220,7 +2220,7 @@ const FR: Dict = {
   "care.hero.title": "Nos soins",
   "care.intro.eyebrow": "Implants, couronnes, facettes et plus",
   "care.intro.text":
-    "Des implants dentaires et couronnes aux facettes, prothèses et orthodontie, nous proposons des solutions dentaires complètes selon les standards de qualité premium - le tout sous un même toit.",
+    "Des implants dentaires et couronnes aux facettes, prothèses et orthodontie, nous proposons des solutions dentaires complètes selon les standards de qualité premium - le tout au même endroit.",
   "care.cta.heading": "Vous ne savez pas par où commencer ? Nous vous guidons.",
   "care.cta.text": "Réservez une consultation et nous concevrons le plan idéal pour votre sourire.",
 
@@ -2246,7 +2246,7 @@ const FR: Dict = {
   "cat.stats.treatments": "Traitements",
   "cat.stats.specialties": "Spécialités",
   "cat.stats.requested": "Les plus demandés",
-  "cat.intro.heading": "Chaque traitement que nous proposons, sous un même toit",
+  "cat.intro.heading": "Chaque traitement que nous proposons, au même endroit",
   "cat.intro.text":
     "De l'implant unique aux transformations complètes du sourire, chaque intervention est réalisée avec des matériaux premium et selon des standards de qualité premium. Chaque plan est adapté à votre cas - envoyez-nous votre radiographie pour un plan écrit gratuit sous 24 à 48 heures.",
   "cat.cta.eyebrow": "Gratuit · Sans engagement",
@@ -2342,7 +2342,7 @@ const FR: Dict = {
   "tech.hero.title": "Technologie et équipements",
   "tech.stats.devices": "Appareils",
   "tech.stats.categories": "Catégories",
-  "tech.stats.oneRoof": "Un même toit",
+  "tech.stats.oneRoof": "Un même endroit",
   "tech.intro.heading": "La technologie derrière des résultats de qualité premium",
   "tech.intro.text":
     "De l'imagerie 3D CBCT et de la chirurgie assistée par ordinateur à notre propre fraisage CAD/CAM intégré et notre laboratoire de céramique, chaque appareil est choisi pour la précision, la sécurité et des résultats beaux et durables.",

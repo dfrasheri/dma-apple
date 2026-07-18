@@ -230,7 +230,7 @@ Le protesi dentarie personalizzate sostituiscono più denti o un'intera arcata e
 
 ![Protesi personalizzate appoggiate su una superficie clinica](/images/dma/blog/dentures.jpg "Le protesi personalizzate sono progettate e adattate individualmente da Dental Med Austria a Tirana.")
 
-## Progettate, fresate e rifinite sotto lo stesso tetto
+## Progettate, fresate e rifinite in un unico centro
 
 Il comfort inizia molto prima dell'appuntamento di applicazione. Pianifichiamo i casi complessi con l'imaging CBCT 3D Vatech, e ogni protesi è prodotta nel nostro laboratorio di fresatura CAD/CAM interno iMES iCORE, senza alcuna esternalizzazione. Gli odontotecnici che modellano i tuoi nuovi denti lavorano al fianco dei clinici che ti hanno visitato.
 
@@ -519,7 +519,7 @@ Scegliere l'Albania non significa mai standard più bassi. Dental Med Austria ut
 
 Anche per i pazienti internazionali il percorso è reso semplice: ritiro all'aeroporto di Tirana, hotel convenzionati e un team multilingue che parla italiano, inglese, tedesco, francese e albanese. Puoi scoprire l'intera gamma di trattamenti estetici nel [catalogo dei trattamenti](/it/catalogue) o vedere come sono organizzate le visite nei [pacchetti viaggio](/it/packets).
 
-> Dalla progettazione digitale alla lucidatura finale, ogni fase avviene sotto lo stesso tetto a Tirana: è così che valore e qualità possono davvero coesistere.
+> Dalla progettazione digitale alla lucidatura finale, ogni fase avviene in un unico centro a Tirana: è così che valore e qualità possono davvero coesistere.
 
 ![Lavorazione in ceramica nel laboratorio odontotecnico interno](/images/dma/interiors/lab-detail-2.jpg "Il laboratorio interno di Dental Med Austria a Tirana realizza ogni faccetta senza esternalizzazione.")
 
@@ -853,7 +853,7 @@ Da Dental Med Austria, a Tirana, il nostro team esperto posiziona gli impianti u
 
 ### Materiali premium, mai scorciatoie
 
-Scegliere il valore non dovrebbe mai significare accettare marche sconosciute. Lavoriamo con sistemi implantari riconosciuti a livello internazionale, Straumann BLX di produzione svizzera, ETK/ETK dalla Francia, Alpha-Bio e Biodem, abbinati alle ceramiche Ivoclar IPS e.max e allo zirconio. Corone e ponti vengono fresati nel nostro laboratorio CAD/CAM interno iMES iCORE senza alcuna esternalizzazione, così il controllo della qualità resta sotto lo stesso tetto dalla prima scansione all'adattamento finale. Puoi scoprire ogni opzione nel nostro [catalogo dei trattamenti](/it/catalogue).
+Scegliere il valore non dovrebbe mai significare accettare marche sconosciute. Lavoriamo con sistemi implantari riconosciuti a livello internazionale, Straumann BLX di produzione svizzera, ETK/ETK dalla Francia, Alpha-Bio e Biodem, abbinati alle ceramiche Ivoclar IPS e.max e allo zirconio. Corone e ponti vengono fresati nel nostro laboratorio CAD/CAM interno iMES iCORE senza alcuna esternalizzazione, così il controllo della qualità resta in un unico centro dalla prima scansione all'adattamento finale. Puoi scoprire ogni opzione nel nostro [catalogo dei trattamenti](/it/catalogue).
 
 ### Soluzioni a intera arcata che massimizzano il valore
 
